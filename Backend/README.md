@@ -131,3 +131,60 @@ Authenticate a user and return a token.
   }
 }
 ```
+
+## User Profile
+
+### GET /users/profile
+
+Retrieve the authenticated user's profile.
+
+#### Headers
+
+- `Authorization`: Bearer token
+
+#### Response Status Codes
+
+| Status Code | Description                         |
+| ----------- | ----------------------------------- |
+| 200         | User profile retrieved successfully |
+| 401         | Unauthorized - Invalid token        |
+| 500         | Internal server error               |
+
+#### Example Success Response
+
+```json
+{
+  "id": "user_id",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john@example.com"
+}
+```
+
+## User Logout
+
+### GET /users/logout
+
+Logout the authenticated user.
+
+#### Headers
+
+- `Authorization`: Bearer token
+
+#### Response Status Codes
+
+| Status Code | Description                  |
+| ----------- | ---------------------------- |
+| 200         | User logged out successfully |
+| 401         | Unauthorized - Invalid token |
+| 500         | Internal server error        |
+
+#### Example Success Response
+
+```json
+{
+  "message": "Logged out successfully"
+}
+```
