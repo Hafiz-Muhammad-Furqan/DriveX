@@ -259,3 +259,120 @@ Register a new captain in the system.
     - `vehicleType` (string) vehicle Type
     - `plate` (string) vehicle number plate
 - `token` (string): JWT Token
+
+## Captain Login
+
+### POST /captains/login
+
+Authenticate a captain and return a token.
+
+#### Request Body
+
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+#### Required Fields
+
+- `email`: Valid email address
+- `password`: Password (minimum 6 characters)
+
+#### Validations
+
+- `email`: Must be a valid email address
+- `password`: Must be at least 6 characters long
+
+#### Response Status Codes
+
+| Status Code | Description                        |
+| ----------- | ---------------------------------- |
+| 200         | Captain successfully authenticated |
+| 400         | Bad request - Invalid input data   |
+| 401         | Unauthorized - Invalid credentials |
+| 500         | Internal server error              |
+
+#### Example Request
+
+```json
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+#### Example Success Response
+
+- `captain` (object):
+  - `fullname` (object).
+    - `firstname` (string): Users's firstname (minimum 3 characters).
+    - `lastname` (string): Users's lastname (minimum 3 characters).
+  - `email` (string): User's email address (must be a valid email).
+  - `password` (string): User's password (minimum 6 characters).
+  - `vehicle` (object)
+    - `color` (string) vehicle color
+    - `capacity` (number) vehicle capacity
+    - `vehicleType` (string) vehicle Type
+    - `plate` (string) vehicle number plate
+- `token` (string): JWT Token -->
+
+## Captain Profile
+
+### GET /captains/profile
+
+Retrieve the authenticated captain's profile.
+
+#### Headers
+
+- `Authorization`: Bearer token
+
+#### Response Status Codes
+
+| Status Code | Description                            |
+| ----------- | -------------------------------------- |
+| 200         | Captain profile retrieved successfully |
+| 401         | Unauthorized - Invalid token           |
+| 500         | Internal server error                  |
+
+#### Example Success Response
+
+`captain` (object):
+
+- `fullname` (object).
+  - `firstname` (string): Users's firstname (minimum 3 characters).
+  - `lastname` (string): Users's lastname (minimum 3 characters).
+- `email` (string): User's email address (must be a valid email).
+- `password` (string): User's password (minimum 6 characters).
+- `vehicle` (object)
+  - `color` (string) vehicle color
+  - `capacity` (number) vehicle capacity
+  - `vehicleType` (string) vehicle Type
+  - `plate` (string) vehicle number plate
+
+## Captain Logout
+
+### GET /captains/logout
+
+Logout the authenticated captain.
+
+#### Headers
+
+- `Authorization`: Bearer token
+
+#### Response Status Codes
+
+| Status Code | Description                     |
+| ----------- | ------------------------------- |
+| 200         | Captain logged out successfully |
+| 401         | Unauthorized - Invalid token    |
+| 500         | Internal server error           |
+
+#### Example Success Response
+
+```json
+{
+  "message": "Logged out successfully"
+}
+```
