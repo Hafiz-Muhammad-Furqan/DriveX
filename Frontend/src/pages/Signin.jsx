@@ -3,7 +3,7 @@ import Input from "../components/Input";
 
 const Signin = () => {
   return (
-    <div className="min-h-[100dvh] w-full flex items-center justify-center flex-col gap-8 py-6">
+    <div className="min-h-[100dvh] w-full flex items-center justify-center flex-col gap-8 py-4 px-3">
       <div className="flex items-center justify-center gap-1">
         <img
           src="/Images/Logo.png"
