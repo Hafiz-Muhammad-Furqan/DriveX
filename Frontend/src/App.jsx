@@ -4,6 +4,7 @@ import Signin from "./pages/Signin";
 import UserRole from "./pages/UserRole";
 import MainApp from "./pages/MainApp";
 import Locations from "./components/LocationPanel";
+import DriverApp from "./pages/DriverApp";
 
 const App = () => {
   return (
@@ -11,7 +12,8 @@ const App = () => {
     // <Signup />
     // <Signin />
     // <UserRole />
-    <MainApp />
+    // <MainApp />
+    <DriverApp />
   );
 };
 

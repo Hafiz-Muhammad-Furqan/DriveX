@@ -6,17 +6,19 @@ const SideBar = () => {
   return (
     <>
       <i
-        className={`ri-menu-fill absolute text-lg font-semibold top-2 left-2 text-white z-[1] px-2 py-1 bg-zinc-800 rounded-full cursor-pointer ${
+        className={`ri-menu-fill absolute text-lg font-semibold top-2 left-2 text-white z-[1] px-[10px] py-1 bg-zinc-800 rounded-full cursor-pointer ${
           SidebarOpen && "hidden"
         }`}
         onClick={() => setSidebarOpen(true)}
       ></i>
       <div
-        className={`w-full h-full absolute bg-[#141414] z-[1] px-3 py-5 transition-transform duration-200 ease-linear ${
-          SidebarOpen ? "translate-x-0" : "-translate-x-full"
+        className={`w-full h-full absolute bg-[#141414] z-[1]  transition-transform duration-200 ease-linear ${
+          SidebarOpen
+            ? "translate-x-0 shadow-2xl shadow-black"
+            : "-translate-x-full"
         } `}
       >
-        <div className="w-full flex items-center justify-start  gap-3">
+        <div className="w-full flex items-center justify-start  gap-3 p-4">
           <img
             src="/Images/avatar.png"
             alt="avatar"

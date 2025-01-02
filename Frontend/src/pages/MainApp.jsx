@@ -1,11 +1,11 @@
-import FindDriver from "../components/FindDriver";
+import RidePanel from "../components/RidePanel";
 import SideBar from "../components/SideBar";
 
 const MainApp = () => {
   return (
     <div className="w-full h-[100dvh]">
       <SideBar />
-      <FindDriver />
+      <RidePanel />
     </div>
   );
 };

@@ -1,8 +1,11 @@
 import { useState } from "react";
-import Btn1 from "../components/Btn1";
+import Btn1 from "./Btn1";
 import LocationPanel from "./LocationPanel";
+import ConfirmRide from "./ConfirmRide";
+import FindDrivers from "./FindDrivers";
+import CancelRequest from "./CancelRequest";
 
-const FindDriver = () => {
+const RidePanel = () => {
   const [selectedRide, setSelectedRide] = useState(null);
   const [OpenLocationPanel, setOpenLocationPanel] = useState(false);
   const rideImages = [
@@ -12,16 +15,16 @@ const FindDriver = () => {
   ];
 
   return (
-    <div className="min-h-[100dvh] w-full flex items-center flex-col relative">
+    <div className="h-[100dvh] w-full flex items-center flex-col relative">
       <div
-        className={`w-full h-[57dvh] transition-opacity duration-300 ${
+        className={`w-full h-full transition-opacity duration-300 ${
           OpenLocationPanel ? "opacity-50" : ""
         }`}
       >
         <img src="/Images/Map.jpeg" alt="map" className="w-full h-full" />
       </div>
 
-      <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl  bg-[#141414] transition-opacity duration-300 ">
+      {/* <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl  bg-black transition-opacity duration-300 ">
         <div className="flex items-center justify-center w-full gap-4">
           {rideImages.map((obj, index) => (
             <div
@@ -71,7 +74,10 @@ const FindDriver = () => {
           </div>
           <Btn1 label={"Find a Driver"} style={"py-2"} />
         </div>
-      </div>
+      </div> */}
+      {/* <ConfirmRide></ConfirmRide> */}
+      {/* <FindDrivers></FindDrivers> */}
+      <CancelRequest></CancelRequest>
       <LocationPanel
         OpenLocationPanel={OpenLocationPanel}
         setOpenLocationPanel={setOpenLocationPanel}
@@ -80,4 +86,4 @@ const FindDriver = () => {
   );
 };
 
-export default FindDriver;
+export default RidePanel;
