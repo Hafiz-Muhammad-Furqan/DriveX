@@ -1,10 +1,10 @@
 import { useState } from "react";
-import RidePanel from "../components/RidePanel";
 import SideBar from "../components/SideBar";
 import LocationPanel from "../components/LocationPanel";
 import ConfirmRide from "../components/ConfirmRide";
 import FindDrivers from "../components/FindDrivers";
 import CancelRequest from "../components/CancelRequest";
+import UserRidePanel from "../components/UserRidePanel";
 
 const UserDashboard = () => {
   const [OpenLocationPanel, setOpenLocationPanel] = useState(false);
@@ -18,7 +18,7 @@ const UserDashboard = () => {
         <img src="/Images/Map.jpeg" alt="map" className="w-full h-full" />
       </div>
       <SideBar />
-      <RidePanel setOpenLocationPanel={setOpenLocationPanel} />
+      <UserRidePanel setOpenLocationPanel={setOpenLocationPanel} />
       {/* <LocationPanel
         OpenLocationPanel={OpenLocationPanel}
         setOpenLocationPanel={setOpenLocationPanel}

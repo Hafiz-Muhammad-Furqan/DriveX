@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-const RideRequest = () => {
+const ConfirmFinishRide = () => {
   return (
     <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl bg-black transition-opacity duration-300 ">
       <div className="w-full flex flex-col items-start justify-center gap-4 px-3 py-1">
@@ -29,17 +29,11 @@ const RideRequest = () => {
             PKR 300
           </p>
         </div>
-        <Button label={"Accept for PKR 300"} colors={"bg-[#C1F11D]"} />
-        <p className="text-white text-center w-full">Offer your fare</p>
-        <div className="w-full grid grid-cols-3 gap-2">
-          <Button label={"300"} colors={"bg-[#C1F11D]"} />
-          <Button label={"300"} colors={"bg-[#C1F11D]"} />
-          <Button label={"300"} colors={"bg-[#C1F11D]"} />
-        </div>
+        <Button label={"Finish Ride Go to Home"} colors={"bg-[#C1F11D]"} />
         <Button label={"Close"} colors={"text-white bg-zinc-600"} />
       </div>
     </div>
   );
 };
 
-export default RideRequest;
+export default ConfirmFinishRide;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
 
-const RidePanel = ({ setOpenLocationPanel }) => {
+const UserRidePanel = ({ setOpenLocationPanel }) => {
   const [selectedRide, setSelectedRide] = useState(null);
 
   const rideImages = [
@@ -67,4 +67,4 @@ const RidePanel = ({ setOpenLocationPanel }) => {
   );
 };
 
-export default RidePanel;
+export default UserRidePanel;
