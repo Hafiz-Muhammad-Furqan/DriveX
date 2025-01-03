@@ -11,7 +11,7 @@ const LocationPanel = ({ OpenLocationPanel, setOpenLocationPanel }) => {
         </h2>
         <i
           onClick={() => setOpenLocationPanel(false)}
-          className="ri-close-line text-white text-xl font-bold px-2 py-1 bg-zinc-600 rounded-full"
+          className="ri-close-line text-white text-xl font-bold px-2 py-1 bg-zinc-600 rounded-full cursor-pointer"
         ></i>
       </div>
       <div className="w-full flex flex-col items-center gap-3 px-3 ">

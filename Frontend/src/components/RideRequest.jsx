@@ -1,23 +1,9 @@
-import { useState } from "react";
-import Btn1 from "./Btn1";
-import Btn2 from "./Btn2";
+import Button from "./Button";
 
 const RideRequest = () => {
-  const [selectedRide, setSelectedRide] = useState(null);
-  const [OpenLocationPanel, setOpenLocationPanel] = useState(false);
-  const rideImages = [
-    { img: "/Images/RideCar.png", text: "Car" },
-    { img: "/Images/RideMoto.png", text: "Bike" },
-    { img: "/Images/RideAuto.png", text: "Auto" },
-  ];
-
   return (
     <div className="h-[100dvh] w-full flex items-center flex-col relative">
-      <div
-        className={`w-full h-full transition-opacity duration-300 ${
-          OpenLocationPanel ? "opacity-50" : ""
-        }`}
-      >
+      <div className="w-full h-full transition-opacity duration-300 ">
         <img src="/Images/Map.jpeg" alt="map" className="w-full h-full" />
       </div>
       <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl bg-black transition-opacity duration-300 ">
@@ -47,14 +33,14 @@ const RideRequest = () => {
               PKR 300
             </p>
           </div>
-          <Btn1 label={"Accept for PKR 300"}></Btn1>
+          <Button label={"Accept for PKR 300"} colors={"bg-[#C1F11D]"} />
           <p className="text-white text-center w-full">Offer your fare</p>
           <div className="w-full grid grid-cols-3 gap-2">
-            <Btn1 label={"300"}></Btn1>
-            <Btn1 label={"300"}></Btn1>
-            <Btn1 label={"300"}></Btn1>
+            <Button label={"300"} colors={"bg-[#C1F11D]"} />
+            <Button label={"300"} colors={"bg-[#C1F11D]"} />
+            <Button label={"300"} colors={"bg-[#C1F11D]"} />
           </div>
-          <Btn2 label={"Close"} style={"text-white"}></Btn2>
+          <Button label={"Close"} colors={"text-white bg-zinc-600"} />
         </div>
       </div>
     </div>

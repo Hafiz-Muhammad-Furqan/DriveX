@@ -9,19 +9,23 @@ import CancelRequest from "../components/CancelRequest";
 const UserDashboard = () => {
   const [OpenLocationPanel, setOpenLocationPanel] = useState(false);
   return (
-    <div className="w-full h-[100dvh] relative">
+    <div className="relative h-[100dvh] w-full flex items-center flex-col ">
+      <div
+        className={`w-full h-full transition-opacity duration-300 ${
+          OpenLocationPanel ? "opacity-50" : ""
+        }`}
+      >
+        <img src="/Images/Map.jpeg" alt="map" className="w-full h-full" />
+      </div>
       <SideBar />
-      <RidePanel
+      <RidePanel setOpenLocationPanel={setOpenLocationPanel} />
+      {/* <LocationPanel
         OpenLocationPanel={OpenLocationPanel}
         setOpenLocationPanel={setOpenLocationPanel}
       />
-      <LocationPanel
-        OpenLocationPanel={OpenLocationPanel}
-        setOpenLocationPanel={setOpenLocationPanel}
-      />
-      {/* <ConfirmRide></ConfirmRide> */}
-      {/* <FindDrivers></FindDrivers> */}
-      <CancelRequest></CancelRequest>
+      <ConfirmRide></ConfirmRide>
+      <FindDrivers></FindDrivers>
+      <CancelRequest></CancelRequest> */}
     </div>
   );
 };

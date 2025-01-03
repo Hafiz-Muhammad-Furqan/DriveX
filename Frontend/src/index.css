@@ -12,23 +12,20 @@
   background-color: #0c4769;
 }
 
-/* Hide scrollbar for all browsers */
 .no-scrollbar {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none;
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: 100%;
   height: 10px;
   border-radius: 20px;
   color: #c1f11d;
-  /* border: 2px solid; */
   position: relative;
 }
 .loader::before {

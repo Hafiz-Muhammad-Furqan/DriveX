@@ -1,7 +1,13 @@
 import RideRequest from "../components/RideRequest";
+import SideBar from "../components/SideBar";
 
 const DriverDashboard = () => {
-  return <RideRequest></RideRequest>;
+  return (
+    <>
+      <SideBar />
+      <RideRequest></RideRequest>
+    </>
+  );
 };
 
 export default DriverDashboard;

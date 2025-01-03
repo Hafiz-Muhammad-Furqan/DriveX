@@ -1,9 +1,9 @@
-import Btn2 from "../components/Btn2";
+import Button from "../components/Button";
 
 const FindDrivers = () => {
   return (
     <div className=" w-full flex items-center flex-col relative">
-      <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl  bg-black transition-opacity duration-300 ">
+      <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-4 py-3 rounded-t-3xl  bg-black transition-opacity duration-300 ">
         <h1 className="text-white text-xl font-semibold">
           Offering your price...
         </h1>
@@ -29,12 +29,15 @@ const FindDrivers = () => {
           </div>
         </div>
         <div className="flex items-center justify-around w-full flex-col gap-5">
-          <p className="text-white text-start w-full text-xl  font-semibold pl-6">
-            PKR 1 ,000
-          </p>
-          <Btn2
+          <div className="w-full flex">
+            <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
+            <p className="text-white text-start w-full text-xl  font-semibold pl-6">
+              PKR 1 ,000
+            </p>
+          </div>
+          <Button
             label={"Cancel Request"}
-            style={"py-2 text-red-500 font-bold text-xl"}
+            colors={"bg-zinc-600 text-red-500"}
           />
         </div>
       </div>

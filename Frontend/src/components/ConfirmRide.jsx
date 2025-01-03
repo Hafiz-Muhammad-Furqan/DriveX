@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Btn1 from "../components/Btn1";
+import Btn1 from "./Button";
 
 const ConfirmRide = () => {
   const [selectedRide, setSelectedRide] = useState(null);
@@ -54,7 +54,7 @@ const ConfirmRide = () => {
           <p className="text-white text-start w-full text-xl font-semibold pl-6">
             PKR 1 ,000
           </p>
-          <Btn1 label={"Find a Driver"} style={"py-2"} />
+          <Btn1 label={"Find a Driver"} colors={"bg-[#C1F11D]"} />
         </div>
       </div>
     </div>

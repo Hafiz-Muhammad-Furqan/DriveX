@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const HomeSlider = () => {
   const sliderData = [
@@ -21,6 +21,7 @@ const HomeSlider = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsAnimating(true);
@@ -29,14 +30,13 @@ const HomeSlider = () => {
         setIsAnimating(false); // End animation
       }, 800);
     }, 3000);
-
     return () => clearInterval(interval);
   }, [sliderData.length]);
 
   return (
     <div className="w-full flex items-center justify-around flex-col px-6 py-9 overflow-hidden">
       <div
-        className={`flex items-center justify-center gap-1 transition-opacity duration-500 ${
+        className={`flex items-center justify-center gap-1 py-2 transition-opacity duration-500 ${
           isAnimating ? "opacity-0" : "opacity-100"
         }`}
       >
