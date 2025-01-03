@@ -1,10 +1,6 @@
 import { useState } from "react";
 import Btn1 from "./Btn1";
 import Btn2 from "./Btn2";
-import LocationPanel from "./LocationPanel";
-import ConfirmRide from "./ConfirmRide";
-import FindDrivers from "./FindDrivers";
-import CancelRequest from "./CancelRequest";
 
 const RideRequest = () => {
   const [selectedRide, setSelectedRide] = useState(null);
@@ -46,7 +42,7 @@ const RideRequest = () => {
             <p className="text-white text-[14px] ">Lorem ipsum dolor sit.</p>
           </div>
           <div className="w-full flex items-center justify-center gap-3">
-            <i class="ri-cash-line text-[#C1F11D] text-xl"></i>
+            <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
             <p className="text-white text-lg font-semibold text-center">
               PKR 300
             </p>

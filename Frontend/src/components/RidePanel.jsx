@@ -1,13 +1,9 @@
 import { useState } from "react";
 import Btn1 from "./Btn1";
-import LocationPanel from "./LocationPanel";
-import ConfirmRide from "./ConfirmRide";
-import FindDrivers from "./FindDrivers";
-import CancelRequest from "./CancelRequest";
 
-const RidePanel = () => {
+const RidePanel = ({ OpenLocationPanel, setOpenLocationPanel }) => {
   const [selectedRide, setSelectedRide] = useState(null);
-  const [OpenLocationPanel, setOpenLocationPanel] = useState(false);
+
   const rideImages = [
     { img: "/Images/RideCar.png", text: "Car" },
     { img: "/Images/RideMoto.png", text: "Bike" },
@@ -24,7 +20,7 @@ const RidePanel = () => {
         <img src="/Images/Map.jpeg" alt="map" className="w-full h-full" />
       </div>
 
-      {/* <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl  bg-black transition-opacity duration-300 ">
+      <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl  bg-black transition-opacity duration-300 ">
         <div className="flex items-center justify-center w-full gap-4">
           {rideImages.map((obj, index) => (
             <div
@@ -58,7 +54,7 @@ const RidePanel = () => {
             className="w-full flex items-center bg-[#3F4042] rounded-lg py-3"
             onClick={() => setOpenLocationPanel(true)}
           >
-            <i class="ri-search-line text-lg font-thin text-white px-2"></i>
+            <i className="ri-search-line text-lg font-thin text-white px-2"></i>
             <div className="text-gray-400 w-full bg-[#3F4042] pr-3 outline-none font-semibold rounded-lg ">
               To
             </div>
@@ -70,18 +66,11 @@ const RidePanel = () => {
               className="w-full bg-[#3F4042] pr-3 outline-none font-semibold  rounded-lg text-white"
               placeholder="Offer your fare"
             />
-            <i class="ri-pencil-line text-lg font-thin text-white px-2"></i>
+            <i className="ri-pencil-line text-lg font-thin text-white px-2"></i>
           </div>
           <Btn1 label={"Find a Driver"} style={"py-2"} />
         </div>
-      </div> */}
-      {/* <ConfirmRide></ConfirmRide> */}
-      {/* <FindDrivers></FindDrivers> */}
-      <CancelRequest></CancelRequest>
-      <LocationPanel
-        OpenLocationPanel={OpenLocationPanel}
-        setOpenLocationPanel={setOpenLocationPanel}
-      />
+      </div>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const SideBar = () => {
           <h2 className="text-white font-medium flex-grow">Hafiz Muhammad </h2>
           <i
             onClick={() => setSidebarOpen(false)}
-            class="ri-arrow-left-long-line items-end text-2xl font-semibold text-white"
+            className="ri-arrow-left-long-line items-end text-2xl font-semibold text-white"
           ></i>
         </div>
         <div className="w-full absolute bottom-8 flex flex-col gap-4 px-4">

@@ -1,10 +1,9 @@
 import Home from "./pages/Home";
-import Signup from "./pages/Signup";
-import Signin from "./pages/Signin";
 import UserRole from "./pages/UserRole";
-import MainApp from "./pages/MainApp";
+import MainApp from "./pages/UserDashboard";
 import Locations from "./components/LocationPanel";
-import DriverApp from "./pages/DriverApp";
+import DriverApp from "./pages/DriverDashboard";
+import UserRoutes from "./Routes/UserRoutes";
 
 const App = () => {
   return (
@@ -13,7 +12,8 @@ const App = () => {
     // <Signin />
     // <UserRole />
     // <MainApp />
-    <DriverApp />
+    // <DriverApp />
+    <UserRoutes />
   );
 };
 

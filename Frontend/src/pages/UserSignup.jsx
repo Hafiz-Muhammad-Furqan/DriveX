@@ -1,7 +1,7 @@
 import Btn1 from "../components/Btn1";
 import Input from "../components/Input";
 
-const Signup = () => {
+const UserSignup = () => {
   return (
     <div className="min-h-[100dvh] w-full flex items-center justify-center flex-col gap-8 py-4 px-3">
       <div className="flex items-center justify-center gap-1">
@@ -30,4 +30,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default UserSignup;

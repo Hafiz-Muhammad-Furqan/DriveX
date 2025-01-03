@@ -10,7 +10,7 @@ const ConfirmRide = () => {
   ];
 
   return (
-    <div className="h-[100dvh] w-full flex items-center flex-col relative">
+    <div className="w-full flex items-center flex-col relative">
       <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl  bg-black transition-opacity duration-300 ">
         <div className="flex items-center justify-center w-full gap-4">
           {rideImages.map((obj, index) => (

@@ -1,7 +1,7 @@
-import Btn1 from "./Btn1";
-import Input from "./Input";
+import Btn1 from "../components/Btn1";
+import Input from "../components/Input";
 
-const DriverLogin = () => {
+const DriverSignin = () => {
   return (
     <div className="min-h-[100dvh] w-full flex items-center justify-center flex-col gap-8 py-4 px-3">
       <div className="flex items-center justify-start gap-1 self-start absolute top-8 left-8">
@@ -32,4 +32,4 @@ const DriverLogin = () => {
   );
 };
 
-export default DriverLogin;
+export default DriverSignin;
