@@ -1,12 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "../pages/Home";
-import UserRole from "../pages/UserRole";
-import UserSignup from "../pages/UserSignup";
-import UserSignin from "../pages/UserSignin";
-import DriverSignup from "../pages/DriverSignup";
-import DriverSignin from "../pages/DriverSignin";
-import UserDashboard from "../pages/UserDashboard";
-import DriverDashboard from "../pages/DriverDashboard";
+import Home from "../Pages/Home";
+import UserRole from "../Pages/UserRole";
+import UserSignup from "../Pages/UserSignup";
+import UserSignin from "../Pages/UserSignin";
+import DriverSignup from "../Pages/DriverSignup";
+import DriverSignin from "../Pages/DriverSignin";
+import UserDashboard from "../Pages/UserDashboard";
+import DriverDashboard from "../Pages/DriverDashboard";
+import AllRides from "../Components/AllRides";
+import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
 
 const router = createBrowserRouter([
   {
@@ -35,11 +37,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/user/dashboard",
-    element: <UserDashboard />,
+    element: (
+      <ProtectedRouteWrapper>
+        <UserDashboard />
+      </ProtectedRouteWrapper>
+    ),
   },
   {
     path: "/driver/dashboard",
-    element: <DriverDashboard />,
+    element: (
+      <ProtectedRouteWrapper>
+        <DriverDashboard />
+      </ProtectedRouteWrapper>
+    ),
+  },
+  {
+    path: "/driver/rides",
+    element: (
+      <ProtectedRouteWrapper>
+        <AllRides />
+      </ProtectedRouteWrapper>
+    ),
   },
 ]);
 const UserRoutes = () => {

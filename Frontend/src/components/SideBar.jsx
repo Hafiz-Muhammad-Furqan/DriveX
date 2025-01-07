@@ -32,6 +32,11 @@ const SideBar = () => {
           ></i>
         </div>
         <div className="w-full absolute bottom-8 flex flex-col gap-4 px-4">
+          <Button
+            label={"All Rides"}
+            colors={"bg-[#C1F11D]"}
+            path={"/driver/rides"}
+          />
           <Button label={"Driver Mode"} colors={"bg-[#C1F11D]"} />
           <Button label={"Logout"} colors={"bg-red-500 text-white"} />
         </div>

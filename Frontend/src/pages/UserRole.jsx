@@ -1,9 +1,9 @@
-import Button from "../components/Button";
+import Button from "../Components/Button";
 const UserRole = () => {
   return (
-    <div className="min-h-[100dvh] w-full flex items-center justify-around flex-col py-4 px-3">
+    <div className="min-h-[100dvh] w-full flex items-center justify-between flex-col pt-8 px-3 pb-4">
       <div className="flex gap-3 flex-col">
-        <h1 className="text-white text-3xl font-semibold text-center">
+        <h1 className="text-white text-3xl font-extrabold text-center">
           Are you a passenger or Driver?
         </h1>
       </div>

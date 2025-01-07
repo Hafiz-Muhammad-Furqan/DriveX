@@ -1,10 +1,10 @@
 import { useState } from "react";
-import SideBar from "../components/SideBar";
-import LocationPanel from "../components/LocationPanel";
-import ConfirmRide from "../components/ConfirmRide";
-import FindDrivers from "../components/FindDrivers";
-import CancelRequest from "../components/CancelRequest";
-import UserRidePanel from "../components/UserRidePanel";
+import SideBar from "../Components/SideBar";
+import LocationPanel from "../Components/LocationPanel";
+import ConfirmRide from "../Components/ConfirmRide";
+import FindDrivers from "../Components/FindDrivers";
+import CancelRequest from "../Components/CancelRequest";
+import UserRidePanel from "../Components/UserRidePanel";
 
 const UserDashboard = () => {
   const [OpenLocationPanel, setOpenLocationPanel] = useState(false);

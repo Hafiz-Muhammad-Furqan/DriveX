@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Btn1 from "../components/Button";
-import Input from "../components/Input";
+import Btn1 from "../Components/Button";
+import Input from "../Components/Input";
 
 const DriverSignin = () => {
   return (

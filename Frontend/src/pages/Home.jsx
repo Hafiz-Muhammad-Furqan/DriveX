@@ -1,5 +1,5 @@
-import HomeSlider from "../components/HomeSlider";
-import Button from "../components/Button";
+import HomeSlider from "../Components/HomeSlider";
+import Button from "../Components/Button";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
           }
           path={"/role"}
         />
-        <p className="text-neutral-400 text-[10px] text-center px-3">
+        <p className="text-neutral-400  text-[11px] text-center px-3">
           joining our app means you agree with our
           <span className="underline"> Terms of Use </span>
           and<span className="underline"> Privacy Policy</span>.

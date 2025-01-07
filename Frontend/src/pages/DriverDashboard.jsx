@@ -1,8 +1,8 @@
-import ConfirmFinishRide from "../components/ConfirmFinishRide";
-import DriverProfile from "../components/DriverProfile";
-import DriverRidePanel from "../components/DriverRidePanel";
-import RideRequest from "../components/RideRequest";
-import SideBar from "../components/SideBar";
+import ConfirmFinishRide from "../Components/ConfirmFinishRide";
+import DriverProfile from "../Components/DriverProfile";
+import DriverRidePanel from "../Components/DriverRidePanel";
+import RideRequest from "../Components/RideRequest";
+import SideBar from "../Components/SideBar";
 
 const DriverDashboard = () => {
   return (
@@ -14,7 +14,7 @@ const DriverDashboard = () => {
       {/* <RideRequest /> */}
       {/* <DriverProfile /> */}
       {/* <DriverRidePanel /> */}
-      <ConfirmFinishRide />
+      {/* <ConfirmFinishRide /> */}
     </div>
   );
 };
