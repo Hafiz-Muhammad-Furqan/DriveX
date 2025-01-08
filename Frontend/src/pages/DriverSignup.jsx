@@ -119,28 +119,9 @@ const DriverSignup = () => {
       );
       localStorage.setItem("driverToken", response.data.token);
       dispatch(authenticationSuccess(response.data.captain));
-      setSignupData({
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        plateNumber: "",
-        capacity: "",
-        vehicle: "",
-      });
       navigate("/driver/dashboard");
     } catch (error) {
       dispatch(authenticationFailed(error.message));
-      setSignupData(() => ({
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        plateNumber: "",
-        capacity: "",
-        vehicle: "",
-      }));
-      console.log(error.message);
     }
   };
 

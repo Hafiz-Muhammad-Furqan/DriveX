@@ -88,21 +88,9 @@ const UserSignup = () => {
       );
       localStorage.setItem("userToken", response.data.token);
       dispatch(authenticationSuccess(response.data.user));
-      setSignupData({
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-      });
       navigate("/user/dashboard");
     } catch (error) {
       dispatch(authenticationFailed(error.message));
-      setSignupData({
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-      });
     }
   };
 

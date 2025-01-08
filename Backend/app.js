@@ -14,9 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 connectToDb();
 
-app.get("/", (req, res) => {
-  res.send("hello bhai");
-});
 app.use("/users", userRoutes);
 app.use("/captains", captainRoutes);
 

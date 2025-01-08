@@ -69,7 +69,6 @@ const UserSignin = () => {
       navigate("/user/dashboard");
     } catch (error) {
       dispatch(authenticationFailed(error.message));
-      console.log(error.message);
     }
   };
   return (
