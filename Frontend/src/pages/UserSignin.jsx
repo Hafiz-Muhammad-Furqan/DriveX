@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../Components/Input";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import showToast from "../Utilities/Toast";
 import axios from "axios";
@@ -88,14 +88,15 @@ const UserSignin = () => {
         onSubmit={handleSubmit}
       >
         {inputs.map((input, index) => (
-          <Input
-            key={index}
-            placeholder={input.placeholder}
-            type={input.type}
-            name={input.name}
-            value={signinData[input.name]}
-            onChange={handleInputChange}
-          />
+          <React.Fragment key={index}>
+            <Input
+              placeholder={input.placeholder}
+              type={input.type}
+              name={input.name}
+              value={signinData[input.name]}
+              onChange={handleInputChange}
+            />
+          </React.Fragment>
         ))}
         <div className="w-full flex gap-1 justify-center ">
           <p className="text-white"> Don't have an account?</p>

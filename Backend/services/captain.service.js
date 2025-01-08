@@ -5,7 +5,6 @@ module.exports.createCaptain = async ({
   lastname,
   email,
   password,
-  color,
   plate,
   capacity,
   vehicleType,
@@ -14,7 +13,6 @@ module.exports.createCaptain = async ({
     !firstname ||
     !email ||
     !password ||
-    !color ||
     !plate ||
     !capacity ||
     !vehicleType
@@ -29,7 +27,6 @@ module.exports.createCaptain = async ({
     email,
     password,
     vehicle: {
-      color,
       plate,
       capacity,
       vehicleType,
