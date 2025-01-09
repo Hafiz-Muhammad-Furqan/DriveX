@@ -8,7 +8,7 @@ const DriverDashboard = () => {
   return (
     <div className="h-[100dvh] w-full flex items-center flex-col relative">
       <div className="w-full h-full transition-opacity duration-300 ">
-        <img src="/Images/Map.jpeg" alt="map" className="w-full h-full" />
+        <img src="/Images/Map.webp" alt="map" className="w-full h-full" />
       </div>
       <SideBar />
       {/* <RideRequest /> */}
