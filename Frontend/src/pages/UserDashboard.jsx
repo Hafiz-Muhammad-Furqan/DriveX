@@ -40,7 +40,7 @@ const UserDashboard = () => {
         setUserRidePanel={setUserRidePanel}
         userRidePanel={userRidePanel}
         locations={locations}
-        setFindDriverPanel={setFindDriverPanel}
+        setConfirmRidePanel={setConfirmRidePanel}
       />
       <LocationPanel
         locationPanel={locationPanel}
@@ -49,6 +49,8 @@ const UserDashboard = () => {
         setLocations={setLocations}
         setUserRidePanel={setUserRidePanel}
         setConfirmRidePanel={setConfirmRidePanel}
+        setVehiclePanel={setVehiclePanel}
+        vehicle={vehicle}
       />
       <ConfirmRide
         confirmRidePanel={confirmRidePanel}
@@ -66,7 +68,11 @@ const UserDashboard = () => {
         setFindDriverPanel={setFindDriverPanel}
         setUserRidePanel={setUserRidePanel}
       ></CancelRequest>
-      {/* <ChooseVehicle></ChooseVehicle> */}
+      <ChooseVehicle
+        setVehiclePanel={setVehiclePanel}
+        vehiclePanel={vehiclePanel}
+        setConfirmRidePanel={setConfirmRidePanel}
+      ></ChooseVehicle>
     </div>
   );
 };
