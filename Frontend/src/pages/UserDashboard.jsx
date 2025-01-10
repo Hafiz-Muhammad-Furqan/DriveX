@@ -8,7 +8,12 @@ import UserRidePanel from "../Components/UserRidePanel";
 import ChooseVehicle from "../Components/ChooseVehicle";
 
 const UserDashboard = () => {
-  const [OpenLocationPanel, setOpenLocationPanel] = useState(false);
+  const [locationPanel, setLocationPanel] = useState(false);
+  const [confirmRidePanel, setConfirmRidePanel] = useState(false);
+  const [userRidePanel, setUserRidePanel] = useState(true);
+  const [findDriverPanel, setFindDriverPanel] = useState(false);
+  const [cancelRequestPanel, setCancelRequestPanel] = useState(false);
+  const [vehiclePanel, setVehiclePanel] = useState(false);
   const [vehicle, setVehicle] = useState(null);
   const [locations, setLocations] = useState({
     pickUpLocation: "",
@@ -18,7 +23,7 @@ const UserDashboard = () => {
     <div className="relative h-[100dvh] w-full flex items-center flex-col ">
       <div
         className={`w-full h-full transition-opacity duration-300 ${
-          OpenLocationPanel ? "opacity-50" : ""
+          locationPanel ? "opacity-50" : ""
         }`}
       >
         <img
@@ -29,19 +34,38 @@ const UserDashboard = () => {
       </div>
       <SideBar />
       <UserRidePanel
-        setOpenLocationPanel={setOpenLocationPanel}
+        setLocationPanel={setLocationPanel}
         setVehicle={setVehicle}
         vehicle={vehicle}
+        setUserRidePanel={setUserRidePanel}
+        userRidePanel={userRidePanel}
+        locations={locations}
+        setFindDriverPanel={setFindDriverPanel}
       />
       <LocationPanel
-        OpenLocationPanel={OpenLocationPanel}
-        setOpenLocationPanel={setOpenLocationPanel}
+        locationPanel={locationPanel}
+        setLocationPanel={setLocationPanel}
         locations={locations}
         setLocations={setLocations}
+        setUserRidePanel={setUserRidePanel}
+        setConfirmRidePanel={setConfirmRidePanel}
       />
-      {/* <ConfirmRide></ConfirmRide> */}
-      {/* <FindDrivers></FindDrivers> */}
-      {/* <CancelRequest></CancelRequest> */}
+      <ConfirmRide
+        confirmRidePanel={confirmRidePanel}
+        setConfirmRidePanel={setConfirmRidePanel}
+        setFindDriverPanel={setFindDriverPanel}
+      ></ConfirmRide>
+      <FindDrivers
+        setFindDriverPanel={setFindDriverPanel}
+        findDriverPanel={findDriverPanel}
+        setCancelRequestPanel={setCancelRequestPanel}
+      ></FindDrivers>
+      <CancelRequest
+        setCancelRequestPanel={setCancelRequestPanel}
+        cancelRequestPanel={cancelRequestPanel}
+        setFindDriverPanel={setFindDriverPanel}
+        setUserRidePanel={setUserRidePanel}
+      ></CancelRequest>
       {/* <ChooseVehicle></ChooseVehicle> */}
     </div>
   );
