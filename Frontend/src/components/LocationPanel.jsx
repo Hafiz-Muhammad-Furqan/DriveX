@@ -10,8 +10,10 @@ const LocationPanel = ({
   setConfirmRidePanel,
   setVehiclePanel,
   vehicle,
+  setFare,
 }) => {
   const [locationSuggestions, setLocationSuggestions] = useState([]);
+  const [activeElement, setActiveElement] = useState(null);
 
   const getLocationsFromApi = async (value) => {
     const response = await axios.get(
@@ -25,30 +27,72 @@ const LocationPanel = ({
     );
     setLocationSuggestions(response.data);
     console.log(response.data);
-    return response.data;
   };
 
   const handlePickUpLocation = async (e) => {
+    setActiveElement("pickUp");
+    setLocations({ ...locations, pickUpLocation: e.target.value });
     if (e.target.value.trim().length < 3) {
+      setLocationSuggestions([]);
       return;
     }
     try {
-      const pickUpLocations = await getLocationsFromApi(e.target.value.trim());
-      setLocations({ ...locations, pickUpLocation: pickUpLocations });
+      await getLocationsFromApi(e.target.value.trim());
     } catch (error) {
       console.log(error.message);
     }
   };
 
   const handleDestination = async (e) => {
+    setActiveElement("destination");
+    setLocations({ ...locations, destination: e.target.value });
     if (e.target.value.trim().length < 3) {
+      setLocationSuggestions([]);
       return;
     }
     try {
-      const destination = await getLocationsFromApi(e.target.value.trim());
-      setLocations({ ...locations, destination: destination });
+      await getLocationsFromApi(e.target.value.trim());
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const handleSuggestions = async (suggestion) => {
+    if (activeElement === "pickUp") {
+      setLocations({
+        ...locations,
+        pickUpLocation: suggestion.description,
+      });
+    } else if (activeElement === "destination") {
+      setLocations({
+        ...locations,
+        destination: suggestion.description,
+      });
+    }
+    if (!locations.pickUpLocation.trim() || !locations.destination.trim()) {
+      return;
+    }
+    const fare = await axios.get(
+      `${import.meta.env.VITE_API_BASE_URL}/rides/get-fare`,
+      {
+        params: {
+          pickup: locations.pickUpLocation,
+          destination: locations.destination,
+        },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+      }
+    );
+    console.log(fare.data);
+    setFare(fare.data);
+
+    if (vehicle) {
+      setConfirmRidePanel(true);
+      setLocationPanel(false);
+    } else {
+      setVehiclePanel(true);
+      setLocationPanel(false);
     }
   };
 
@@ -77,6 +121,7 @@ const LocationPanel = ({
           </div>
           <input
             type="text"
+            id="pickup"
             className="w-full bg-[#3F4042] outline-none rounded-lg text-white px-4 placeholder:text-gray-300"
             placeholder="Add Pick-up location"
             value={locations.pickUpLocation}
@@ -87,6 +132,7 @@ const LocationPanel = ({
           <i className="ri-search-line text-lg font-thin text-white"></i>
           <input
             type="text"
+            id="destination"
             className="w-full bg-[#3F4042] px-4 outline-none  rounded-lg placeholder:text-gray-300 text-white"
             placeholder="Destination"
             value={locations.destination}
@@ -98,24 +144,15 @@ const LocationPanel = ({
         {locationSuggestions.map((suggestion, index) => (
           <div
             className="w-full flex items-center justify-center cursor-pointer"
-            onClick={() => {
-              if (vehicle) {
-                setConfirmRidePanel(true);
-                setLocationPanel(false);
-              } else {
-                setVehiclePanel(true);
-                setLocationPanel(false);
-              }
-            }}
+            key={index}
+            onClick={() => handleSuggestions(suggestion)}
           >
             <i className="ri-map-pin-line text-2xl text-gray-400"></i>
             <div className="w-full flex items-start justify-center flex-col px-3 gap-1">
-              {/* <p className="font-semibold leading-5">
-                Lorem ipsum dolor sit amet .
-              </p> */}
-              <p className="text-xs font-thin text-gray-400">{suggestion}</p>
+              <p className="text-white leading-[1.3rem]">
+                {suggestion.description}
+              </p>
             </div>
-            <p className="text-gray-400 text-xs">2.3k/m</p>
           </div>
         ))}
       </div>

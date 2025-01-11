@@ -9,6 +9,7 @@ const UserRidePanel = ({
   userRidePanel,
   locations,
   setConfirmRidePanel,
+  setVehiclePanel,
 }) => {
   const rideImages = [
     { img: "/Images/RideMoto.png", text: "Bike" },
@@ -95,14 +96,17 @@ const UserRidePanel = ({
           colors={"bg-[#C1F11D]"}
           onclick={() => {
             if (
-              locations.pickUpLocation.trim() === "" ||
-              locations.destination.trim() === ""
+              !locations.pickUpLocation.trim() ||
+              !locations.destination.trim()
             ) {
               setUserRidePanel(false);
               setLocationPanel(true);
-            } else {
+            } else if (vehicle) {
               setConfirmRidePanel(true);
               setUserRidePanel(false);
+            } else {
+              setUserRidePanel(false);
+              setVehiclePanel(true);
             }
           }}
         />

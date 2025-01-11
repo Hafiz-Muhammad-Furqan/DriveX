@@ -15,6 +15,7 @@ const UserDashboard = () => {
   const [cancelRequestPanel, setCancelRequestPanel] = useState(false);
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [vehicle, setVehicle] = useState(null);
+  const [fare, setFare] = useState(null);
   const [locations, setLocations] = useState({
     pickUpLocation: "",
     destination: "",
@@ -41,6 +42,7 @@ const UserDashboard = () => {
         userRidePanel={userRidePanel}
         locations={locations}
         setConfirmRidePanel={setConfirmRidePanel}
+        setVehiclePanel={setVehiclePanel}
       />
       <LocationPanel
         locationPanel={locationPanel}
@@ -51,6 +53,7 @@ const UserDashboard = () => {
         setConfirmRidePanel={setConfirmRidePanel}
         setVehiclePanel={setVehiclePanel}
         vehicle={vehicle}
+        setFare={setFare}
       />
       <ConfirmRide
         confirmRidePanel={confirmRidePanel}
@@ -72,6 +75,7 @@ const UserDashboard = () => {
         setVehiclePanel={setVehiclePanel}
         vehiclePanel={vehiclePanel}
         setConfirmRidePanel={setConfirmRidePanel}
+        setVehicle={setVehicle}
       ></ChooseVehicle>
     </div>
   );

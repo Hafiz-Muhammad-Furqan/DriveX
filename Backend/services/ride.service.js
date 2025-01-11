@@ -2,7 +2,7 @@ const rideModel = require("../models/ride.model");
 const mapService = require("../services/maps.service");
 const crypto = require("crypto");
 
-const getFare = async (pickup, destination) => {
+module.exports.getFare = async (pickup, destination) => {
   if (!pickup || !destination) {
     throw new Error("Pickup and destination are required");
   }
