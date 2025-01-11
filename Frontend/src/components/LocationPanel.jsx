@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { act, useEffect, useRef, useState } from "react";
 
 const LocationPanel = ({
   locationPanel,
@@ -15,6 +15,51 @@ const LocationPanel = ({
   const [locationSuggestions, setLocationSuggestions] = useState([]);
   const [activeElement, setActiveElement] = useState(null);
 
+  const useDebounce = (callBack, delay) => {
+    let timeoutRef = useRef(null);
+
+    return (value) => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        callBack(value);
+      }, delay);
+    };
+  };
+
+  const fetchFare = async () => {
+    // if (
+    //   locations.pickUpLocation.trim().length >= 3 &&
+    //   locations.destination.trim().length >= 3
+    // ) {
+    // setLocations({
+    //   ...locations,
+    //   [activeElement]: suggestion.description,
+    // });
+    console.log(locations);
+
+    // try {
+    //   const fare = await axios.get(
+    //     `${import.meta.env.VITE_API_BASE_URL}/rides/get-fare`,
+    //     {
+    //       params: {
+    //         pickup: locations.pickUpLocation,
+    //         destination: locations.destination,
+    //       },
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+    //       },
+    //     }
+    //   );
+    //   console.log(fare.data);
+    //   setFare(fare.data);
+    // } catch (error) {
+    //   console.error("Failed to fetch fare:", error.message);
+    // }
+    // }
+  };
+
   const getLocationsFromApi = async (value) => {
     const response = await axios.get(
       `${import.meta.env.VITE_API_BASE_URL}/maps/get-suggestions`,
@@ -29,71 +74,31 @@ const LocationPanel = ({
     console.log(response.data);
   };
 
-  const handlePickUpLocation = async (e) => {
-    setActiveElement("pickUp");
-    setLocations({ ...locations, pickUpLocation: e.target.value });
-    if (e.target.value.trim().length < 3) {
-      setLocationSuggestions([]);
-      return;
-    }
-    try {
-      await getLocationsFromApi(e.target.value.trim());
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  const debouncedFetch = useDebounce(getLocationsFromApi, 800);
 
-  const handleDestination = async (e) => {
-    setActiveElement("destination");
-    setLocations({ ...locations, destination: e.target.value });
-    if (e.target.value.trim().length < 3) {
+  const handleLocations = (value, element) => {
+    setActiveElement(element);
+    setLocations({ ...locations, [element]: value.trim() });
+    if (value.trim().length < 3) {
       setLocationSuggestions([]);
       return;
     }
-    try {
-      await getLocationsFromApi(e.target.value.trim());
-    } catch (error) {
-      console.log(error.message);
-    }
+    debouncedFetch(value);
   };
 
   const handleSuggestions = async (suggestion) => {
-    if (activeElement === "pickUp") {
-      setLocations({
-        ...locations,
-        pickUpLocation: suggestion.description,
-      });
-    } else if (activeElement === "destination") {
-      setLocations({
-        ...locations,
-        destination: suggestion.description,
-      });
-    }
+    setLocations({ ...locations, [activeElement]: suggestion.description });
     if (!locations.pickUpLocation.trim() || !locations.destination.trim()) {
       return;
     }
-    const fare = await axios.get(
-      `${import.meta.env.VITE_API_BASE_URL}/rides/get-fare`,
-      {
-        params: {
-          pickup: locations.pickUpLocation,
-          destination: locations.destination,
-        },
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
-    );
-    console.log(fare.data);
-    setFare(fare.data);
-
-    if (vehicle) {
-      setConfirmRidePanel(true);
-      setLocationPanel(false);
-    } else {
-      setVehiclePanel(true);
-      setLocationPanel(false);
-    }
+    fetchFare();
+    // if (vehicle) {
+    //   setConfirmRidePanel(true);
+    //   setLocationPanel(false);
+    // } else {
+    //   setVehiclePanel(true);
+    //   setLocationPanel(false);
+    // }
   };
 
   return (
@@ -116,16 +121,17 @@ const LocationPanel = ({
       </div>
       <div className="w-full flex flex-col items-center gap-3 px-3">
         <div className="w-full flex items-center bg-[#3F4042] rounded-md py-3 px-3">
-          <div className="h-4 w-4 rounded-full bg-[#C0F11C] flex items-center justify-center">
+          <div className="h-5 w-5 rounded-full bg-[#C0F11C] flex items-center justify-center">
             <div className="h-2 w-2 rounded-full bg-black"></div>
           </div>
           <input
             type="text"
             id="pickup"
-            className="w-full bg-[#3F4042] outline-none rounded-lg text-white px-4 placeholder:text-gray-300"
+            className="w-full bg-[#3F4042] outline-none rounded-lg text-white px-5 placeholder:text-gray-300"
             placeholder="Add Pick-up location"
             value={locations.pickUpLocation}
-            onChange={handlePickUpLocation}
+            onChange={(e) => handleLocations(e.target.value, "pickUpLocation")}
+            autoComplete="off"
           />
         </div>
         <div className="w-full flex items-center bg-[#3F4042] rounded-md px-3  py-3">
@@ -133,29 +139,39 @@ const LocationPanel = ({
           <input
             type="text"
             id="destination"
-            className="w-full bg-[#3F4042] px-4 outline-none  rounded-lg placeholder:text-gray-300 text-white"
+            className="w-full bg-[#3F4042] px-5 outline-none  rounded-lg placeholder:text-gray-300 text-white"
             placeholder="Destination"
             value={locations.destination}
-            onChange={handleDestination}
+            onChange={(e) => handleLocations(e.target.value, "destination")}
+            autoComplete="off"
           />
         </div>
       </div>
-      <div className="w-full px-3 flex flex-col items-center justify-around text-white mt-8 mb-6 gap-6 overflow-y-scroll no-scrollbar">
-        {locationSuggestions.map((suggestion, index) => (
-          <div
-            className="w-full flex items-center justify-center cursor-pointer"
-            key={index}
-            onClick={() => handleSuggestions(suggestion)}
-          >
-            <i className="ri-map-pin-line text-2xl text-gray-400"></i>
-            <div className="w-full flex items-start justify-center flex-col px-3 gap-1">
-              <p className="text-white leading-[1.3rem]">
-                {suggestion.description}
-              </p>
+      {locationSuggestions.length === 0 &&
+      locations[activeElement]?.trim().length >= 3 ? (
+        <div className="space-y-4 w-full px-3 mt-8">
+          <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
+          <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
+          <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
+        </div>
+      ) : (
+        <div className="w-full px-3 flex flex-col items-center justify-around text-white mt-8 mb-6 gap-6 overflow-y-scroll no-scrollbar">
+          {locationSuggestions.map((suggestion, index) => (
+            <div
+              className="w-full flex items-center justify-center cursor-pointer"
+              key={index}
+              onClick={() => handleSuggestions(suggestion)}
+            >
+              <i className="ri-map-pin-line text-2xl text-gray-400"></i>
+              <div className="w-full flex items-start justify-center flex-col px-3 gap-1">
+                <p className="text-white leading-[1.3rem]">
+                  {suggestion.description}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
