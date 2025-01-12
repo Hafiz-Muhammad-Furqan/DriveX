@@ -4,7 +4,6 @@ const CancelRequest = ({
   cancelRequestPanel,
   setCancelRequestPanel,
   setFindDriverPanel,
-  setUserRidePanel,
 }) => {
   return (
     <div
@@ -25,10 +24,9 @@ const CancelRequest = ({
       />
       <Button
         label={"Cancel Request"}
-        colors={"text-red-500 bg-zinc-600"}
+        colors={"text-red-400 bg-gray-700"}
         onclick={() => {
-          setCancelRequestPanel(false);
-          setUserRidePanel(true);
+          window.location.reload();
         }}
       />
     </div>

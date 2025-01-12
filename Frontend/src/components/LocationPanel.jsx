@@ -12,7 +12,8 @@ const LocationPanel = ({
   vehicle,
   setFare,
 }) => {
-  const [locationSuggestions, setLocationSuggestions] = useState([]);
+  const [locationSuggestions, setLocationSuggestions] = useState(null);
+  const [fetchSuggestions, setFetchSuggestions] = useState(false);
   const [activeElement, setActiveElement] = useState(null);
 
   const useDebounce = (callBack, delay) => {
@@ -28,39 +29,34 @@ const LocationPanel = ({
     };
   };
 
-  const fetchFare = async () => {
-    // if (
-    //   locations.pickUpLocation.trim().length >= 3 &&
-    //   locations.destination.trim().length >= 3
-    // ) {
-    // setLocations({
-    //   ...locations,
-    //   [activeElement]: suggestion.description,
-    // });
-    console.log(locations);
-
-    // try {
-    //   const fare = await axios.get(
-    //     `${import.meta.env.VITE_API_BASE_URL}/rides/get-fare`,
-    //     {
-    //       params: {
-    //         pickup: locations.pickUpLocation,
-    //         destination: locations.destination,
-    //       },
-    //       headers: {
-    //         Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-    //       },
-    //     }
-    //   );
-    //   console.log(fare.data);
-    //   setFare(fare.data);
-    // } catch (error) {
-    //   console.error("Failed to fetch fare:", error.message);
-    // }
-    // }
+  const fetchFare = async (updatedLocations) => {
+    if (
+      locations.pickUpLocation.trim().length >= 3 &&
+      locations.destination.trim().length >= 3
+    ) {
+      try {
+        const fare = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/rides/get-fare`,
+          {
+            params: {
+              pickup: updatedLocations.pickUpLocation,
+              destination: updatedLocations.destination,
+            },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+            },
+          }
+        );
+        console.log(fare.data);
+        setFare(fare.data);
+      } catch (error) {
+        console.error("Failed to fetch fare:", error.message);
+      }
+    }
   };
 
   const getLocationsFromApi = async (value) => {
+    setFetchSuggestions(true);
     const response = await axios.get(
       `${import.meta.env.VITE_API_BASE_URL}/maps/get-suggestions`,
       {
@@ -71,6 +67,7 @@ const LocationPanel = ({
       }
     );
     setLocationSuggestions(response.data);
+    setFetchSuggestions(false);
     console.log(response.data);
   };
 
@@ -78,27 +75,35 @@ const LocationPanel = ({
 
   const handleLocations = (value, element) => {
     setActiveElement(element);
-    setLocations({ ...locations, [element]: value.trim() });
+    setLocations({ ...locations, [element]: value });
     if (value.trim().length < 3) {
-      setLocationSuggestions([]);
+      setLocationSuggestions(null);
       return;
     }
     debouncedFetch(value);
   };
 
   const handleSuggestions = async (suggestion) => {
-    setLocations({ ...locations, [activeElement]: suggestion.description });
-    if (!locations.pickUpLocation.trim() || !locations.destination.trim()) {
-      return;
-    }
-    fetchFare();
-    // if (vehicle) {
-    //   setConfirmRidePanel(true);
-    //   setLocationPanel(false);
-    // } else {
-    //   setVehiclePanel(true);
-    //   setLocationPanel(false);
-    // }
+    setLocations((prev) => {
+      const updatedLocations = {
+        ...prev,
+        [activeElement]: suggestion.description,
+      };
+      if (
+        locations.pickUpLocation.trim().length >= 3 &&
+        locations.destination.trim().length >= 3
+      ) {
+        fetchFare(updatedLocations);
+        if (vehicle) {
+          setConfirmRidePanel(true);
+          setLocationPanel(false);
+        } else {
+          setVehiclePanel(true);
+          setLocationPanel(false);
+        }
+      }
+      return updatedLocations;
+    });
   };
 
   return (
@@ -147,16 +152,20 @@ const LocationPanel = ({
           />
         </div>
       </div>
-      {locationSuggestions.length === 0 &&
-      locations[activeElement]?.trim().length >= 3 ? (
+      {fetchSuggestions && (
         <div className="space-y-4 w-full px-3 mt-8">
           <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
           <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
           <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
         </div>
-      ) : (
+      )}
+      {locationSuggestions?.length === 0 && (
+        <p className="text-gray-200 text-lg mt-8 ">No Results found</p>
+      )}
+
+      {locationSuggestions?.length > 0 && !fetchSuggestions && (
         <div className="w-full px-3 flex flex-col items-center justify-around text-white mt-8 mb-6 gap-6 overflow-y-scroll no-scrollbar">
-          {locationSuggestions.map((suggestion, index) => (
+          {locationSuggestions?.map((suggestion, index) => (
             <div
               className="w-full flex items-center justify-center cursor-pointer"
               key={index}

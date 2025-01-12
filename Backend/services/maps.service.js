@@ -49,13 +49,14 @@ module.exports.getSuggestions = async (input) => {
   if (!input) {
     throw new Error("query is required");
   }
+
   const apiKey = process.env.GOMAPS_API_KEY;
   const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(
     input
   )}&key=${apiKey}`;
   try {
     const response = await axios.get(url);
-    if (response.data.status === "OK") {
+    if (response.data.status === "OK" || "ZERO_RESULTS") {
       return response.data.predictions;
     } else {
       throw new Error("Unable to fetch suggestions");

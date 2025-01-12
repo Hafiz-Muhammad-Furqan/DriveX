@@ -59,23 +59,29 @@ const UserDashboard = () => {
         confirmRidePanel={confirmRidePanel}
         setConfirmRidePanel={setConfirmRidePanel}
         setFindDriverPanel={setFindDriverPanel}
+        fare={fare}
+        vehicle={vehicle}
+        locations={locations}
       ></ConfirmRide>
       <FindDrivers
         setFindDriverPanel={setFindDriverPanel}
         findDriverPanel={findDriverPanel}
         setCancelRequestPanel={setCancelRequestPanel}
+        fare={fare}
+        vehicle={vehicle}
+        locations={locations}
       ></FindDrivers>
       <CancelRequest
         setCancelRequestPanel={setCancelRequestPanel}
         cancelRequestPanel={cancelRequestPanel}
         setFindDriverPanel={setFindDriverPanel}
-        setUserRidePanel={setUserRidePanel}
       ></CancelRequest>
       <ChooseVehicle
         setVehiclePanel={setVehiclePanel}
         vehiclePanel={vehiclePanel}
         setConfirmRidePanel={setConfirmRidePanel}
         setVehicle={setVehicle}
+        fare={fare}
       ></ChooseVehicle>
     </div>
   );

@@ -6,11 +6,12 @@ const ChooseVehicle = ({
   vehiclePanel,
   setConfirmRidePanel,
   setVehicle,
+  fare,
 }) => {
   const vehicle = [
-    { img: "/Images/RideMoto.png", text: "Bike" },
-    { img: "/Images/RideCar.png", text: "Car" },
-    { img: "/Images/RideAuto.png", text: "Auto" },
+    { img: "/Images/RideCar.png", text: "Car", fare: fare?.Car },
+    { img: "/Images/RideAuto.png", text: "Auto", fare: fare?.Auto },
+    { img: "/Images/RideMoto.png", text: "Bike", fare: fare?.Bike },
   ];
   return (
     <div
@@ -25,7 +26,7 @@ const ChooseVehicle = ({
         {vehicle.map((vehicle, index) => (
           <React.Fragment key={index}>
             <div
-              className="w-full py-3 px-2 rounded-lg flex gap-2 items-center justify-center border-2 border-gray-300"
+              className="w-full py-3 px-2 rounded-lg flex gap-2 items-center justify-center border-2 border-gray-300 cursor-pointer"
               onClick={() => {
                 setVehicle(vehicle.text);
                 setVehiclePanel(false);
@@ -41,9 +42,15 @@ const ChooseVehicle = ({
                   Affordable {vehicle.text} Ride.
                 </p>
               </div>
-              <p className="text-white whitespace-nowrap  font-medium">
-                PKR 300
-              </p>
+              <div className="flex items-center justify-center">
+                {fare ? (
+                  <p className="text-white whitespace-nowrap  font-medium">
+                    PKR {Math.round(vehicle.fare)}
+                  </p>
+                ) : (
+                  <div className="loader3"></div>
+                )}
+              </div>
             </div>
           </React.Fragment>
         ))}
