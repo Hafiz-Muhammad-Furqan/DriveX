@@ -19,25 +19,25 @@ const FindDrivers = ({
       </h1>
       <div className="loader"></div>
       <div className="w-full flex items-center gap-2">
-        <div className="relative">
-          <div className="absolute top-0 left-0 h-[16px] w-[16px] rounded-full bg-red-500 flex items-center justify-center">
+        <div className="relative flex items-center justify-center">
+          <div className="absolute  left-0 h-[16px] w-[16px] rounded-full bg-red-500 flex items-center justify-center">
             <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
           </div>
+          <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-8">
+            {locations.pickUpLocation}
+          </p>
         </div>
-        <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-6">
-          {locations.pickUpLocation}
-        </p>
       </div>
       <div className="w-full flex items-center gap-2">
-        <div className="relative">
-          <div className=" absolute top-0 left-0 h-[16px] w-[16px] rounded-full bg-[#C0F11C] flex items-center justify-center">
+        <div className="relative flex items-center justify-center">
+          <div className=" absolute left-0 h-[16px] w-[16px] rounded-full bg-[#C0F11C] flex items-center justify-center">
             <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
           </div>
-        </div>
-        <div>
-          <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-6">
-            {locations.destination}
-          </p>
+          <div>
+            <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-8">
+              {locations.destination}
+            </p>
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-around w-full flex-col gap-5">

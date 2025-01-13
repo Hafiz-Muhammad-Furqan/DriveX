@@ -14,6 +14,7 @@ const UserDashboard = () => {
   const [findDriverPanel, setFindDriverPanel] = useState(false);
   const [cancelRequestPanel, setCancelRequestPanel] = useState(false);
   const [vehiclePanel, setVehiclePanel] = useState(false);
+  const [fetchingFare, setFetchingFare] = useState(false);
   const [vehicle, setVehicle] = useState(null);
   const [fare, setFare] = useState(null);
   const [locations, setLocations] = useState({
@@ -36,13 +37,13 @@ const UserDashboard = () => {
       <SideBar />
       <UserRidePanel
         setLocationPanel={setLocationPanel}
-        setVehicle={setVehicle}
-        vehicle={vehicle}
         setUserRidePanel={setUserRidePanel}
         userRidePanel={userRidePanel}
         locations={locations}
-        setConfirmRidePanel={setConfirmRidePanel}
         setVehiclePanel={setVehiclePanel}
+        fetchingFare={fetchingFare}
+        setFetchingFare={setFetchingFare}
+        setFare={setFare}
       />
       <LocationPanel
         locationPanel={locationPanel}
@@ -50,10 +51,10 @@ const UserDashboard = () => {
         locations={locations}
         setLocations={setLocations}
         setUserRidePanel={setUserRidePanel}
-        setConfirmRidePanel={setConfirmRidePanel}
         setVehiclePanel={setVehiclePanel}
-        vehicle={vehicle}
         setFare={setFare}
+        fetchingFare={fetchingFare}
+        setFetchingFare={setFetchingFare}
       />
       <ConfirmRide
         confirmRidePanel={confirmRidePanel}
