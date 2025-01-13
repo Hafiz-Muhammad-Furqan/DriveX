@@ -16,11 +16,6 @@ const UserRidePanel = ({
     { img: "/Images/RideCar.png", text: "Car" },
     { img: "/Images/RideAuto.png", text: "Auto" },
   ];
-  useEffect(() => {
-    if (vehicle) {
-      console.log(vehicle);
-    }
-  }, [setVehicle, vehicle]);
 
   return (
     <div
@@ -87,7 +82,7 @@ const UserRidePanel = ({
           >
             {locations.destination.trim()
               ? locations.destination
-              : "Add Pick-up location"}
+              : "Add Destination"}
           </div>
         </div>
 

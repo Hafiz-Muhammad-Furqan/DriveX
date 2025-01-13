@@ -1,5 +1,5 @@
 import axios from "axios";
-import { act, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const LocationPanel = ({
   locationPanel,
@@ -31,8 +31,8 @@ const LocationPanel = ({
 
   const fetchFare = async (updatedLocations) => {
     if (
-      locations.pickUpLocation.trim().length >= 3 &&
-      locations.destination.trim().length >= 3
+      updatedLocations.pickUpLocation.trim().length >= 3 &&
+      updatedLocations.destination.trim().length >= 3
     ) {
       try {
         const fare = await axios.get(
@@ -47,7 +47,6 @@ const LocationPanel = ({
             },
           }
         );
-        console.log(fare.data);
         setFare(fare.data);
       } catch (error) {
         console.error("Failed to fetch fare:", error.message);
@@ -126,13 +125,15 @@ const LocationPanel = ({
       </div>
       <div className="w-full flex flex-col items-center gap-3 px-3">
         <div className="w-full flex items-center bg-[#3F4042] rounded-md py-3 px-3">
-          <div className="h-5 w-5 rounded-full bg-[#C0F11C] flex items-center justify-center">
-            <div className="h-2 w-2 rounded-full bg-black"></div>
+          <div className="relative">
+            <div className="absolute top-50 -translate-y-1/2 left-0 h-[16px] w-[16px] rounded-full bg-[#C0F11C] flex items-center justify-center">
+              <div className="h-[8px] w-[8px] rounded-full bg-black"></div>
+            </div>
           </div>
           <input
             type="text"
             id="pickup"
-            className="w-full bg-[#3F4042] outline-none rounded-lg text-white px-5 placeholder:text-gray-300"
+            className="w-full bg-[#3F4042] outline-none rounded-lg text-white pl-8 pr-5 placeholder:text-gray-300"
             placeholder="Add Pick-up location"
             value={locations.pickUpLocation}
             onChange={(e) => handleLocations(e.target.value, "pickUpLocation")}
@@ -145,7 +146,7 @@ const LocationPanel = ({
             type="text"
             id="destination"
             className="w-full bg-[#3F4042] px-5 outline-none  rounded-lg placeholder:text-gray-300 text-white"
-            placeholder="Destination"
+            placeholder="Add Destination"
             value={locations.destination}
             onChange={(e) => handleLocations(e.target.value, "destination")}
             autoComplete="off"

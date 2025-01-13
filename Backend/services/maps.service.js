@@ -32,15 +32,15 @@ module.exports.getDistanceAndTime = async (origin, distance) => {
   try {
     const response = await axios.get(url);
     if (response.data.status === "OK") {
-      if (response.data.rows[0].elements[0].status === "ZERO_RESULTS") {
-        throw new Error("No routes found");
+      if (response.data.rows[0].elements[0].status === "NOT_FOUND") {
+        return "No routes found";
       }
       return response.data.rows[0].elements[0];
     } else {
       throw new Error("Unable to fetch distance and time");
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     throw error;
   }
 };

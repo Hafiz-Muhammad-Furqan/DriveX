@@ -1,3 +1,4 @@
+const { log } = require("console");
 const rideModel = require("../models/ride.model");
 const mapService = require("../services/maps.service");
 const crypto = require("crypto");
@@ -10,6 +11,10 @@ module.exports.getFare = async (pickup, destination) => {
     pickup,
     destination
   );
+  if (distanceAndTime === "No routes found") {
+    return "No routes found";
+  }
+
   const baseFare = {
     auto: 50,
     car: 80,
