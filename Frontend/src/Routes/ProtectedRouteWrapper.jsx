@@ -20,11 +20,10 @@ const ProtectedRouteWrapper = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
+
       if (response.status === 200) {
         dispatch(
-          setUser(
-            userType === "user" ? response.data.user : response.data.captain
-          )
+          setUser(userType === "user" ? response.data : response.data.captain)
         );
         setLoading(false);
       }

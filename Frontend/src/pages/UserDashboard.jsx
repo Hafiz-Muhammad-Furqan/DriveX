@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "../Components/SideBar";
 import LocationPanel from "../Components/LocationPanel";
 import ConfirmRide from "../Components/ConfirmRide";
@@ -6,6 +6,8 @@ import FindDrivers from "../Components/FindDrivers";
 import CancelRequest from "../Components/CancelRequest";
 import UserRidePanel from "../Components/UserRidePanel";
 import ChooseVehicle from "../Components/ChooseVehicle";
+import { useSelector } from "react-redux";
+import { sendMessage } from "../Utilities/socket";
 
 const UserDashboard = () => {
   const [locationPanel, setLocationPanel] = useState(false);
@@ -17,10 +19,16 @@ const UserDashboard = () => {
   const [fetchingFare, setFetchingFare] = useState(false);
   const [vehicle, setVehicle] = useState(null);
   const [fare, setFare] = useState(null);
+  const user = useSelector((state) => state.user.user);
   const [locations, setLocations] = useState({
     pickUpLocation: "",
     destination: "",
   });
+
+  useEffect(() => {
+    sendMessage("join", { userType: "user", userId: user._id });
+  }, []);
+
   return (
     <div className="relative h-[100dvh] w-full flex items-center flex-col ">
       <div
@@ -83,6 +91,7 @@ const UserDashboard = () => {
         setConfirmRidePanel={setConfirmRidePanel}
         setVehicle={setVehicle}
         fare={fare}
+        locations={locations}
       ></ChooseVehicle>
     </div>
   );

@@ -19,6 +19,7 @@ router.post(
     body("vehicleType")
       .isIn(["Car", "Auto", "Bike"])
       .withMessage("Invalid vehicle type"),
+    body("fare"),
   ],
   rideController.createRide
 );

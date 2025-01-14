@@ -6,13 +6,14 @@ module.exports.createRide = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { destination, pickup, vehicleType } = req.body;
+  const { destination, pickup, vehicleType, fare } = req.body;
   try {
     const ride = await rideService.createRide({
       destination,
       user: req.user._id,
       pickup,
       vehicleType,
+      fare: Math.round(fare),
     });
     res.status(201).json(ride);
   } catch (error) {

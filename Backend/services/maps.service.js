@@ -31,10 +31,12 @@ module.exports.getDistanceAndTime = async (origin, distance) => {
   )}&destinations=${encodeURIComponent(distance)}&key=${apiKey}`;
   try {
     const response = await axios.get(url);
+    console.log(response.data);
+
     if (response.data.status === "OK") {
       if (
         response.data.rows[0].elements[0].status === "NOT_FOUND" ||
-        "ZERO_RESULTS"
+        response.data.rows[0].elements[0].status === "ZERO_RESULTS"
       ) {
         return "No routes found";
       }
@@ -59,7 +61,10 @@ module.exports.getSuggestions = async (input) => {
   )}&key=${apiKey}`;
   try {
     const response = await axios.get(url);
-    if (response.data.status === "OK" || "ZERO_RESULTS") {
+    if (
+      response.data.status === "OK" ||
+      response.data.status === "ZERO_RESULTS"
+    ) {
       return response.data.predictions;
     } else {
       throw new Error("Unable to fetch suggestions");

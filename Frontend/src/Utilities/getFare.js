@@ -16,6 +16,7 @@ const fetchFare = async (locations) => {
         },
       }
     );
+    console.log(fare.data);
     return fare.data;
   } catch (error) {
     console.error("Failed to fetch fare:", error.message);
