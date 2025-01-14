@@ -1,4 +1,5 @@
 const axios = require("axios");
+const captainModel = require("../models/captain.model");
 module.exports.getAddressCoordinate = async (address) => {
   const apiKey = process.env.GOMAPS_API_KEY;
   const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(
@@ -9,11 +10,9 @@ module.exports.getAddressCoordinate = async (address) => {
     if (response.data.status === "OK") {
       const location = response.data.results[0].geometry.location;
       return {
-        lat: location.lat,
+        ltd: location.lat,
         lng: location.lng,
       };
-    } else {
-      throw new Error("Unable to fetch coordinates");
     }
   } catch (error) {
     console.error("Error fetching coordinates", error);
@@ -73,4 +72,15 @@ module.exports.getSuggestions = async (input) => {
     console.log(error);
     throw error;
   }
+};
+
+module.exports.getCaptainsInRadius = async (ltd, lng, radius) => {
+  const captains = captainModel.find({
+    location: {
+      $geoWithin: {
+        $centerSphere: [[ltd, lng], radius / 3963.2],
+      },
+    },
+  });
+  return captains;
 };

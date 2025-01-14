@@ -13,9 +13,9 @@ const initializeSocket = (server) => {
   });
 
   io.on("connection", (socket) => {
-    socket.on("join", async (data) => {
-      console.log(data);
+    console.log("connected");
 
+    socket.on("join", async (data) => {
       const { userId, userType } = data;
       if (userType === "user") {
         await userModel.findByIdAndUpdate(userId, {
@@ -27,15 +27,29 @@ const initializeSocket = (server) => {
         });
       }
     });
-    console.log("client connected" + socket.id);
+
+    socket.on("update-location-captain", async (data) => {
+      const { userId, location } = data;
+      if (!location || !location.ltd || !location.lng) {
+        return socket.emit("error", { message: "Invalid location" });
+      }
+      await captainModel.findByIdAndUpdate(userId, {
+        location: {
+          ltd: location.ltd,
+          lng: location.lng,
+        },
+      });
+    });
+
     socket.on("disconnect", () => {
       console.log("client disconnested" + socket.id);
     });
   });
 };
 const sendMessageToSockedId = (socketId, message) => {
+  const { event, data } = message;
   if (io) {
-    io.to(socketId).emit("message", message);
+    io.to(socketId).emit(event, data);
   } else {
     console.log("socket.io not initialize");
   }

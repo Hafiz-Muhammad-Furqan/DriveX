@@ -20,4 +20,33 @@ const receivedMessage = (eventName, callback) => {
   socket.on(eventName, callback);
 };
 
-export { socketConnection, sendMessage, receivedMessage };
+const updateLocation = (userId) => {
+  console.log(userId);
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        socket.emit("update-location-captain", {
+          userId,
+          location: {
+            ltd: position.coords.latitude,
+            lng: position.coords.longitude,
+          },
+        });
+      },
+      (error) => {
+        console.log("Error fetching location:", error);
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+  }
+};
+
+export {
+  socketConnection,
+  sendMessage,
+  receivedMessage,
+  updateLocation,
+  socket,
+};

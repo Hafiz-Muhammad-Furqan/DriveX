@@ -4,7 +4,7 @@ import DriverProfile from "../Components/DriverProfile";
 import DriverRidePanel from "../Components/DriverRidePanel";
 import RideRequest from "../Components/RideRequest";
 import SideBar from "../Components/SideBar";
-import { sendMessage } from "../Utilities/socket";
+import { socket, sendMessage, updateLocation } from "../Utilities/socket";
 import { useSelector } from "react-redux";
 
 const DriverDashboard = () => {
@@ -12,7 +12,17 @@ const DriverDashboard = () => {
 
   useEffect(() => {
     sendMessage("join", { userType: "captain", userId: user._id });
-  }, []);
+
+    const locationInterval = setInterval(() => {
+      updateLocation(user._id);
+    }, 10000);
+    updateLocation(user._id);
+    return () => clearInterval(locationInterval);
+  });
+
+  socket.on("new-ride", (data) => {
+    console.log(data);
+  });
 
   return (
     <div className="h-[100dvh] w-full flex items-center flex-col relative">
