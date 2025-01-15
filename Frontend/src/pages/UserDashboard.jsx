@@ -24,6 +24,7 @@ const UserDashboard = () => {
     pickUpLocation: "",
     destination: "",
   });
+  console.log(user);
 
   useEffect(() => {
     sendMessage("join", { userType: "user", userId: user._id });

@@ -1,4 +1,3 @@
-const { log } = require("console");
 const rideModel = require("../models/ride.model");
 const mapService = require("../services/maps.service");
 const crypto = require("crypto");
@@ -78,4 +77,19 @@ module.exports.createRide = async ({
     otp: getOtp(6),
   });
   return ride;
+};
+
+module.exports.acceptRide = async ({ rideId }) => {
+  if (!ride) {
+    throw new Error("Ride ID is required");
+  }
+  const ride = await rideModel.findOne({ _id: rideId });
+  if (!ride) {
+    throw new Error("Ride not found");
+  }
+  if (!ride) {
+    throw new Error("Ride not found");
+  }
+  ride.status = "accepted";
+  return ride.save();
 };

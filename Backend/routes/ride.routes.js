@@ -38,4 +38,11 @@ router.get(
   rideController.getFare
 );
 
+router.post(
+  "/accept",
+  authMiddleware.authCaptain,
+  [body("rideId").isMongoId().withMessage("Invalid ride ID")],
+  rideController.acceptRide
+);
+
 module.exports = router;

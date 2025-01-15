@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ConfirmFinishRide from "../Components/ConfirmFinishRide";
 import DriverProfile from "../Components/DriverProfile";
 import DriverRidePanel from "../Components/DriverRidePanel";
@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 
 const DriverDashboard = () => {
   const user = useSelector((state) => state.user.user);
+  const [profilePanel, setProfilePanel] = useState(true);
+  const [ride, setRide] = useState(false);
 
   useEffect(() => {
     sendMessage("join", { userType: "captain", userId: user._id });
@@ -22,6 +24,8 @@ const DriverDashboard = () => {
 
   socket.on("new-ride", (data) => {
     console.log(data);
+    setRide(data);
+    setProfilePanel(false);
   });
 
   return (
@@ -34,8 +38,8 @@ const DriverDashboard = () => {
         />
       </div>
       <SideBar />
-      {/* <RideRequest /> */}
-      <DriverProfile user={user} />
+      <RideRequest ride={ride} />
+      <DriverProfile user={user} profilePanel={profilePanel} />
       {/* <DriverRidePanel /> */}
       {/* <ConfirmFinishRide /> */}
     </div>
