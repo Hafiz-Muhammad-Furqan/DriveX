@@ -9,6 +9,7 @@ import ChooseVehicle from "../Components/ChooseVehicle";
 import { useSelector } from "react-redux";
 import { sendMessage, socket } from "../Utilities/socket";
 import RideAccepted from "../Components/RideAccepted";
+import StartRide from "../Components/startRide";
 
 const UserDashboard = () => {
   const [locationPanel, setLocationPanel] = useState(false);
@@ -16,10 +17,12 @@ const UserDashboard = () => {
   const [userRidePanel, setUserRidePanel] = useState(true);
   const [findDriverPanel, setFindDriverPanel] = useState(false);
   const [acceptedRidePanel, setAcceptedRidePanel] = useState(false);
-  const [acceptedRide, setAcceptedRide] = useState(true);
+  const [acceptedRide, setAcceptedRide] = useState(false);
   const [cancelRequestPanel, setCancelRequestPanel] = useState(false);
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [fetchingFare, setFetchingFare] = useState(false);
+  const [startRide, setStartRide] = useState(false);
+  const [startRidePanel, setStartRidePanel] = useState(false);
   const [vehicle, setVehicle] = useState(null);
   const [fare, setFare] = useState(null);
   const user = useSelector((state) => state.user.user);
@@ -36,6 +39,12 @@ const UserDashboard = () => {
     setAcceptedRide(data);
     setFindDriverPanel(false);
     setAcceptedRidePanel(true);
+  });
+
+  socket.on("ride-started", (data) => {
+    setAcceptedRidePanel(false);
+    setStartRidePanel(true);
+    setStartRide(data);
   });
 
   return (
@@ -106,6 +115,7 @@ const UserDashboard = () => {
         acceptedRidePanel={acceptedRidePanel}
         acceptedRide={acceptedRide}
       />
+      <StartRide startRidePanel={startRidePanel} startRide={startRide} />
     </div>
   );
 };

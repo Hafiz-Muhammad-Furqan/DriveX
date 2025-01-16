@@ -53,8 +53,13 @@ const DriverDashboard = () => {
       />
       <DriverProfile user={user} profilePanel={profilePanel} />
       <DriverRidePanel ridePanel={ridePanel} />
-      <ConfirmFinishRide finishRidePanel={finishRidePanel} />
-      <OtpPanel otpPanel={otpPanel} ride={ride} />
+      {/* <ConfirmFinishRide finishRidePanel={finishRidePanel} /> */}
+      <OtpPanel
+        setOtpPanel={setOtpPanel}
+        otpPanel={otpPanel}
+        ride={ride}
+        setRidePanel={setRidePanel}
+      />
     </div>
   );
 };

@@ -1,7 +1,33 @@
 import axios from "axios";
 import Button from "./Button";
+import { useState } from "react";
 
-const OtpPanel = ({ ride, otpPanel }) => {
+const OtpPanel = ({ ride, otpPanel, setOtpPanel, setRidePanel }) => {
+  const [otpValue, setOtpValue] = useState("");
+  const handleSubmit = async () => {
+    console.log(localStorage.getItem("driverToken"));
+
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/rides/start-ride`,
+        {
+          params: {
+            rideId: ride._id,
+            otp: otpValue,
+          },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("driverToken")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setOtpPanel(false);
+        setRidePanel(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
       className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-1 gap-3 py-3 rounded-t-3xl bg-black transition-transform duration-200 ease-linear  ${
@@ -45,8 +71,14 @@ const OtpPanel = ({ ride, otpPanel }) => {
           className="w-[97%] bg-[#3F4042] outline-none rounded-md text-white placeholder:text-gray-300 py-3 px-3 border mb-4"
           placeholder="Enter OTP"
           autoComplete="off"
+          value={otpValue}
+          onChange={(e) => setOtpValue(e.target.value)}
         />
-        <Button label={"Confirm"} colors={"bg-[#C1F11D]"} />
+        <Button
+          label={"Confirm"}
+          colors={"bg-[#C1F11D]"}
+          onclick={handleSubmit}
+        />
 
         <Button label={"Cancel"} colors={"text-white bg-red-500"} />
       </div>
