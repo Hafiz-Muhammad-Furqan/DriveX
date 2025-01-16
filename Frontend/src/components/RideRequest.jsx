@@ -2,7 +2,7 @@ import axios from "axios";
 import Button from "./Button";
 
 const RideRequest = ({
-  ride,
+  newRide,
   user,
   setOtpPanel,
   setRideRequestPanel,
@@ -14,7 +14,7 @@ const RideRequest = ({
     const response = await axios.post(
       `${import.meta.env.VITE_API_BASE_URL}/rides/accept`,
       {
-        rideId: ride._id,
+        rideId: newRide._id,
         captainId: user._id,
       },
       {
@@ -40,24 +40,24 @@ const RideRequest = ({
             className="w-11 h-11 rounded-full bg-black px-1 py-1"
           />
           <p className="text-white">
-            {ride?.user?.fullname?.firstname +
+            {newRide?.user?.fullname?.firstname +
               " " +
-              ride?.user?.fullname?.lastname}
+              newRide?.user?.fullname?.lastname}
           </p>
         </div>
 
         <div className="w-full py-2 px-2 rounded-lg flex gap-2 items-center justify-start border-2 border-gray-600">
           <i className="ri-map-pin-line text-2xl text-gray-400"></i>
-          <p className="text-white text-[14px]">{ride?.pickup}</p>
+          <p className="text-white text-[14px]">{newRide?.pickup}</p>
         </div>
         <div className="w-full  py-2 gap-2 px-2 rounded-lg border-2 border-gray-600 flex items-start justify-start">
           <i className="ri-map-pin-line text-2xl text-gray-400"></i>
-          <p className="text-white text-[14px] ">{ride?.destination}</p>
+          <p className="text-white text-[14px] ">{newRide?.destination}</p>
         </div>
         <div className="w-full flex items-center justify-center gap-3">
           <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
           <p className="text-white text-lg font-semibold text-center">
-            PKR {ride?.fare}
+            PKR {newRide?.fare}
           </p>
         </div>
         <Button label={"Accept"} colors={"bg-[#C1F11D]"} onclick={rideAccept} />

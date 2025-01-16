@@ -16,7 +16,8 @@ const DriverDashboard = () => {
   const [finishRidePanel, setFinishRidePanel] = useState(false);
   const [ridePanel, setRidePanel] = useState(false);
   const [rideRequestPanel, setRideRequestPanel] = useState(false);
-  const [ride, setRide] = useState(null);
+  const [newRide, setNewRide] = useState(null);
+  const [ridingData, setRidingData] = useState(null);
 
   useEffect(() => {
     sendMessage("join", { userType: "captain", userId: user._id });
@@ -29,7 +30,7 @@ const DriverDashboard = () => {
   });
 
   socket.on("new-ride", (data) => {
-    setRide(data);
+    setNewRide(data);
     setProfilePanel(false);
     setRideRequestPanel(true);
   });
@@ -45,19 +46,27 @@ const DriverDashboard = () => {
       </div>
       <SideBar />
       <RideRequest
-        ride={ride}
+        newRide={newRide}
         user={user}
         setOtpPanel={setOtpPanel}
         setRideRequestPanel={setRideRequestPanel}
         rideRequestPanel={rideRequestPanel}
       />
       <DriverProfile user={user} profilePanel={profilePanel} />
-      <DriverRidePanel ridePanel={ridePanel} />
-      {/* <ConfirmFinishRide finishRidePanel={finishRidePanel} /> */}
+      <DriverRidePanel
+        ridePanel={ridePanel}
+        setFinishRidePanel={setFinishRidePanel}
+        setRidePanel={setRidePanel}
+      />
+      <ConfirmFinishRide
+        finishRidePanel={finishRidePanel}
+        ridingData={ridingData}
+      />
       <OtpPanel
         setOtpPanel={setOtpPanel}
         otpPanel={otpPanel}
-        ride={ride}
+        newRide={newRide}
+        setRidingData={setRidingData}
         setRidePanel={setRidePanel}
       />
     </div>

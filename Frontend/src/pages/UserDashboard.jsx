@@ -47,6 +47,10 @@ const UserDashboard = () => {
     setStartRide(data);
   });
 
+  socket.on("ride-finished", (data) => {
+    window.location.reload();
+  });
+
   return (
     <div className="relative h-[100dvh] w-full flex items-center flex-col ">
       <div

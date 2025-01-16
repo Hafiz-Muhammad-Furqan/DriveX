@@ -23,11 +23,11 @@ const StartRide = ({ ride, startRidePanel, startRide }) => {
           </p>
         </div>
 
-        <div className="w-full py-2 px-2 rounded-lg flex gap-2 items-center justify-start border-2 border-gray-300">
+        <div className="w-full py-2 px-2 rounded-lg flex gap-2 items-center justify-start border-2 border-gray-600">
           <i className="ri-map-pin-line text-2xl text-gray-400"></i>
           <p className="text-white text-[14px]">{startRide?.pickup}</p>
         </div>
-        <div className="w-full  py-2 gap-2 px-2 rounded-lg border-2 border-gray-300 flex items-start justify-start">
+        <div className="w-full  py-2 gap-2 px-2 rounded-lg border-2 border-gray-600 flex items-start justify-start">
           <i className="ri-map-pin-line text-2xl text-gray-400"></i>
           <p className="text-white text-[14px] ">{startRide?.destination}</p>
         </div>
