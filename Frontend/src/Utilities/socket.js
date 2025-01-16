@@ -21,8 +21,6 @@ const receivedMessage = (eventName, callback) => {
 };
 
 const updateLocation = (userId) => {
-  console.log(userId);
-
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {

@@ -9,7 +9,7 @@ const DriverProfile = ({ user, profilePanel }) => {
         profilePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <div className="w-full flex flex-col items-center justify-center gap-4 px-3 py-1">
+      <div className="w-full flex flex-col items-center justify-center gap-6 px-3 py-1">
         <div className="w-full flex items-center justify-start gap-4">
           <img
             src="/Images/avatar.png"
@@ -28,19 +28,19 @@ const DriverProfile = ({ user, profilePanel }) => {
           </p>
         </div>
         <div className="w-full grid grid-cols-3 gap-2">
-          <div className="w-full flex flex-col items-center justify-around bg-zinc-800 rounded-lg px-1 py-1 gap-2">
+          <div className="w-full flex flex-col items-center justify-around bg-zinc-800 rounded-lg px-1 py-1 gap-3">
             <i className="ri-speed-up-fill text-2xl text-white"></i>
             <p className="text-white tracking-tight text-center leading-5">
               Hours Online
             </p>
           </div>
-          <div className="w-full flex flex-col items-center justify-around bg-zinc-800 rounded-lg px-1 py-1 gap-2">
+          <div className="w-full flex flex-col items-center justify-around bg-zinc-800 rounded-lg px-1 py-1 gap-3">
             <i className="ri-speed-up-fill text-2xl text-white"></i>
             <p className="text-white tracking-tight text-center leading-5">
               Hours Online
             </p>
           </div>
-          <div className="w-full flex flex-col items-center justify-around bg-zinc-800 rounded-lg px-1 py-1 gap-2">
+          <div className="w-full flex flex-col items-center justify-around bg-zinc-800 rounded-lg px-1 py-1 gap-3">
             <i className="ri-speed-up-fill text-2xl text-white"></i>
             <p className="text-white tracking-tight text-center leading-5">
               Hours Online

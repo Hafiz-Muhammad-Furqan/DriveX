@@ -1,3 +1,4 @@
+import axios from "axios";
 import Button from "./Button";
 
 const ConfirmRide = ({
@@ -8,6 +9,26 @@ const ConfirmRide = ({
   locations,
   vehicle,
 }) => {
+  const findDrivers = async () => {
+    setConfirmRidePanel(false);
+    setFindDriverPanel(true);
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/rides/create`,
+      {
+        pickup: locations.pickUpLocation,
+        destination: locations.destination,
+        vehicleType: vehicle,
+        fare: fare[vehicle],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+      }
+    );
+    console.log(response.data);
+  };
+
   return (
     <div
       className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-4 gap-5 py-4 rounded-t-3xl  bg-black  transition-transform duration-200 ease-linear z-[10] ${
@@ -48,10 +69,7 @@ const ConfirmRide = ({
       <Button
         label={"Find a Driver"}
         colors={"bg-[#C1F11D]"}
-        onclick={() => {
-          setConfirmRidePanel(false);
-          setFindDriverPanel(true);
-        }}
+        onclick={findDrivers}
       />
     </div>
   );

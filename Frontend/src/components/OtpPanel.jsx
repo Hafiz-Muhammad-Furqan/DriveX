@@ -1,38 +1,17 @@
 import axios from "axios";
 import Button from "./Button";
 
-const RideRequest = ({
-  ride,
-  user,
-  setOtpPanel,
-  setRideRequestPanel,
-  rideRequestPanel,
-}) => {
-  const rideAccept = async () => {
-    setRideRequestPanel(false);
-    setOtpPanel(true);
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_BASE_URL}/rides/accept`,
-      {
-        rideId: ride._id,
-        captainId: user._id,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("driverToken")}`,
-        },
-      }
-    );
-  };
-
+const OtpPanel = ({ ride, otpPanel }) => {
   return (
     <div
       className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-1 gap-3 py-3 rounded-t-3xl bg-black transition-transform duration-200 ease-linear  ${
-        rideRequestPanel ? "translate-y-0" : "translate-y-full"
+        otpPanel ? "translate-y-0" : "translate-y-full"
       } `}
     >
       <div className="w-full flex flex-col items-center justify-center gap-4 px-3 py-1">
-        <h1 className="text-white text-2xl font-medium">New Ride Available</h1>
+        <h1 className="text-white text-2xl font-medium">
+          Confrim this ride to start
+        </h1>
         <div className="w-full flex items-center justify-start gap-4">
           <img
             src="/Images/avatar.png"
@@ -60,12 +39,19 @@ const RideRequest = ({
             PKR {ride?.fare}
           </p>
         </div>
-        <Button label={"Accept"} colors={"bg-[#C1F11D]"} onclick={rideAccept} />
+        <input
+          type="text"
+          id="pickup"
+          className="w-[97%] bg-[#3F4042] outline-none rounded-md text-white placeholder:text-gray-300 py-3 px-3 border mb-4"
+          placeholder="Enter OTP"
+          autoComplete="off"
+        />
+        <Button label={"Confirm"} colors={"bg-[#C1F11D]"} />
 
-        <Button label={"Ignore"} colors={"text-white bg-zinc-600"} />
+        <Button label={"Cancel"} colors={"text-white bg-red-500"} />
       </div>
     </div>
   );
 };
 
-export default RideRequest;
+export default OtpPanel;

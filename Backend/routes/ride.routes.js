@@ -41,7 +41,10 @@ router.get(
 router.post(
   "/accept",
   authMiddleware.authCaptain,
-  [body("rideId").isMongoId().withMessage("Invalid ride ID")],
+  [
+    body("rideId").isMongoId().withMessage("Invalid ride ID"),
+    body("captainId").isMongoId().withMessage("Invalid driver ID"),
+  ],
   rideController.acceptRide
 );
 

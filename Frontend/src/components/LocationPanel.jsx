@@ -52,7 +52,7 @@ const LocationPanel = ({
     }
   };
 
-  const debouncedFetch = useDebounce(getLocationsFromApi, 600);
+  const debouncedFetch = useDebounce(getLocationsFromApi, 500);
 
   const handleLocations = (value, element) => {
     setActiveElement(element);

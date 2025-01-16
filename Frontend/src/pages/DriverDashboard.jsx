@@ -4,13 +4,19 @@ import DriverProfile from "../Components/DriverProfile";
 import DriverRidePanel from "../Components/DriverRidePanel";
 import RideRequest from "../Components/RideRequest";
 import SideBar from "../Components/SideBar";
+import OtpPanel from "../Components/OtpPanel";
+
 import { socket, sendMessage, updateLocation } from "../Utilities/socket";
 import { useSelector } from "react-redux";
 
 const DriverDashboard = () => {
   const user = useSelector((state) => state.user.user);
   const [profilePanel, setProfilePanel] = useState(true);
-  const [ride, setRide] = useState(false);
+  const [otpPanel, setOtpPanel] = useState(false);
+  const [finishRidePanel, setFinishRidePanel] = useState(false);
+  const [ridePanel, setRidePanel] = useState(false);
+  const [rideRequestPanel, setRideRequestPanel] = useState(false);
+  const [ride, setRide] = useState(null);
 
   useEffect(() => {
     sendMessage("join", { userType: "captain", userId: user._id });
@@ -23,9 +29,9 @@ const DriverDashboard = () => {
   });
 
   socket.on("new-ride", (data) => {
-    console.log(data);
     setRide(data);
     setProfilePanel(false);
+    setRideRequestPanel(true);
   });
 
   return (
@@ -38,10 +44,17 @@ const DriverDashboard = () => {
         />
       </div>
       <SideBar />
-      <RideRequest ride={ride} />
+      <RideRequest
+        ride={ride}
+        user={user}
+        setOtpPanel={setOtpPanel}
+        setRideRequestPanel={setRideRequestPanel}
+        rideRequestPanel={rideRequestPanel}
+      />
       <DriverProfile user={user} profilePanel={profilePanel} />
-      {/* <DriverRidePanel /> */}
-      {/* <ConfirmFinishRide /> */}
+      <DriverRidePanel ridePanel={ridePanel} />
+      <ConfirmFinishRide finishRidePanel={finishRidePanel} />
+      <OtpPanel otpPanel={otpPanel} ride={ride} />
     </div>
   );
 };

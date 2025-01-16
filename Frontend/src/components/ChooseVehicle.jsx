@@ -7,7 +7,6 @@ const ChooseVehicle = ({
   setConfirmRidePanel,
   setVehicle,
   fare,
-  locations,
 }) => {
   const vehicle = [
     { img: "/Images/RideCar.png", text: "Car", fare: fare?.Car },
@@ -15,25 +14,6 @@ const ChooseVehicle = ({
     { img: "/Images/RideMoto.png", text: "Bike", fare: fare?.Bike },
   ];
 
-  const createRide = async (vehicle) => {
-    console.log(locations);
-
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_BASE_URL}/rides/create`,
-      {
-        pickup: locations.pickUpLocation,
-        destination: locations.destination,
-        vehicleType: vehicle.text,
-        fare: vehicle.fare,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
-    );
-    console.log(response.data);
-  };
   return (
     <div
       className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-0 gap-4 py-4 rounded-t-2xl bg-black transition-transform duration-200 ease-linear z-[10] ${
@@ -52,7 +32,6 @@ const ChooseVehicle = ({
                 setVehicle(vehicle.text);
                 setVehiclePanel(false);
                 setConfirmRidePanel(true);
-                createRide(vehicle);
               }}
             >
               <img src={vehicle.img} alt={vehicle.text} className="h-9" />

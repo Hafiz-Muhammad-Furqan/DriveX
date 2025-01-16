@@ -7,13 +7,16 @@ import CancelRequest from "../Components/CancelRequest";
 import UserRidePanel from "../Components/UserRidePanel";
 import ChooseVehicle from "../Components/ChooseVehicle";
 import { useSelector } from "react-redux";
-import { sendMessage } from "../Utilities/socket";
+import { sendMessage, socket } from "../Utilities/socket";
+import RideAccepted from "../Components/RideAccepted";
 
 const UserDashboard = () => {
   const [locationPanel, setLocationPanel] = useState(false);
   const [confirmRidePanel, setConfirmRidePanel] = useState(false);
   const [userRidePanel, setUserRidePanel] = useState(true);
   const [findDriverPanel, setFindDriverPanel] = useState(false);
+  const [acceptedRidePanel, setAcceptedRidePanel] = useState(false);
+  const [acceptedRide, setAcceptedRide] = useState(true);
   const [cancelRequestPanel, setCancelRequestPanel] = useState(false);
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [fetchingFare, setFetchingFare] = useState(false);
@@ -24,11 +27,16 @@ const UserDashboard = () => {
     pickUpLocation: "",
     destination: "",
   });
-  console.log(user);
 
   useEffect(() => {
     sendMessage("join", { userType: "user", userId: user._id });
   }, []);
+
+  socket.on("ride-accepted", (data) => {
+    setAcceptedRide(data);
+    setFindDriverPanel(false);
+    setAcceptedRidePanel(true);
+  });
 
   return (
     <div className="relative h-[100dvh] w-full flex items-center flex-col ">
@@ -94,6 +102,10 @@ const UserDashboard = () => {
         fare={fare}
         locations={locations}
       ></ChooseVehicle>
+      <RideAccepted
+        acceptedRidePanel={acceptedRidePanel}
+        acceptedRide={acceptedRide}
+      />
     </div>
   );
 };

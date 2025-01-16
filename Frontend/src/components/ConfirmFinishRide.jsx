@@ -1,8 +1,12 @@
 import Button from "./Button";
 
-const ConfirmFinishRide = () => {
+const ConfirmFinishRide = ({ finishRidePanel }) => {
   return (
-    <div className=" w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl bg-black transition-opacity duration-300 ">
+    <div
+      className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-4 gap-3 py-3 rounded-t-3xl bg-black transition-transform ease-linear duration-200 ${
+        finishRidePanel ? "translate-y-0" : "translate-y-full"
+      }`}
+    >
       <div className="w-full flex flex-col items-start justify-center gap-4 px-3 py-1">
         <div className="w-full flex items-center justify-start gap-4">
           <img

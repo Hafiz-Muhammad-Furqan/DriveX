@@ -6,7 +6,6 @@ const captainModel = require("../models/captain.model");
 module.exports.authUser = async (req, res, next) => {
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
   if (!token) {
-    console.log("notoken");
     return res.status(401).json({ message: "Unauthorized" });
   }
   const isTokenBlacklisted = await blacklistTokenModel.findOne({ token });
@@ -17,7 +16,6 @@ module.exports.authUser = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await userModel.findById(decoded._id);
-
     req.user = user;
     return next();
   } catch (error) {

@@ -19,7 +19,6 @@ module.exports.createRide = async (req, res) => {
       fare: Math.round(fare),
     });
     res.status(201).json(ride);
-
     const pickupCoordinates = await mapService.getAddressCoordinate(pickup);
     const { ltd, lng } = pickupCoordinates;
     const captainRadius = await mapService.getCaptainsInRadius(ltd, lng, 5000);
@@ -58,11 +57,18 @@ module.exports.acceptRide = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { rideId } = req.params;
+  const { rideId, captainId } = req.body;
+
   try {
-    const ride = await rideService.acceptRide(rideId, req.user._id);
+    const ride = await rideService.acceptRide(rideId, captainId);
+    sendMessageToSockedId(ride.user.socketId, {
+      event: "ride-accepted",
+      data: ride,
+    });
     res.status(200).json(ride);
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({ message: error.message });
   }
 };
