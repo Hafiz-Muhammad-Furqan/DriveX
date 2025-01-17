@@ -30,7 +30,7 @@ const HomeSlider = () => {
   }, [sliderData.length]);
 
   return (
-    <div className="min-w-full max-w-full flex items-center justify-between flex-col px-6 py-9 overflow-hidden relative">
+    <div className="max-w-full flex items-center justify-between flex-col px-6 py-9 overflow-hidden ">
       <div
         className={`flex items-center justify-center gap-1 py-2 transition-opacity duration-500 ${
           isAnimating ? "opacity-0" : "opacity-100"

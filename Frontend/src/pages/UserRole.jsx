@@ -1,14 +1,14 @@
 import Button from "../Components/Button";
 const UserRole = () => {
   return (
-    <div className="min-h-full w-full flex items-center justify-between flex-col px-3 py-8">
+    <div className=" flex-1 w-full flex items-center justify-between flex-col px-3 py-7">
       <div className="flex gap-3 flex-col items-center ">
         <img
           src="/Images/Logo.png"
           alt="logo"
           className="object-fill bg-center h-10 "
         />
-        <h1 className="text-white text-3xl font-extrabold text-center">
+        <h1 className="text-white text-3xl font-extrabold text-center px-3">
           Are you a passenger or Driver?
         </h1>
       </div>

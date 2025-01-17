@@ -3,7 +3,7 @@ import Button from "../Components/Button";
 
 const Home = () => {
   return (
-    <div className="min-h-full min-w-full max-w-full flex items-center justify-around flex-col px-3 ">
+    <div className="flex-1  w-full flex items-center justify-around flex-col px-3 ">
       <HomeSlider />
       <div className="w-full flex items-center justify-center flex-col gap-3">
         <Button
@@ -14,10 +14,10 @@ const Home = () => {
           }
           path={"/role"}
         />
-        <p className="text-gray-300  text-[11px] text-center px-3">
+        <p className="text-gray-300  text-[11px] text-center px-3 pb-3">
           joining our app means you agree with our
           <span className="underline"> Terms of Use </span>
-          and<span className="underline"> Privacy Policy</span>.
+          and<span className="underline"> Privacy Policy</span>
         </p>
       </div>
     </div>

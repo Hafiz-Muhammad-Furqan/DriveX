@@ -72,17 +72,15 @@ const UserSignin = () => {
     }
   };
   return (
-    <div className="min-h-[98dvh] w-full flex items-center justify-center flex-col gap-8 py-4 px-3 relative">
-      <div className="flex items-center justify-center gap-1 absolute top-5 left-5">
-        <img
-          src="/Images/Logo.png"
-          alt="logo"
-          className="object-cover bg-center h-8 "
-        />
-      </div>
+    <div className="flex-1 w-full flex items-center justify-center flex-col gap-8 py-4 px-3 ">
+      <img
+        src="/Images/Logo.png"
+        alt="logo"
+        className="object-cover bg-center h-8 "
+      />
       <h1 className="text-white text-3xl font-semibold">Sign in</h1>
       <form
-        className="h-full w-full flex items-center justify-around flex-col gap-7"
+        className="w-full flex items-center justify-center flex-col gap-7"
         onSubmit={handleSubmit}
       >
         {inputs.map((input, index) => (
