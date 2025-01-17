@@ -95,14 +95,13 @@ const UserSignup = () => {
   };
 
   return (
-    <div className="min-h-[100dvh] w-full flex items-center justify-center flex-col gap-8 py-4 px-3">
-      <div className="flex items-center justify-center gap-1 absolute top-5 left-5">
+    <div className="min-h-[98dvh] w-full flex items-center justify-center flex-col gap-8 py-4 px-3 ">
+      <div className="flex items-center justify-center gap-1 self-start">
         <img
           src="/Images/Logo.png"
           alt="logo"
-          className="object-cover bg-center h-6 w-6"
+          className="object-cover bg-center h-8 "
         />
-        <p className="text-white text-base font-semibold">inDrive</p>
       </div>
       <h1 className="text-white text-3xl font-semibold">Sign up</h1>
       <form

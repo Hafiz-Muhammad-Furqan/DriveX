@@ -52,7 +52,7 @@ const UserDashboard = () => {
   });
 
   return (
-    <div className="relative h-[100dvh] w-full flex items-center flex-col ">
+    <div className="relative h-full bg-red-400 w-full flex items-center flex-col overflow-x-hidden">
       <div
         className={`w-full h-full transition-opacity duration-300 ${
           locationPanel ? "opacity-50" : ""
@@ -65,7 +65,7 @@ const UserDashboard = () => {
         />
       </div>
       <SideBar />
-      <UserRidePanel
+      {/* <UserRidePanel
         setLocationPanel={setLocationPanel}
         setUserRidePanel={setUserRidePanel}
         userRidePanel={userRidePanel}
@@ -74,8 +74,8 @@ const UserDashboard = () => {
         fetchingFare={fetchingFare}
         setFetchingFare={setFetchingFare}
         setFare={setFare}
-      />
-      <LocationPanel
+      /> */}
+      {/* <LocationPanel
         locationPanel={locationPanel}
         setLocationPanel={setLocationPanel}
         locations={locations}
@@ -119,7 +119,7 @@ const UserDashboard = () => {
         acceptedRidePanel={acceptedRidePanel}
         acceptedRide={acceptedRide}
       />
-      <StartRide startRidePanel={startRidePanel} startRide={startRide} />
+      <StartRide startRidePanel={startRidePanel} startRide={startRide} /> */}
     </div>
   );
 };

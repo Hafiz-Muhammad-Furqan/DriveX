@@ -3,15 +3,11 @@ import { useState, useEffect } from "react";
 const HomeSlider = () => {
   const sliderData = [
     {
-      logoImg: "/Images/Logo.png",
-      logoText: "inDrive",
       img: "/Images/Home-1.png",
       title: "App where you set the price",
       description: "Find the best offers from drivers, passengers and more.",
     },
     {
-      logoImg: "/Images/Logo.png",
-      logoText: "inDrive",
       img: "/Images/Home-2.png",
       title: "Your safety is our priority",
       description:
@@ -27,36 +23,34 @@ const HomeSlider = () => {
       setIsAnimating(true);
       setTimeout(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % sliderData.length);
-        setIsAnimating(false); // End animation
+        setIsAnimating(false);
       }, 800);
     }, 3000);
     return () => clearInterval(interval);
   }, [sliderData.length]);
 
   return (
-    <div className="w-full flex items-center justify-around flex-col px-6 py-9 overflow-hidden">
+    <div className="min-w-full max-w-full flex items-center justify-between flex-col px-6 py-9 overflow-hidden relative">
       <div
         className={`flex items-center justify-center gap-1 py-2 transition-opacity duration-500 ${
           isAnimating ? "opacity-0" : "opacity-100"
         }`}
       >
         <img
-          src={sliderData[currentIndex].logoImg}
+          src="/Images/Logo.png"
           alt="logo"
-          className="object-cover bg-center h-6 w-6"
+          className="object-cover bg-center h-10 "
         />
-        <p className="text-white text-base">
-          {sliderData[currentIndex].logoText}
-        </p>
       </div>
+
       <div
-        className={`w-full h-full flex items-center justify-center transition-transform duration-500 ${
+        className={`w-full h-full flex items-center justify-center transition-transform duration-500  ${
           isAnimating ? "translate-x-full" : "translate-x-0"
         }`}
       >
         <img
           src={sliderData[currentIndex].img}
-          className="object-fill bg-center h-[280px] w-full"
+          className="object-fill bg-center h-[290px] w-[300px]"
           alt="Slide Image"
         />
       </div>

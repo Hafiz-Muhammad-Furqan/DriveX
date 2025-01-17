@@ -3,18 +3,18 @@ import Button from "../Components/Button";
 
 const Home = () => {
   return (
-    <div className="min-h-[100dvh] w-full flex items-center justify-around flex-col px-3">
+    <div className="min-h-full min-w-full max-w-full flex items-center justify-around flex-col px-3 ">
       <HomeSlider />
       <div className="w-full flex items-center justify-center flex-col gap-3">
         <Button
           label={"Continue"}
-          colors={"bg-[#C1F11D] text-black"}
+          colors={"bg-[#C1F11D] text-black relative"}
           icon={
-            <i className="ri-arrow-right-long-line order-2 font-semibold text-lg pr-4"></i>
+            <i className="ri-arrow-right-long-line font-semibold text-lg absolute right-3"></i>
           }
           path={"/role"}
         />
-        <p className="text-neutral-400  text-[11px] text-center px-3">
+        <p className="text-gray-300  text-[11px] text-center px-3">
           joining our app means you agree with our
           <span className="underline"> Terms of Use </span>
           and<span className="underline"> Privacy Policy</span>.
