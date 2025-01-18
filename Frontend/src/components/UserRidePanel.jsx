@@ -42,7 +42,7 @@ const UserRidePanel = ({
   };
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col  px-4 gap-5 py-4 rounded-t-3xl  fixed bg-black transition-transform duration-200 ease-linear z-[10] ${
+      className={`w-full flex justify-center items-center flex-col  px-4 gap-5 py-4 rounded-t-3xl  bottom-0 absolute bg-black transition-transform duration-200 ease-linear z-[10] ${
         userRidePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >

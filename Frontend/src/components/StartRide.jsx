@@ -4,12 +4,12 @@ import Button from "./Button";
 const StartRide = ({ ride, startRidePanel, startRide }) => {
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-1 gap-3 py-3 rounded-t-3xl bg-black transition-transform duration-200 ease-linear  ${
+      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-1 gap-3 py-3 rounded-t-3xl bg-black transition-transform duration-200 ease-linear  ${
         startRidePanel ? "translate-y-0" : "translate-y-full"
       } `}
     >
       <div className="w-full flex flex-col items-center justify-center gap-4 px-3 py-1">
-        <h1 className="text-white text-2xl font-medium">Ride start</h1>
+        <h1 className="text-white text-2xl font-medium">Ride Starting</h1>
         <div className="w-full flex items-center justify-start gap-4">
           <img
             src="/Images/avatar.png"

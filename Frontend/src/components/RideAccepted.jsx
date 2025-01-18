@@ -4,11 +4,11 @@ import Button from "./Button";
 const RideAccepted = ({ acceptedRidePanel, acceptedRide }) => {
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-4 gap-5 py-4 rounded-t-3xl  bg-black  transition-transform duration-200 ease-linear z-[10] ${
+      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-5 py-4 rounded-t-3xl  bg-black  transition-transform duration-200 ease-linear z-[10] ${
         acceptedRidePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <h1 className="text-white  text-2xl font-bold tracking-wider">
+      <h1 className="text-white text-2xl font-bold tracking-wider">
         Ride Accepted
       </h1>
       <div className="w-full flex flex-col items-start justify-between gap-5">
@@ -19,27 +19,33 @@ const RideAccepted = ({ acceptedRidePanel, acceptedRide }) => {
             className="w-11 h-11 rounded-full bg-black px-1 py-1"
           />
           <p className="text-gray-100 text-base font-medium tracking-normal leading-5 ">
-            {acceptedRide?.captain?.fullname?.firstname +
+            {/* {acceptedRide?.captain?.fullname?.firstname +
               " " +
-              acceptedRide?.captain?.fullname?.lastname}
+              acceptedRide?.captain?.fullname?.lastname} */}
+            Lorem, ipsum.
           </p>
         </div>
         <div className="grid grid-cols-3 w-full gap-2">
-          <div className="flex flex-col items-center justify-center  px-3 py-3 bg-zinc-900 rounded-lg">
+          <div className="flex flex-col items-center justify-center  px-3 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
             <h4 className="text-gray-200 text-lg">Plate No</h4>
             <p className="text-gray-100 tracking-wider">
-              {acceptedRide?.captain?.vehicle?.plate}
+              {/* {acceptedRide?.captain?.vehicle?.plate} */}
+              123MY 656TY
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center px-3 py-3 bg-zinc-900 rounded-lg">
+          <div className="flex flex-col items-center justify-center px-3 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
             <h4 className="text-gray-200 text-lg">Vehicle</h4>
             <p className="text-gray-100 tracking-wider">
-              {acceptedRide?.captain?.vehicle?.vehicleType}
+              {/* {acceptedRide?.captain?.vehicle?.vehicleType} */}
+              Bike
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center px-3 py-3 bg-zinc-900 rounded-lg">
+          <div className="flex flex-col items-center justify-center px-3 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
             <h4 className="text-gray-200 text-lg">OTP</h4>
-            <p className="text-gray-100 tracking-wider">{acceptedRide?.otp}</p>
+            <p className="text-gray-100 tracking-wider">
+              {/* {acceptedRide?.otp} */}
+              798798
+            </p>
           </div>
         </div>
       </div>
@@ -50,7 +56,8 @@ const RideAccepted = ({ acceptedRidePanel, acceptedRide }) => {
           </div>
         </div>
         <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-6">
-          {acceptedRide?.pickup}
+          {/* {acceptedRide?.pickup} */}
+          Lorem ipsum dolor sit amet.
         </p>
       </div>
       <div className="w-full flex items-center gap-2">
@@ -60,17 +67,20 @@ const RideAccepted = ({ acceptedRidePanel, acceptedRide }) => {
           </div>
         </div>
         <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-6">
-          {acceptedRide?.destination}
+          {/* {acceptedRide?.destination} */}
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex,
+          voluptates.
         </p>
       </div>
 
       <div className="flex items-center justify-around w-full gap-3">
         <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
         <p className="text-white text-start w-full text-xl font-medium ">
-          PKR {acceptedRide?.fare}
+          {/* PKR {acceptedRide?.fare} */}
+          PKR 400
         </p>
       </div>
-      <Button label={"Find a Driver"} colors={"bg-[#C1F11D]"} />
+      <Button label={"OTP 123456"} colors={"bg-[#C1F11D]"} />
     </div>
   );
 };

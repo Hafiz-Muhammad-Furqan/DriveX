@@ -16,7 +16,7 @@ const ChooseVehicle = ({
 
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-0 gap-4 py-4 rounded-t-2xl bg-black transition-transform duration-200 ease-linear z-[10] ${
+      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-0 gap-4 py-4 rounded-t-2xl bg-black transition-transform duration-200 ease-linear z-[10] ${
         vehiclePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
@@ -27,7 +27,7 @@ const ChooseVehicle = ({
         {vehicle.map((vehicle, index) => (
           <React.Fragment key={index}>
             <div
-              className="w-full py-3 px-2 rounded-lg flex gap-2 items-center justify-center border-2 border-gray-300 cursor-pointer"
+              className="w-full py-3 px-2 rounded-lg flex gap-4 items-center justify-center border-2 border-zinc-500 cursor-pointer hover:bg-gray-950 hover:scale-[1.01] transition-all duration-200 ease-linear"
               onClick={() => {
                 setVehicle(vehicle.text);
                 setVehiclePanel(false);

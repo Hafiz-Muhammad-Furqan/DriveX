@@ -52,7 +52,7 @@ const UserDashboard = () => {
   });
 
   return (
-    <div className="relative flex-1 w-full flex items-center flex-col overflow-x-hidden">
+    <div className="relative flex-1 w-full flex items-center flex-col overflow-hidden">
       <div
         className={`w-full h-full transition-opacity duration-300 ${
           locationPanel ? "opacity-50" : ""

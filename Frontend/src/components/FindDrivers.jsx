@@ -10,12 +10,12 @@ const FindDrivers = ({
 }) => {
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-4 gap-5 py-4 rounded-t-3xl  bg-black  transition-transform duration-200 ease-linear z-[10] ${
+      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-5 py-4 rounded-t-3xl  bg-black  transition-transform duration-200 ease-linear z-[10] ${
         findDriverPanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
       <h1 className="text-white text-2xl font-semibold tracking-wide">
-        Finding drivers...
+        Sending orders to driver
       </h1>
       <div className="loader"></div>
       <div className="w-full flex items-center gap-2">
@@ -24,7 +24,9 @@ const FindDrivers = ({
             <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
           </div>
           <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-8">
-            {locations.pickUpLocation}
+            {/* {locations.pickUpLocation} */}
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor,
+            quisquam!
           </p>
         </div>
       </div>
@@ -35,7 +37,9 @@ const FindDrivers = ({
           </div>
           <div>
             <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-8">
-              {locations.destination}
+              {/* {locations.destination} */}
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Asperiores, mollitia.
             </p>
           </div>
         </div>
@@ -44,13 +48,14 @@ const FindDrivers = ({
         <div className="flex items-center justify-around w-full gap-3">
           <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
           <p className="text-white text-start w-full text-xl font-medium ">
-            {fare && `PKR ${Math.round(fare[vehicle])}`}
+            {/* {fare && `PKR ${Math.round(fare[vehicle])}`} */}
+            PKR 400
           </p>
         </div>
       </div>
       <Button
         label={"Cancel Request"}
-        colors={"bg-gray-700 text-red-400"}
+        colors={"bg-gray-600 text-red-500"}
         onclick={() => {
           setCancelRequestPanel(true);
           setFindDriverPanel(false);

@@ -97,9 +97,9 @@ const LocationPanel = ({
 
   return (
     <div
-      className={`w-full rounded-t-3xl h-[99dvh] flex items-center flex-col transition-transform duration-200 ease-linear z-[10] ${
+      className={`w-full rounded-t-3xl h-[98%] flex items-center flex-col transition-transform duration-200 ease-linear z-[10] ${
         locationPanel ? "translate-y-0" : "translate-y-full"
-      } bg-[#141414] fixed bottom-0`}
+      } bg-[#141414] absolute bottom-0`}
     >
       {fetchingFare ? (
         <div className="w-full h-full flex items-center justify-center">

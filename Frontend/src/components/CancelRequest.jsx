@@ -7,7 +7,7 @@ const CancelRequest = ({
 }) => {
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-4 gap-5 py-3 rounded-t-3xl  bg-black transition-transform duration-200 ease-linear z-[10] ${
+      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-5 py-3 rounded-t-3xl  bg-black transition-transform duration-200 ease-linear z-[10] ${
         cancelRequestPanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
@@ -24,7 +24,7 @@ const CancelRequest = ({
       />
       <Button
         label={"Cancel Request"}
-        colors={"text-red-400 bg-gray-700"}
+        colors={"text-red-500 bg-gray-600"}
         onclick={() => {
           window.location.reload();
         }}
