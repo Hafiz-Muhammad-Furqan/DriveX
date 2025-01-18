@@ -36,7 +36,7 @@ const OtpPanel = ({
   };
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-1 gap-3 py-3 rounded-t-3xl bg-black transition-transform duration-200 ease-linear  ${
+      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-1 gap-3 py-3 rounded-t-3xl bg-black transition-transform duration-200 ease-linear  ${
         otpPanel ? "translate-y-0" : "translate-y-full"
       } `}
     >

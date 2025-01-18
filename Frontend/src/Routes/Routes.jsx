@@ -7,7 +7,7 @@ import DriverSignup from "../Pages/DriverSignup";
 import DriverSignin from "../Pages/DriverSignin";
 import UserDashboard from "../Pages/UserDashboard";
 import DriverDashboard from "../Pages/DriverDashboard";
-import AllRides from "../Components/AllRides";
+import TestRides from "../Components/TestRides";
 import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
 
 const router = createBrowserRouter([
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
     path: "/driver/rides",
     element: (
       <ProtectedRouteWrapper>
-        <AllRides />
+        <TestRides />
       </ProtectedRouteWrapper>
     ),
   },

@@ -20,7 +20,7 @@ const ConfirmFinishRide = ({ finishRidePanel, ridingData }) => {
 
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col fixed bottom-0 px-4 gap-3 py-3 rounded-t-3xl bg-black transition-transform ease-linear duration-200 ${
+      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-3 py-3 rounded-t-3xl bg-black transition-transform ease-linear duration-200 ${
         finishRidePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >

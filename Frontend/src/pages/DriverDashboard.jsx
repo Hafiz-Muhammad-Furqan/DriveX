@@ -36,15 +36,7 @@ const DriverDashboard = () => {
   });
 
   return (
-    <div className="h-[100dvh] w-full flex items-center flex-col relative">
-      <div className="w-full h-full transition-opacity duration-300 ">
-        <img
-          src="/Images/Map.webp"
-          alt="map"
-          className="w-full h-full object-cover bg-center"
-        />
-      </div>
-      <SideBar />
+    <>
       <RideRequest
         newRide={newRide}
         user={user}
@@ -52,24 +44,35 @@ const DriverDashboard = () => {
         setRideRequestPanel={setRideRequestPanel}
         rideRequestPanel={rideRequestPanel}
       />
-      <DriverProfile user={user} profilePanel={profilePanel} />
-      <DriverRidePanel
-        ridePanel={ridePanel}
-        setFinishRidePanel={setFinishRidePanel}
-        setRidePanel={setRidePanel}
-      />
-      <ConfirmFinishRide
-        finishRidePanel={finishRidePanel}
-        ridingData={ridingData}
-      />
-      <OtpPanel
-        setOtpPanel={setOtpPanel}
-        otpPanel={otpPanel}
-        newRide={newRide}
-        setRidingData={setRidingData}
-        setRidePanel={setRidePanel}
-      />
-    </div>
+      <div className="relative flex-1 w-full flex items-center flex-col overflow-hidden ">
+        <div className="w-full h-full transition-opacity duration-300 ">
+          <img
+            src="/Images/Map.webp"
+            alt="map"
+            className="w-full h-full object-cover bg-center"
+          />
+        </div>
+        <SideBar />
+
+        <DriverProfile user={user} profilePanel={profilePanel} />
+        <DriverRidePanel
+          ridePanel={ridePanel}
+          setFinishRidePanel={setFinishRidePanel}
+          setRidePanel={setRidePanel}
+        />
+        <ConfirmFinishRide
+          finishRidePanel={finishRidePanel}
+          ridingData={ridingData}
+        />
+        <OtpPanel
+          setOtpPanel={setOtpPanel}
+          otpPanel={otpPanel}
+          newRide={newRide}
+          setRidingData={setRidingData}
+          setRidePanel={setRidePanel}
+        />
+      </div>
+    </>
   );
 };
 
