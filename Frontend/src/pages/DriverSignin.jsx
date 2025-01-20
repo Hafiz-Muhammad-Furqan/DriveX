@@ -1,17 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import Btn1 from "../Components/Button";
 import Input from "../Components/Input";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  authenticationFailed,
-  authenticationStart,
-  authenticationSuccess,
-} from "../Slices/UserSlice";
 import showToast from "../Utilities/Toast";
 import axios from "axios";
 
 const DriverSignin = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [signinData, setSigninData] = useState({
     email: "",
     password: "",
@@ -31,15 +26,12 @@ const DriverSignin = () => {
   ];
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (error) {
       showToast(error);
-      dispatch(authenticationFailed(null));
     }
-  }, [error, dispatch]);
+  }, [error]);
 
   const handleInputChange = (event) => {
     setSigninData({ ...signinData, [event.target.name]: event.target.value });
@@ -48,14 +40,14 @@ const DriverSignin = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = signinData;
-    if (email.trim() === "" || password.trim() === "") {
+    if (!email.trim() || !password.trim()) {
       showToast("All fields are required");
       return;
     } else if (password.length < 6) {
       showToast("Password must be at least 6 characters");
       return;
     }
-    dispatch(authenticationStart());
+    setLoading(true);
     const driver = {
       email,
       password,
@@ -66,10 +58,15 @@ const DriverSignin = () => {
         driver
       );
       localStorage.setItem("driverToken", response.data.token);
-      dispatch(authenticationSuccess(response.data.captain));
+      setLoading(false);
       navigate("/driver/dashboard");
     } catch (error) {
-      dispatch(authenticationFailed(error.message));
+      setLoading(false);
+      if (error.response.data.message === "Invalid email or password") {
+        setError("Invalid email or password");
+        return;
+      }
+      setError(error.message);
     }
   };
   return (
@@ -85,15 +82,14 @@ const DriverSignin = () => {
         onSubmit={handleSubmit}
       >
         {inputs.map((input, index) => (
-          <React.Fragment key={index}>
-            <Input
-              placeholder={input.placeholder}
-              type={input.type}
-              name={input.name}
-              value={signinData[input.name]}
-              onChange={handleInputChange}
-            />
-          </React.Fragment>
+          <Input
+            key={index}
+            placeholder={input.placeholder}
+            type={input.type}
+            name={input.name}
+            value={signinData[input.name]}
+            onChange={handleInputChange}
+          />
         ))}
         <div className="w-full flex gap-1 justify-center ">
           <p className="text-white">Don't have an account? </p>

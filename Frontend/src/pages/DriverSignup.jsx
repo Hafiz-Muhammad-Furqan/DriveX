@@ -1,17 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import React from "react";
 import Input from "../Components/Input";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  authenticationStart,
-  authenticationFailed,
-  authenticationSuccess,
-} from "../Slices/UserSlice";
 import { useEffect, useState } from "react";
 import showToast from "../Utilities/Toast";
 import axios from "axios";
 
 const DriverSignup = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [signupData, setSignupData] = useState({
     firstname: "",
     lastname: "",
@@ -56,15 +51,12 @@ const DriverSignup = () => {
   ];
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (error) {
       showToast(error);
-      dispatch(authenticationFailed(null));
     }
-  }, [error, dispatch]);
+  }, [error]);
 
   const handleInputChange = (event) => {
     setSignupData({ ...signupData, [event.target.name]: event.target.value });
@@ -72,7 +64,6 @@ const DriverSignup = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(signupData);
 
     const {
       firstname,
@@ -84,13 +75,13 @@ const DriverSignup = () => {
       vehicle,
     } = signupData;
     if (
-      firstname.trim() === "" ||
-      lastname.trim() === "" ||
-      email.trim() === "" ||
-      password.trim() === "" ||
-      plateNumber.trim() === "" ||
-      capacity.trim() === "" ||
-      vehicle.trim() === ""
+      !firstname.trim() ||
+      !lastname.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !plateNumber.trim() ||
+      !capacity.trim() ||
+      !vehicle.trim()
     ) {
       showToast("All fields are required");
       return;
@@ -98,7 +89,7 @@ const DriverSignup = () => {
       showToast("Password must be at least 6 characters ");
       return;
     }
-    dispatch(authenticationStart());
+    setLoading(true);
     const driver = {
       fullname: {
         firstname,
@@ -118,10 +109,15 @@ const DriverSignup = () => {
         driver
       );
       localStorage.setItem("driverToken", response.data.token);
-      dispatch(authenticationSuccess(response.data.captain));
+      setLoading(false);
       navigate("/driver/dashboard");
     } catch (error) {
-      dispatch(authenticationFailed(error.message));
+      setLoading(false);
+      if (error.response.data.message === "Captain already exists") {
+        setError("Driver already exists");
+        return;
+      }
+      setError(error.message);
     }
   };
 
@@ -138,15 +134,14 @@ const DriverSignup = () => {
         onSubmit={handleSubmit}
       >
         {inputs.map((input, index) => (
-          <React.Fragment key={index}>
-            <Input
-              placeholder={input.placeholder}
-              type={input.type}
-              name={input.name}
-              value={signupData[input.name]}
-              onChange={handleInputChange}
-            />
-          </React.Fragment>
+          <Input
+            key={index}
+            placeholder={input.placeholder}
+            type={input.type}
+            name={input.name}
+            value={signupData[input.name]}
+            onChange={handleInputChange}
+          />
         ))}
         <select
           className="border-[2px] border-white bg-zinc-700 text-white w-[95%] rounded-lg py-3 px-3 font-light outline-none"

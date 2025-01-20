@@ -11,7 +11,7 @@ module.exports.registerCaptain = async (req, res) => {
   const { fullname, email, password, vehicle } = req.body;
   const captainExists = await captainModel.findOne({ email });
   if (captainExists) {
-    return res.status(400).json({ error: "Captain already exists" });
+    return res.status(400).json({ message: "Captain already exists" });
   }
 
   const hashedPassword = await captainModel.hashPassword(password);
@@ -40,11 +40,11 @@ module.exports.loginCaptain = async (req, res) => {
   const { email, password } = req.body;
   const captain = await captainModel.findOne({ email }).select("+password");
   if (!captain) {
-    return res.status(401).json({ error: "Invalid email or password" });
+    return res.status(401).json({ message: "Invalid email or password" });
   }
   const isMatch = await captain.comparePassword(password);
   if (!isMatch) {
-    return res.status(401).json({ error: "Invalid email or password" });
+    return res.status(401).json({ message: "Invalid email or password" });
   }
   const token = captain.generateAuthToken();
   res.cookie("token", token);

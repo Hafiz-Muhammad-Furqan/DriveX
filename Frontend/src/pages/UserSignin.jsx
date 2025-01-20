@@ -1,16 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../Components/Input";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import showToast from "../Utilities/Toast";
 import axios from "axios";
-import {
-  authenticationStart,
-  authenticationFailed,
-  authenticationSuccess,
-} from "../Slices/UserSlice";
 
 const UserSignin = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [signinData, setSigninData] = useState({
     email: "",
     password: "",
@@ -30,15 +26,12 @@ const UserSignin = () => {
   ];
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (error) {
       showToast(error);
-      dispatch(authenticationFailed(null));
     }
-  }, [error, dispatch]);
+  }, [error]);
 
   const handleInputChange = (event) => {
     setSigninData({ ...signinData, [event.target.name]: event.target.value });
@@ -47,14 +40,14 @@ const UserSignin = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = signinData;
-    if (email.trim() === "" || password.trim() === "") {
+    if (!email.trim() || !password.trim()) {
       showToast("All fields are required");
       return;
     } else if (password.length < 6) {
       showToast("Password must be at least 6 characters");
       return;
     }
-    dispatch(authenticationStart());
+    setLoading(true);
     const user = {
       email,
       password,
@@ -65,10 +58,14 @@ const UserSignin = () => {
         user
       );
       localStorage.setItem("userToken", response.data.token);
-      dispatch(authenticationSuccess(response.data.user));
       navigate("/user/dashboard");
     } catch (error) {
-      dispatch(authenticationFailed(error.message));
+      setLoading(false);
+      if (error.response.data.message === "Invalid email or password") {
+        showToast("Invalid email or password");
+        return;
+      }
+      setError(error.message);
     }
   };
   return (
@@ -84,15 +81,14 @@ const UserSignin = () => {
         onSubmit={handleSubmit}
       >
         {inputs.map((input, index) => (
-          <React.Fragment key={index}>
-            <Input
-              placeholder={input.placeholder}
-              type={input.type}
-              name={input.name}
-              value={signinData[input.name]}
-              onChange={handleInputChange}
-            />
-          </React.Fragment>
+          <Input
+            key={index}
+            placeholder={input.placeholder}
+            type={input.type}
+            name={input.name}
+            value={signinData[input.name]}
+            onChange={handleInputChange}
+          />
         ))}
         <div className="w-full flex gap-1 justify-center ">
           <p className="text-white"> Don't have an account?</p>

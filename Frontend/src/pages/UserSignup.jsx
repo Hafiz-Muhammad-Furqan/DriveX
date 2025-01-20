@@ -3,15 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../Components/Input";
 import { useState } from "react";
 import showToast from "../Utilities/Toast";
-import {
-  authenticationStart,
-  authenticationFailed,
-  authenticationSuccess,
-} from "../Slices/UserSlice";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
 const UserSignup = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [signupData, setSignupData] = useState({
     firstname: "",
     lastname: "",
@@ -43,13 +39,10 @@ const UserSignup = () => {
   ];
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (error) {
       showToast(error);
-      dispatch(authenticationFailed(null));
     }
   }, [error]);
 
@@ -61,10 +54,10 @@ const UserSignup = () => {
     event.preventDefault();
     const { firstname, lastname, email, password } = signupData;
     if (
-      firstname.trim() === "" ||
-      lastname.trim() === "" ||
-      email.trim() === "" ||
-      password.trim() === ""
+      !firstname.trim() ||
+      !lastname.trim() ||
+      !email.trim() ||
+      !password.trim()
     ) {
       showToast("All fields are required");
       return;
@@ -72,7 +65,7 @@ const UserSignup = () => {
       showToast("Password must be at least 6 characters ");
       return;
     }
-    dispatch(authenticationStart());
+    setLoading(true);
     const user = {
       fullname: {
         firstname,
@@ -86,11 +79,17 @@ const UserSignup = () => {
         `${import.meta.env.VITE_API_BASE_URL}/users/register`,
         user
       );
+
       localStorage.setItem("userToken", response.data.token);
-      dispatch(authenticationSuccess(response.data.user));
+      setLoading(false);
       navigate("/user/dashboard");
     } catch (error) {
-      dispatch(authenticationFailed(error.message));
+      setLoading(false);
+      if (error.response.data.message === "User already exists") {
+        showToast("User already exists");
+        return;
+      }
+      setError(error.message);
     }
   };
 
@@ -107,15 +106,14 @@ const UserSignup = () => {
         onSubmit={handleSubmit}
       >
         {inputs.map((input, index) => (
-          <React.Fragment key={index}>
-            <Input
-              type={input.type}
-              placeholder={input.placeholder}
-              name={input.name}
-              value={signupData[input.name]}
-              onChange={handleInputChange}
-            />
-          </React.Fragment>
+          <Input
+            key={index}
+            type={input.type}
+            placeholder={input.placeholder}
+            name={input.name}
+            value={signupData[input.name]}
+            onChange={handleInputChange}
+          />
         ))}
         <div className="w-full flex gap-1 justify-center ">
           <p className="text-white">Already have an account? </p>
