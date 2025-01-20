@@ -27,12 +27,14 @@ module.exports.createRide = async (req, res) => {
       .findOne({ _id: ride._id })
       .populate("user");
 
-    captainRadius.map((captain) => {
-      sendMessageToSockedId(captain.socketId, {
-        event: "new-ride",
-        data: rideWithUser,
+    captainRadius
+      .filter((captain) => captain.vehicle.vehicleType === vehicleType)
+      .map((captain) => {
+        sendMessageToSockedId(captain.socketId, {
+          event: "new-ride",
+          data: rideWithUser,
+        });
       });
-    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

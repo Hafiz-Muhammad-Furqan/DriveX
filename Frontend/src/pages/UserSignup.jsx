@@ -85,6 +85,11 @@ const UserSignup = () => {
       navigate("/user/dashboard");
     } catch (error) {
       setLoading(false);
+      if (error.response && error.response.data.errors) {
+        const validationErrors = error.response.data.errors;
+        showToast(validationErrors[0].msg);
+        return;
+      }
       if (error.response.data.message === "User already exists") {
         showToast("User already exists");
         return;

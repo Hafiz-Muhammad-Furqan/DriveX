@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import fetchFare from "../Utilities/getFare";
 import Button from "./Button";
+import showToast from "../Utilities/Toast";
 
 const UserRidePanel = ({
   setLocationPanel,
@@ -36,7 +37,7 @@ const UserRidePanel = ({
         })
         .catch((error) => {
           setFetchingFare(false);
-          toast.error("Error fetching fare");
+          showToast("Error fetching fare");
         });
     }
   };

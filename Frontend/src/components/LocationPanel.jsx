@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import fetchFare from "../Utilities/getFare";
 import { toast } from "react-toastify";
+import showToast from "../Utilities/Toast";
 
 const LocationPanel = ({
   locationPanel,
@@ -45,13 +46,11 @@ const LocationPanel = ({
       );
       setLocationSuggestions(response.data);
     } catch (error) {
-      console.error("Error fetching locations", error);
-      toast.error("Failed to fetch location suggestions.");
+      showToast("Failed to fetch location suggestions.");
     } finally {
       setFetchSuggestions(false);
     }
   };
-
   const debouncedFetch = useDebounce(getLocationsFromApi, 500);
 
   const handleLocations = (value, element) => {

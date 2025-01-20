@@ -9,6 +9,8 @@ import UserDashboard from "../Pages/UserDashboard";
 import DriverDashboard from "../Pages/DriverDashboard";
 import TestRides from "../Components/TestRides";
 import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
+import RideRequest from "../Components/RideRequest";
+import { RideProvider } from "../context/RideContext";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +49,9 @@ const router = createBrowserRouter([
     path: "/driver/dashboard",
     element: (
       <ProtectedRouteWrapper>
-        <DriverDashboard />
+        <RideProvider>
+          <DriverDashboard />
+        </RideProvider>
       </ProtectedRouteWrapper>
     ),
   },
@@ -55,7 +59,9 @@ const router = createBrowserRouter([
     path: "/driver/rides",
     element: (
       <ProtectedRouteWrapper>
-        <TestRides />
+        <RideProvider>
+          <RideRequest />
+        </RideProvider>
       </ProtectedRouteWrapper>
     ),
   },

@@ -24,9 +24,7 @@ const FindDrivers = ({
             <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
           </div>
           <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-8">
-            {/* {locations.pickUpLocation} */}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor,
-            quisquam!
+            {locations.pickUpLocation}
           </p>
         </div>
       </div>
@@ -37,9 +35,7 @@ const FindDrivers = ({
           </div>
           <div>
             <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-8">
-              {/* {locations.destination} */}
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Asperiores, mollitia.
+              {locations.destination}
             </p>
           </div>
         </div>
@@ -48,8 +44,7 @@ const FindDrivers = ({
         <div className="flex items-center justify-around w-full gap-3">
           <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
           <p className="text-white text-start w-full text-xl font-medium ">
-            {/* {fare && `PKR ${Math.round(fare[vehicle])}`} */}
-            PKR 400
+            {fare && `PKR ${Math.round(fare[vehicle])}`}
           </p>
         </div>
       </div>

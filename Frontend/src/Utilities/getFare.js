@@ -1,4 +1,5 @@
 import axios from "axios";
+import showToast from "./Toast";
 
 const fetchFare = async (locations) => {
   console.log(locations);
@@ -16,10 +17,9 @@ const fetchFare = async (locations) => {
         },
       }
     );
-    console.log(fare.data);
     return fare.data;
   } catch (error) {
-    console.error("Failed to fetch fare:", error.message);
+    showToast("Error fetching fare please try later");
   }
 };
 

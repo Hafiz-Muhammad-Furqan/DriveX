@@ -6,12 +6,14 @@ import FindDrivers from "../Components/FindDrivers";
 import CancelRequest from "../Components/CancelRequest";
 import UserRidePanel from "../Components/UserRidePanel";
 import ChooseVehicle from "../Components/ChooseVehicle";
-import { useSelector } from "react-redux";
 import { sendMessage, socket } from "../Utilities/socket";
 import RideAccepted from "../Components/RideAccepted";
 import StartRide from "../Components/startRide";
+import { useAuth } from "../context/AuthContext";
 
 const UserDashboard = () => {
+  const { user } = useAuth();
+
   const [locationPanel, setLocationPanel] = useState(false);
   const [confirmRidePanel, setConfirmRidePanel] = useState(false);
   const [userRidePanel, setUserRidePanel] = useState(true);
@@ -25,7 +27,6 @@ const UserDashboard = () => {
   const [startRidePanel, setStartRidePanel] = useState(false);
   const [vehicle, setVehicle] = useState(null);
   const [fare, setFare] = useState(null);
-  const user = useSelector((state) => state.user.user);
   const [locations, setLocations] = useState({
     pickUpLocation: "",
     destination: "",

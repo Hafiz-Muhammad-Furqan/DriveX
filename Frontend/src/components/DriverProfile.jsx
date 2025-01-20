@@ -3,11 +3,10 @@ import Button from "./Button";
 const DriverProfile = ({ user, profilePanel }) => {
   const { fullname } = user;
   const { firstname, lastname } = fullname;
-  console.log(user);
 
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-2 gap-3 py-3 pb-4 rounded-t-3xl bg-black transition-transform duration-200 ease-linear ${
+      className={`w-[500px] flex justify-center items-center flex-col absolute bottom-0 px-2 gap-3 py-3 pb-4 rounded-t-3xl bg-black transition-transform duration-200 ease-linear ${
         profilePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >

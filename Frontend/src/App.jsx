@@ -1,16 +1,15 @@
 import Routes from "./Routes/Routes";
-import { Provider } from "react-redux";
-import { store } from "./Store/Store";
 import { ToastContainer, Bounce } from "react-toastify";
 import { useEffect } from "react";
 import { socketConnection } from "./Utilities/socket";
+import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
   useEffect(() => {
     socketConnection();
   }, []);
   return (
-    <Provider store={store}>
+    <AuthProvider>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -25,7 +24,7 @@ const App = () => {
         transition={Bounce}
       />
       <Routes />
-    </Provider>
+    </AuthProvider>
   );
 };
 

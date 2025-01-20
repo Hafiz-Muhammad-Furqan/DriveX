@@ -1,14 +1,13 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setUser } from "../Slices/UserSlice";
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const ProtectedRouteWrapper = ({ children }) => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { setUser } = useAuth();
   const [loading, setLoading] = useState(true);
   const [userToken] = useState(() => localStorage.getItem("userToken"));
   const [driverToken] = useState(() => localStorage.getItem("driverToken"));
@@ -22,13 +21,10 @@ const ProtectedRouteWrapper = ({ children }) => {
       });
 
       if (response.status === 200) {
-        dispatch(
-          setUser(userType === "user" ? response.data : response.data.captain)
-        );
+        setUser(userType === "user" ? response.data : response.data.captain);
         setLoading(false);
       }
     } catch (error) {
-      console.error(`Error fetching ${userType} profile:`, error);
       localStorage.removeItem(
         userType === "user" ? "userToken" : "driverToken"
       );
@@ -56,12 +52,12 @@ const ProtectedRouteWrapper = ({ children }) => {
           : navigate("/user/signin");
       }
     }
-  }, [userToken, driverToken, dispatch, navigate, location.pathname]);
+  }, [userToken, driverToken, navigate, location.pathname]);
 
   return (
     <>
       {loading ? (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center flex-1">
           <div className="loader2"></div>
         </div>
       ) : (
