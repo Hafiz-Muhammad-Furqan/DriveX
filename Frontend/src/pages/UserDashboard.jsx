@@ -11,6 +11,7 @@ import RideAccepted from "../Components/RideAccepted";
 import StartRide from "../Components/startRide";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import showToast from "../Utilities/Toast";
 
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -20,14 +21,14 @@ const UserDashboard = () => {
   const [userRidePanel, setUserRidePanel] = useState(true);
   const [findDriverPanel, setFindDriverPanel] = useState(false);
   const [acceptedRidePanel, setAcceptedRidePanel] = useState(false);
-  const [acceptedRide, setAcceptedRide] = useState(false);
+  const [acceptedRide, setAcceptedRide] = useState(null);
+  const [createdRide, setCreatedRide] = useState(null);
   const [cancelRequestPanel, setCancelRequestPanel] = useState(false);
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [fetchingFare, setFetchingFare] = useState(false);
   const [startRide, setStartRide] = useState(false);
   const [startRidePanel, setStartRidePanel] = useState(false);
   const [vehicle, setVehicle] = useState(null);
-  const [cancelRide, setCancelRide] = useState(null);
   const [fare, setFare] = useState(null);
   const [locations, setLocations] = useState({
     pickUpLocation: "",
@@ -51,17 +52,7 @@ const UserDashboard = () => {
   });
 
   socket.on("ride-finished", (data) => {
-    toast.success("Ride Finished!", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      transition: Bounce,
-    });
+    showToast("Ride Finished successfully", "success");
     window.location.reload();
   });
 
@@ -107,7 +98,7 @@ const UserDashboard = () => {
         fare={fare}
         vehicle={vehicle}
         locations={locations}
-        setCancelRide={setCancelRide}
+        setCreatedRide={setCreatedRide}
       ></ConfirmRide>
       <FindDrivers
         setFindDriverPanel={setFindDriverPanel}
@@ -121,7 +112,7 @@ const UserDashboard = () => {
         setCancelRequestPanel={setCancelRequestPanel}
         cancelRequestPanel={cancelRequestPanel}
         setFindDriverPanel={setFindDriverPanel}
-        cancelRide={cancelRide}
+        createdRide={createdRide}
       ></CancelRequest>
       <ChooseVehicle
         setVehiclePanel={setVehiclePanel}

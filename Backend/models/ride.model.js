@@ -27,25 +27,14 @@ const rideSchema = new mongoose.Schema({
     default: "pending",
     enum: ["pending", "accepted", " ongoing", "completed", "cancelled"],
   },
-  duration: {
-    type: Number,
-  },
-  distance: {
-    type: Number,
-  },
-  paymentID: {
-    type: String,
-  },
-  orderID: {
-    type: String,
-  },
-  signature: {
-    type: String,
-  },
   otp: {
     type: String,
     select: false,
     required: true,
+  },
+  captainsNotified: {
+    type: [],
+    default: [],
   },
 });
 

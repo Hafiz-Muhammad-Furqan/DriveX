@@ -25,19 +25,19 @@ const RideAccepted = ({ acceptedRidePanel, acceptedRide }) => {
           </p>
         </div>
         <div className="grid grid-cols-3 w-full gap-2">
-          <div className="flex flex-col items-center justify-center  px-3 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
+          <div className="flex flex-col items-center justify-center  px-1 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
             <h4 className="text-gray-200 text-lg">Plate No</h4>
-            <p className="text-gray-100 tracking-wider">
+            <p className="text-gray-100 tracking-wider text-center">
               {acceptedRide?.captain?.vehicle?.plate}
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center px-3 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
+          <div className="flex flex-col items-center justify-center px-1 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
             <h4 className="text-gray-200 text-lg">Vehicle</h4>
             <p className="text-gray-100 tracking-wider">
               {acceptedRide?.captain?.vehicle?.vehicleType}
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center px-3 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
+          <div className="flex flex-col items-center justify-center px-1 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
             <h4 className="text-gray-200 text-lg">OTP</h4>
             <p className="text-gray-100 tracking-wider">{acceptedRide?.otp}</p>
           </div>
@@ -70,7 +70,7 @@ const RideAccepted = ({ acceptedRidePanel, acceptedRide }) => {
           PKR {acceptedRide?.fare}
         </p>
       </div>
-      <Button label={`OTP ${acceptedRide.otp}`} colors={"bg-[#C1F11D]"} />
+      <Button label={`OTP ${acceptedRide?.otp}`} colors={"bg-[#C1F11D]"} />
     </div>
   );
 };

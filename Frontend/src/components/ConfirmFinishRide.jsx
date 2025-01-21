@@ -1,7 +1,12 @@
 import axios from "axios";
 import Button from "./Button";
 
-const ConfirmFinishRide = ({ finishRidePanel, ridingData }) => {
+const ConfirmFinishRide = ({
+  finishRidePanel,
+  ridingData,
+  setRidePanel,
+  setFinishRidePanel,
+}) => {
   const finishRide = async () => {
     await axios.post(
       `${import.meta.env.VITE_API_BASE_URL}/rides/finish-ride`,
@@ -59,7 +64,14 @@ const ConfirmFinishRide = ({ finishRidePanel, ridingData }) => {
           colors={"bg-[#C1F11D]"}
           onclick={finishRide}
         />
-        <Button label={"Close"} colors={"text-white bg-zinc-600"} />
+        <Button
+          label={"Close"}
+          colors={"text-white bg-zinc-600"}
+          onclick={() => {
+            setRidePanel(true);
+            setFinishRidePanel(false);
+          }}
+        />
       </div>
     </div>
   );

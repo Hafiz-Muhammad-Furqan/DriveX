@@ -15,6 +15,7 @@ const RideRequest = () => {
   useEffect(() => {
     if (error) {
       showToast(error);
+      setError(null);
     }
   }, [error]);
 
@@ -76,13 +77,19 @@ const RideRequest = () => {
             </div>
             <div className="w-full flex items-center justify-start flex-col gap-2">
               <div className="w-full rounded-lg flex gap-2 items-center justify-start">
-                <i className="ri-map-pin-line text-xl text-gray-400"></i>
-                <p className="text-gray-300 font-semibold">To:</p>
+                <div className="relative">
+                  <div className=" absolute top-0 left-0 h-[16px] w-[16px] rounded-full bg-[#C0F11C] flex items-center justify-center">
+                    <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
+                  </div>
+                </div>
                 <p className="text-white text-lg pl-1">{ride?.pickup}</p>
               </div>
               <div className="w-full gap-2 rounded-lg flex items-center justify-start">
-                <i className="ri-map-pin-line text-xl text-gray-400"></i>
-                <p className="text-gray-300 font-semibold">From:</p>
+                <div className="relative">
+                  <div className=" absolute top-0 left-0 h-[16px] w-[16px] rounded-full bg-red-500 flex items-center justify-center">
+                    <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
+                  </div>
+                </div>
                 <p className="text-white text-lg pl-1">{ride?.destination}</p>
               </div>
               <div className="w-full flex items-center justify-start gap-3 pb-3 pt-2">

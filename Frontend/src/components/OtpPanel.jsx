@@ -10,6 +10,7 @@ const OtpPanel = ({ otpPanel, setOtpPanel, setRidePanel, ridingData }) => {
   useEffect(() => {
     if (error) {
       showToast(error);
+      setError(null);
     }
   }, [error]);
   const handleSubmit = async () => {

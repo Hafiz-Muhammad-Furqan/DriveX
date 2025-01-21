@@ -55,6 +55,7 @@ const DriverSignup = () => {
   useEffect(() => {
     if (error) {
       showToast(error);
+      setError(null);
     }
   }, [error]);
 

@@ -30,6 +30,7 @@ const DriverSignin = () => {
   useEffect(() => {
     if (error) {
       showToast(error);
+      setError(null);
     }
   }, [error]);
 

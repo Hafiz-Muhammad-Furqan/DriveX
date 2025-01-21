@@ -3,7 +3,10 @@ import io from "socket.io-client";
 const socket = io(import.meta.env.VITE_API_BASE_URL);
 
 const socketConnection = () => {
+  console.log("hello");
+
   socket.on("connect", () => {
+    console.log("hi");
     console.log("Connected to the server");
   });
 

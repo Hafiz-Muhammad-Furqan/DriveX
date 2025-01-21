@@ -4,6 +4,8 @@ const { validationResult } = require("express-validator");
 const { sendMessageToSockedId } = require("../socket");
 const rideModel = require("../models/ride.model");
 
+const mongoose = require("mongoose");
+
 module.exports.createRide = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -18,24 +20,31 @@ module.exports.createRide = async (req, res) => {
       vehicleType,
       fare: Math.round(fare),
     });
-    res.status(201).json(ride);
+
     const pickupCoordinates = await mapService.getAddressCoordinate(pickup);
     const { ltd, lng } = pickupCoordinates;
     const captainRadius = await mapService.getCaptainsInRadius(ltd, lng, 5000);
-    ride.otp = "";
+
     const rideWithUser = await rideModel
       .findOne({ _id: ride._id })
       .populate("user");
 
-    captainRadius
+    const notifiedCaptains = captainRadius
       .filter((captain) => captain.vehicle.vehicleType === vehicleType)
       .map((captain) => {
         sendMessageToSockedId(captain.socketId, {
           event: "new-ride",
           data: rideWithUser,
         });
+        return captain._id.toString();
       });
+
+    ride.captainsNotified = notifiedCaptains;
+    await ride.save();
+
+    res.status(200).json(ride);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -113,6 +122,36 @@ module.exports.finishRide = async (req, res) => {
     res.status(200).json(ride);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports.cancelRide = async (req, res) => {
+  const { rideId } = req.params;
+
+  try {
+    const ride = await rideModel.findById(rideId);
+
+    if (!ride) {
+      return res.status(404).json({ message: "Ride not found" });
+    }
+
+    if (ride.status === "cancelled") {
+      return res.status(400).json({ message: "Ride is already cancelled" });
+    }
+
+    ride.status = "cancelled";
+    await ride.save();
+
+    ride.captainsNotified.forEach((captainId) => {
+      sendMessageToSockedId(captainId, {
+        event: "ride-cancelled",
+        data: { rideId },
+      });
+    });
+
+    res.status(200).json({ message: "Ride cancelled successfully" });
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };

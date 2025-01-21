@@ -10,12 +10,13 @@ const ConfirmRide = ({
   fare,
   locations,
   vehicle,
-  setCancelRide,
+  setCreatedRide,
 }) => {
-  const [error = setError] = useState(null);
+  const [error, setError] = useState(null);
   useEffect(() => {
     if (error) {
       showToast(error);
+      setError(null);
     }
   }, [error]);
   const findDrivers = async () => {
@@ -36,8 +37,9 @@ const ConfirmRide = ({
           },
         }
       );
-      setCancelRide(response);
+      setCreatedRide(response.data);
     } catch (error) {
+      console.log(error);
       if (error?.response && error?.response?.data?.errors) {
         const validationErrors = error.response.data.errors;
         setError(validationErrors[0].msg);

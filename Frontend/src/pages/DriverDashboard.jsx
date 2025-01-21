@@ -21,19 +21,19 @@ const DriverDashboard = () => {
   const { setOtpPanel, otpPanel } = useRideContext();
   useEffect(() => {
     setRidingData(rideData);
-  }, [setOtpPanel]);
-  useEffect(() => {
-    sendMessage("join", { userType: "captain", userId: user._id });
+  }, [rideData]);
 
+  useEffect(() => {
+    if (!user?._id) return;
     const locationInterval = setInterval(() => {
       console.log("helo");
-
       updateLocation(user._id);
     }, 10000);
     updateLocation(user._id);
-    return () => clearInterval(locationInterval);
-  }, []);
-
+    return () => {
+      clearInterval(locationInterval);
+    };
+  }, [user._id]);
   return (
     <div className="relative flex-1 w-full flex items-center flex-col overflow-hidden ">
       <div className="w-full h-full transition-opacity duration-300 ">
@@ -54,6 +54,8 @@ const DriverDashboard = () => {
       <ConfirmFinishRide
         finishRidePanel={finishRidePanel}
         ridingData={ridingData}
+        setRidePanel={setRidePanel}
+        setFinishRidePanel={setFinishRidePanel}
       />
       <OtpPanel
         setOtpPanel={setOtpPanel}

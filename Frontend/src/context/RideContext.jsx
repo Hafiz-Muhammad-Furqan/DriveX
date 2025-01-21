@@ -15,29 +15,36 @@ export const RideProvider = ({ children }) => {
   const navigate = useNavigate();
   const url = useLocation();
 
+  // useEffect(() => {
+  // console.log("newride cahala");
+
+  const handleNewRide = (data) => {
+    console.log("nmew ride");
+    setNewRides((prev) => [...prev, data]);
+
+    if (url.pathname !== "/driver/rides") {
+      navigate("/driver/rides");
+    }
+  };
+
+  socket.on("new-ride", handleNewRide);
+
+  // return () => {
+  //   socket.off("new-ride", handleNewRide);
+  // };
+  // }, [url.pathname, navigate, rides, setNewRides]);
+
   useEffect(() => {
-    console.log("chala");
-    const handleNewRide = (data) => {
-      console.log(data);
-      setNewRides((prev) => [...prev, data]);
-
-      // setTimeout(() => {
-      //   setNewRides((prevRides) =>
-      //     prevRides.filter((ride) => ride._id !== data._id)
-      //   );
-      // }, 15000);
-
-      if (url.pathname !== "/driver/rides") {
-        navigate("/driver/rides");
-      }
+    const handleCancelledRide = (data) => {
+      setNewRides((prev) => prev.filter((ride) => ride._id !== data._id));
     };
 
-    socket.on("new-ride", handleNewRide);
+    socket.on("ride-cancelled", handleCancelledRide);
 
     return () => {
-      socket.off("new-ride", handleNewRide);
+      socket.off("ride-cancelled", handleCancelledRide);
     };
-  }, [url.pathname, setNewRides, rides]);
+  }, []);
 
   return (
     <RideContext.Provider value={{ rides, setNewRides, otpPanel, setOtpPanel }}>
