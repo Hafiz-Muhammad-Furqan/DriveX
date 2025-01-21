@@ -4,11 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import showToast from "../Utilities/Toast";
 import axios from "axios";
-import {
-  authenticationStart,
-  authenticationFailed,
-  authenticationSuccess,
-} from "../Slices/UserSlice";
 
 const UserSignin = () => {
   const [signinData, setSigninData] = useState({

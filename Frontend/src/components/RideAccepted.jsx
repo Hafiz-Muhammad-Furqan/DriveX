@@ -19,33 +19,27 @@ const RideAccepted = ({ acceptedRidePanel, acceptedRide }) => {
             className="w-11 h-11 rounded-full bg-black px-1 py-1"
           />
           <p className="text-gray-100 text-base font-medium tracking-normal leading-5 ">
-            {/* {acceptedRide?.captain?.fullname?.firstname +
+            {acceptedRide?.captain?.fullname?.firstname +
               " " +
-              acceptedRide?.captain?.fullname?.lastname} */}
-            Lorem, ipsum.
+              acceptedRide?.captain?.fullname?.lastname}
           </p>
         </div>
         <div className="grid grid-cols-3 w-full gap-2">
           <div className="flex flex-col items-center justify-center  px-3 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
             <h4 className="text-gray-200 text-lg">Plate No</h4>
             <p className="text-gray-100 tracking-wider">
-              {/* {acceptedRide?.captain?.vehicle?.plate} */}
-              123MY 656TY
+              {acceptedRide?.captain?.vehicle?.plate}
             </p>
           </div>
           <div className="flex flex-col items-center justify-center px-3 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
             <h4 className="text-gray-200 text-lg">Vehicle</h4>
             <p className="text-gray-100 tracking-wider">
-              {/* {acceptedRide?.captain?.vehicle?.vehicleType} */}
-              Bike
+              {acceptedRide?.captain?.vehicle?.vehicleType}
             </p>
           </div>
           <div className="flex flex-col items-center justify-center px-3 py-3 bg-zinc-900 rounded-lg hover:scale-[1.02] cursor-pointer hover:bg-zinc-800 transition-colors duration-200 ease-linear">
             <h4 className="text-gray-200 text-lg">OTP</h4>
-            <p className="text-gray-100 tracking-wider">
-              {/* {acceptedRide?.otp} */}
-              798798
-            </p>
+            <p className="text-gray-100 tracking-wider">{acceptedRide?.otp}</p>
           </div>
         </div>
       </div>
@@ -56,8 +50,7 @@ const RideAccepted = ({ acceptedRidePanel, acceptedRide }) => {
           </div>
         </div>
         <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-6">
-          {/* {acceptedRide?.pickup} */}
-          Lorem ipsum dolor sit amet.
+          {acceptedRide?.pickup}
         </p>
       </div>
       <div className="w-full flex items-center gap-2">
@@ -67,20 +60,17 @@ const RideAccepted = ({ acceptedRidePanel, acceptedRide }) => {
           </div>
         </div>
         <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-6">
-          {/* {acceptedRide?.destination} */}
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex,
-          voluptates.
+          {acceptedRide?.destination}
         </p>
       </div>
 
       <div className="flex items-center justify-around w-full gap-3">
         <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
         <p className="text-white text-start w-full text-xl font-medium ">
-          {/* PKR {acceptedRide?.fare} */}
-          PKR 400
+          PKR {acceptedRide?.fare}
         </p>
       </div>
-      <Button label={"OTP 123456"} colors={"bg-[#C1F11D]"} />
+      <Button label={`OTP ${acceptedRide.otp}`} colors={"bg-[#C1F11D]"} />
     </div>
   );
 };

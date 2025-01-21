@@ -1,9 +1,12 @@
+import axios from "axios";
+import { socket } from "../Utilities/socket";
 import Button from "./Button";
 
 const CancelRequest = ({
   cancelRequestPanel,
   setCancelRequestPanel,
   setFindDriverPanel,
+  cancelRide,
 }) => {
   return (
     <div
@@ -22,13 +25,7 @@ const CancelRequest = ({
           setFindDriverPanel(true);
         }}
       />
-      <Button
-        label={"Cancel Request"}
-        colors={"text-red-500 bg-gray-600"}
-        onclick={() => {
-          window.location.reload();
-        }}
-      />
+      <Button label={"Cancel Request"} colors={"text-red-500 bg-gray-600"} />
     </div>
   );
 };

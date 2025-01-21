@@ -10,6 +10,7 @@ import { sendMessage, socket } from "../Utilities/socket";
 import RideAccepted from "../Components/RideAccepted";
 import StartRide from "../Components/startRide";
 import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -26,6 +27,7 @@ const UserDashboard = () => {
   const [startRide, setStartRide] = useState(false);
   const [startRidePanel, setStartRidePanel] = useState(false);
   const [vehicle, setVehicle] = useState(null);
+  const [cancelRide, setCancelRide] = useState(null);
   const [fare, setFare] = useState(null);
   const [locations, setLocations] = useState({
     pickUpLocation: "",
@@ -49,6 +51,17 @@ const UserDashboard = () => {
   });
 
   socket.on("ride-finished", (data) => {
+    toast.success("Ride Finished!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
     window.location.reload();
   });
 
@@ -94,6 +107,7 @@ const UserDashboard = () => {
         fare={fare}
         vehicle={vehicle}
         locations={locations}
+        setCancelRide={setCancelRide}
       ></ConfirmRide>
       <FindDrivers
         setFindDriverPanel={setFindDriverPanel}
@@ -107,6 +121,7 @@ const UserDashboard = () => {
         setCancelRequestPanel={setCancelRequestPanel}
         cancelRequestPanel={cancelRequestPanel}
         setFindDriverPanel={setFindDriverPanel}
+        cancelRide={cancelRide}
       ></CancelRequest>
       <ChooseVehicle
         setVehiclePanel={setVehiclePanel}

@@ -1,25 +1,54 @@
+import { useNavigate } from "react-router-dom";
 import { useRideContext } from "../context/RideContext";
-import Button from "./Button";
+import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import showToast from "../Utilities/Toast";
+import axios from "axios";
 
 const RideRequest = () => {
-  const { rides } = useRideContext();
-  console.log(rides);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { rides, setNewRides, setOtpPanel } = useRideContext();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-  const rideAccept = async () => {
-    setRideRequestPanel(false);
-    setOtpPanel(true);
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_BASE_URL}/rides/accept`,
-      {
-        rideId: newRide._id,
-        captainId: user._id,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("driverToken")}`,
+  useEffect(() => {
+    if (error) {
+      showToast(error);
+    }
+  }, [error]);
+
+  const rideAccept = async (rideId) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/rides/accept`,
+        {
+          rideId,
+          captainId: user._id,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("driverToken")}`,
+          },
+        }
+      );
+      setLoading(false);
+      navigate("/driver/dashboard", { state: { ride: response.data } });
+      setOtpPanel(true);
+    } catch (error) {
+      setLoading(false);
+      if (error?.response && error?.response?.data?.errors) {
+        const validationErrors = error.response.data.errors;
+        setError(validationErrors[0].msg);
+        return;
       }
-    );
+      if (error?.response?.data?.message) {
+        setError(error.response.data.message);
+        return;
+      }
+      setError(error.message);
+    }
   };
   return (
     <div className=" w-[500px] z-[1000] flex-1 flex  items-center flex-col gap-2 py-3 px-2">
@@ -63,14 +92,24 @@ const RideRequest = () => {
                 </p>
               </div>
               <div className="w-full flex items-center justify-between">
-                <button className="px-8 py-2 bg-red-800 text-white rounded-lg font-semibold text-base hover:bg-red-900 hover:scale-[1.05] transition-all duration-200 ease-in-out">
+                <button
+                  className="px-8 py-2 bg-red-800 text-white rounded-lg font-semibold text-base hover:bg-red-900 hover:scale-[1.05] transition-all duration-200 ease-in-out"
+                  onClick={() => {
+                    setNewRides(
+                      rides.filter((filterRide) => {
+                        filterRide !== ride._id;
+                      })
+                    );
+                  }}
+                >
                   Ignore
                 </button>
                 <button
                   className="px-8 hover:bg-[#92ac43] hover:scale-[1.05] transition-all duration-200 ease-in-out py-2 bg-[#b4d453] text-white rounded-lg font-semibold text-base"
-                  onClick={rideAccept}
+                  disabled={loading}
+                  onClick={() => rideAccept(ride._id)}
                 >
-                  Accept
+                  {loading ? <div className="loader1"></div> : "Accept"}
                 </button>
               </div>
             </div>

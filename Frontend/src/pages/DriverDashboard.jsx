@@ -8,28 +8,31 @@ import OtpPanel from "../Components/OtpPanel";
 import { socket, sendMessage, updateLocation } from "../Utilities/socket";
 import { useAuth } from "../context/AuthContext";
 import { useRideContext } from "../context/RideContext";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const DriverDashboard = () => {
   const { user } = useAuth();
-  const { rides, setNewRides } = useRideContext();
+  const location = useLocation();
   const [profilePanel, setProfilePanel] = useState(true);
-  const [otpPanel, setOtpPanel] = useState(false);
   const [finishRidePanel, setFinishRidePanel] = useState(false);
   const [ridePanel, setRidePanel] = useState(false);
   const [ridingData, setRidingData] = useState(null);
-
-  console.log(rides);
-
+  const rideData = location.state?.ride;
+  const { setOtpPanel, otpPanel } = useRideContext();
+  useEffect(() => {
+    setRidingData(rideData);
+  }, [setOtpPanel]);
   useEffect(() => {
     sendMessage("join", { userType: "captain", userId: user._id });
 
     const locationInterval = setInterval(() => {
+      console.log("helo");
+
       updateLocation(user._id);
     }, 10000);
     updateLocation(user._id);
     return () => clearInterval(locationInterval);
-  });
+  }, []);
 
   return (
     <div className="relative flex-1 w-full flex items-center flex-col overflow-hidden ">
@@ -55,8 +58,7 @@ const DriverDashboard = () => {
       <OtpPanel
         setOtpPanel={setOtpPanel}
         otpPanel={otpPanel}
-        // newRide={newRide}
-        setRidingData={setRidingData}
+        ridingData={ridingData}
         setRidePanel={setRidePanel}
       />
     </div>

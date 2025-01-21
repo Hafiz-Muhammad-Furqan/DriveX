@@ -1,5 +1,7 @@
 import axios from "axios";
 import Button from "./Button";
+import showToast from "../Utilities/Toast";
+import { useEffect, useState } from "react";
 
 const ConfirmRide = ({
   confirmRidePanel,
@@ -8,25 +10,45 @@ const ConfirmRide = ({
   fare,
   locations,
   vehicle,
+  setCancelRide,
 }) => {
+  const [error = setError] = useState(null);
+  useEffect(() => {
+    if (error) {
+      showToast(error);
+    }
+  }, [error]);
   const findDrivers = async () => {
     setConfirmRidePanel(false);
     setFindDriverPanel(true);
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_BASE_URL}/rides/create`,
-      {
-        pickup: locations.pickUpLocation,
-        destination: locations.destination,
-        vehicleType: vehicle,
-        fare: fare[vehicle],
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/rides/create`,
+        {
+          pickup: locations.pickUpLocation,
+          destination: locations.destination,
+          vehicleType: vehicle,
+          fare: fare[vehicle],
         },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        }
+      );
+      setCancelRide(response);
+    } catch (error) {
+      if (error?.response && error?.response?.data?.errors) {
+        const validationErrors = error.response.data.errors;
+        setError(validationErrors[0].msg);
+        return;
       }
-    );
-    console.log(response.data);
+      if (error?.response?.data?.message) {
+        setError(error.response.data.message);
+        return;
+      }
+      setError("Ride creation failed, please try again");
+    }
   };
 
   return (

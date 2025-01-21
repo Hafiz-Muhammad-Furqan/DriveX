@@ -69,8 +69,6 @@ module.exports.acceptRide = async (req, res) => {
     });
     res.status(200).json(ride);
   } catch (error) {
-    console.log(error);
-
     res.status(500).json({ message: error.message });
   }
 };
@@ -94,7 +92,6 @@ module.exports.startRide = async (req, res) => {
     });
     res.status(200).json(ride);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -105,7 +102,6 @@ module.exports.finishRide = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   const { rideId, captainId } = req.body;
-  console.log(rideId, captainId);
 
   try {
     const ride = await rideService.finishRide(rideId, captainId);

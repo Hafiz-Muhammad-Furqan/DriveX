@@ -62,12 +62,12 @@ const DriverSignin = () => {
       navigate("/driver/dashboard");
     } catch (error) {
       setLoading(false);
-      if (error.response && error.response.data.errors) {
+      if (error?.response && error?.response?.data?.errors) {
         const validationErrors = error.response.data.errors;
-        showToast(validationErrors[0].msg);
+        setError(validationErrors[0].msg);
         return;
       }
-      if (error.response.data.message === "Invalid email or password") {
+      if (error?.response?.data?.message === "Invalid email or password") {
         setError("Invalid email or password");
         return;
       }

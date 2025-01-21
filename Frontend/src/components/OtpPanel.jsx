@@ -1,22 +1,28 @@
 import axios from "axios";
 import Button from "./Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import showToast from "../Utilities/Toast";
 
-const OtpPanel = ({
-  newRide,
-  otpPanel,
-  setOtpPanel,
-  setRidePanel,
-  setRidingData,
-}) => {
+const OtpPanel = ({ otpPanel, setOtpPanel, setRidePanel, ridingData }) => {
   const [otpValue, setOtpValue] = useState("");
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (error) {
+      showToast(error);
+    }
+  }, [error]);
   const handleSubmit = async () => {
+    if (ridingData.otp !== otpValue) {
+      setError("Invalid OTP");
+      return;
+    }
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/rides/start-ride`,
         {
           params: {
-            rideId: newRide._id,
+            rideId: ridingData._id,
             otp: otpValue,
           },
           headers: {
@@ -24,14 +30,21 @@ const OtpPanel = ({
           },
         }
       );
-      setRidingData(response.data);
-
       if (response.status === 200) {
         setOtpPanel(false);
         setRidePanel(true);
       }
     } catch (error) {
-      console.log(error);
+      if (error?.response && error?.response?.data?.errors) {
+        const validationErrors = error.response.data.errors;
+        setError(validationErrors[0].msg);
+        return;
+      }
+      if (error?.response?.data?.message) {
+        setError(error.response.data.message);
+        return;
+      }
+      setError(error.message);
     }
   };
   return (
@@ -51,24 +64,24 @@ const OtpPanel = ({
             className="w-11 h-11 rounded-full bg-black px-1 py-1"
           />
           <p className="text-white">
-            {newRide?.user?.fullname?.firstname +
+            {ridingData?.user?.fullname?.firstname +
               " " +
-              newRide?.user?.fullname?.lastname}
+              ridingData?.user?.fullname?.lastname}
           </p>
         </div>
 
         <div className="w-full py-2 px-2 rounded-lg flex gap-2 items-center justify-start border-2 border-gray-300">
           <i className="ri-map-pin-line text-2xl text-gray-400"></i>
-          <p className="text-white text-[14px]">{newRide?.pickup}</p>
+          <p className="text-white text-[14px]">{ridingData?.pickup}</p>
         </div>
         <div className="w-full  py-2 gap-2 px-2 rounded-lg border-2 border-gray-300 flex items-start justify-start">
           <i className="ri-map-pin-line text-2xl text-gray-400"></i>
-          <p className="text-white text-[14px] ">{newRide?.destination}</p>
+          <p className="text-white text-[14px] ">{ridingData?.destination}</p>
         </div>
         <div className="w-full flex items-center justify-center gap-3">
           <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
           <p className="text-white text-lg font-semibold text-center">
-            PKR {newRide?.fare}
+            PKR {ridingData?.fare}
           </p>
         </div>
         <input
