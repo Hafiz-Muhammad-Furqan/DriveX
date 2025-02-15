@@ -6,12 +6,12 @@ import FindDrivers from "../components/FindDrivers";
 import CancelRequest from "../components/CancelRequest";
 import UserRidePanel from "../components/UserRidePanel";
 import ChooseVehicle from "../components/ChooseVehicle";
-import { sendMessage, socket } from "../utilities/socket";
+import { sendMessage, socket } from "../utilities/socket.js";
 import RideAccepted from "../components/RideAccepted";
 import StartRide from "../components/startRide";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
-import showToast from "../utilities/Toast";
+import showToast from "../utilities/Toast.js";
 
 const UserDashboard = () => {
   const { user } = useAuth();

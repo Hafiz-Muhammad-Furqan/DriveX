@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import { useState } from "react";
-import showToast from "../utilities/Toast";
+import showToast from "../utilities/Toast.js";
 import axios from "axios";
 
 const UserSignup = () => {

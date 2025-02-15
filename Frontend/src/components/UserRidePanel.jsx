@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
-import fetchFare from "../utilities/getFare";
+import fetchFare from "../utilities/getFare.js";
 import Button from "./Button";
-import showToast from "../utilities/Toast";
+import showToast from "../utilities/Toast.js";
 
 const UserRidePanel = ({
   setLocationPanel,

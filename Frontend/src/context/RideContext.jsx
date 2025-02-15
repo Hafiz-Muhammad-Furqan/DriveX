@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { socket } from "../utilities/socket";
+import { socket } from "../utilities/socket.js";
 
 const RideContext = createContext({
   rides: [],

@@ -5,7 +5,7 @@ import DriverRidePanel from "../components/DriverRidePanel";
 import RideRequest from "../components/RideRequest";
 import SideBar from "../components/SideBar";
 import OtpPanel from "../components/OtpPanel";
-import { socket, sendMessage, updateLocation } from "../utilities/socket";
+import { socket, sendMessage, updateLocation } from "../utilities/socket.js";
 import { useAuth } from "../context/AuthContext";
 import { useRideContext } from "../context/RideContext";
 

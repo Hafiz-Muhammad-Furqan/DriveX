@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useRideContext } from "../context/RideContext";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
-import showToast from "../utilities/Toast";
+import showToast from "../utilities/Toast.js";
 import axios from "axios";
 
 const RideRequest = () => {

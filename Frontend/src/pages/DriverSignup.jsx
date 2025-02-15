@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import { useEffect, useState } from "react";
-import showToast from "../utilities/Toast";
+import showToast from "../utilities/Toast.js";
 import axios from "axios";
 
 const DriverSignup = () => {

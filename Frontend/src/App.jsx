@@ -1,7 +1,7 @@
 import Routes from "./Routes/Routes";
 import { ToastContainer, Bounce } from "react-toastify";
 import { useEffect } from "react";
-import { socketConnection } from "./utilities/socket";
+import { socketConnection } from "./utilities/socket.js";
 import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {

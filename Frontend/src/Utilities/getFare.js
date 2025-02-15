@@ -1,5 +1,5 @@
 import axios from "axios";
-import showToast from "./Toast";
+import showToast from "./Toast.js";
 
 const fetchFare = async (locations) => {
   console.log(locations);

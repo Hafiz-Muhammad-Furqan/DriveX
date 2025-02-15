@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import fetchFare from "../utilities/getFare";
+import fetchFare from "../utilities/getFare.js";
 import { toast } from "react-toastify";
-import showToast from "../utilities/Toast";
+import showToast from "../utilities/Toast.js";
 
 const LocationPanel = ({
   locationPanel,
