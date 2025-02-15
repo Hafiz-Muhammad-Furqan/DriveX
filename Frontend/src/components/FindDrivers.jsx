@@ -1,4 +1,4 @@
-import Button from "../Components/Button";
+import Button from "./Button";
 
 const FindDrivers = ({
   setFindDriverPanel,

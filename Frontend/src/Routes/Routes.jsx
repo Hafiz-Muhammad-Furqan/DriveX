@@ -7,9 +7,9 @@ import DriverSignup from "../pages/DriverSignup";
 import DriverSignin from "../pages/DriverSignin";
 import UserDashboard from "../pages/UserDashboard";
 import DriverDashboard from "../pages/DriverDashboard";
-import TestRides from "../Components/TestRides";
+import TestRides from "../components/TestRides";
 import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
-import RideRequest from "../Components/RideRequest";
+import RideRequest from "../components/RideRequest";
 import { RideProvider } from "../context/RideContext";
 
 const router = createBrowserRouter([

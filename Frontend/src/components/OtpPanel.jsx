@@ -1,7 +1,7 @@
 import axios from "axios";
 import Button from "./Button";
 import { useEffect, useState } from "react";
-import showToast from "../Utilities/Toast";
+import showToast from "../utilities/Toast";
 
 const OtpPanel = ({ otpPanel, setOtpPanel, setRidePanel, ridingData }) => {
   const [otpValue, setOtpValue] = useState("");

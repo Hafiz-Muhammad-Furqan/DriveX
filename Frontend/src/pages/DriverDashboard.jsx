@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import ConfirmFinishRide from "../Components/ConfirmFinishRide";
-import DriverProfile from "../Components/DriverProfile";
-import DriverRidePanel from "../Components/DriverRidePanel";
-import RideRequest from "../Components/RideRequest";
-import SideBar from "../Components/SideBar";
-import OtpPanel from "../Components/OtpPanel";
-import { socket, sendMessage, updateLocation } from "../Utilities/socket";
+import ConfirmFinishRide from "../components/ConfirmFinishRide";
+import DriverProfile from "../components/DriverProfile";
+import DriverRidePanel from "../components/DriverRidePanel";
+import RideRequest from "../components/RideRequest";
+import SideBar from "../components/SideBar";
+import OtpPanel from "../components/OtpPanel";
+import { socket, sendMessage, updateLocation } from "../utilities/socket";
 import { useAuth } from "../context/AuthContext";
 import { useRideContext } from "../context/RideContext";
 

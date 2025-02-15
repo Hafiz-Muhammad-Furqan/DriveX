@@ -1,4 +1,4 @@
-import Button from "../Components/Button";
+import Button from "../components/Button";
 const UserRole = () => {
   return (
     <div className="  h-[100dvh]   w-full flex items-center justify-between flex-col px-3 py-7">

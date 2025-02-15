@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Input from "../Components/Input";
+import Input from "../components/Input";
 import { useState } from "react";
-import showToast from "../Utilities/Toast";
+import showToast from "../utilities/Toast";
 import axios from "axios";
 
 const UserSignup = () => {

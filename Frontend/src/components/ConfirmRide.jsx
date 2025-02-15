@@ -1,6 +1,6 @@
 import axios from "axios";
 import Button from "./Button";
-import showToast from "../Utilities/Toast";
+import showToast from "../utilities/Toast";
 import { useEffect, useState } from "react";
 
 const ConfirmRide = ({

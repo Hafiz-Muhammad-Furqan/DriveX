@@ -1,7 +1,7 @@
 import axios from "axios";
-import { socket } from "../Utilities/socket";
+import { socket } from "../utilities/socket";
 import Button from "./Button";
-import showToast from "../Utilities/Toast";
+import showToast from "../utilities/Toast";
 import { useState } from "react";
 
 const CancelRequest = ({

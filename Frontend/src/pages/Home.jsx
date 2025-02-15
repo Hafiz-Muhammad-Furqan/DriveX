@@ -1,5 +1,5 @@
-import HomeSlider from "../Components/HomeSlider";
-import Button from "../Components/Button";
+import HomeSlider from "../components/HomeSlider";
+import Button from "../components/Button";
 
 const Home = () => {
   return (

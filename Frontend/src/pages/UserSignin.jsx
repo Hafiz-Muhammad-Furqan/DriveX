@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import Input from "../Components/Input";
+import Input from "../components/Input";
 import React, { useEffect, useState } from "react";
-import showToast from "../Utilities/Toast";
+import showToast from "../utilities/Toast";
 import axios from "axios";
 
 const UserSignin = () => {

@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import SideBar from "../Components/SideBar";
-import LocationPanel from "../Components/LocationPanel";
-import ConfirmRide from "../Components/ConfirmRide";
-import FindDrivers from "../Components/FindDrivers";
-import CancelRequest from "../Components/CancelRequest";
-import UserRidePanel from "../Components/UserRidePanel";
-import ChooseVehicle from "../Components/ChooseVehicle";
-import { sendMessage, socket } from "../Utilities/socket";
-import RideAccepted from "../Components/RideAccepted";
-import StartRide from "../Components/startRide";
+import SideBar from "../components/SideBar";
+import LocationPanel from "../components/LocationPanel";
+import ConfirmRide from "../components/ConfirmRide";
+import FindDrivers from "../components/FindDrivers";
+import CancelRequest from "../components/CancelRequest";
+import UserRidePanel from "../components/UserRidePanel";
+import ChooseVehicle from "../components/ChooseVehicle";
+import { sendMessage, socket } from "../utilities/socket";
+import RideAccepted from "../components/RideAccepted";
+import StartRide from "../components/startRide";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
-import showToast from "../Utilities/Toast";
+import showToast from "../utilities/Toast";
 
 const UserDashboard = () => {
   const { user } = useAuth();
