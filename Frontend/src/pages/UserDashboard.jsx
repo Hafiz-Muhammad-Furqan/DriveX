@@ -8,7 +8,7 @@ import UserRidePanel from "../components/UserRidePanel";
 import ChooseVehicle from "../components/ChooseVehicle";
 import { sendMessage, socket } from "../utilities/socket.js";
 import RideAccepted from "../components/RideAccepted";
-import StartRide from "../components/startRide";
+import StartRide from "../components/StartRide";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import showToast from "../utilities/Toast.js";
