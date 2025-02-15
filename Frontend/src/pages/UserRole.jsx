@@ -1,7 +1,7 @@
 import Button from "../Components/Button";
 const UserRole = () => {
   return (
-    <div className=" flex-1 w-full flex items-center justify-between flex-col px-3 py-7">
+    <div className="  h-[100dvh]   w-full flex items-center justify-between flex-col px-3 py-7">
       <div className="flex gap-3 flex-col items-center ">
         <img
           src="/Images/Logo.png"

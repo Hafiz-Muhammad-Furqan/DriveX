@@ -8,7 +8,7 @@ import axios from "axios";
 const RideRequest = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { rides, setNewRides, setOtpPanel } = useRideContext();
+  const { rides, setNewRides, setOtpPanel, setRidingData } = useRideContext();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -34,8 +34,11 @@ const RideRequest = () => {
           },
         }
       );
+      console.log(response.data);
+
       setLoading(false);
-      navigate("/driver/dashboard", { state: { ride: response.data } });
+      setRidingData(response.data);
+      navigate("/driver/dashboard");
       setOtpPanel(true);
     } catch (error) {
       setLoading(false);

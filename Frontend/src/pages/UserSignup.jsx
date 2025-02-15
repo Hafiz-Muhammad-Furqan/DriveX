@@ -43,6 +43,7 @@ const UserSignup = () => {
   useEffect(() => {
     if (error) {
       showToast(error);
+      setError(null);
     }
   }, [error]);
 
@@ -99,7 +100,7 @@ const UserSignup = () => {
   };
 
   return (
-    <div className="flex-1 w-full flex items-center justify-center flex-col gap-6 py-4 px-3 ">
+    <div className="flex-1 w-full flex items-center justify-center flex-col gap-8 py-4 px-3 ">
       <img
         src="/Images/Logo.png"
         alt="logo"
@@ -107,7 +108,7 @@ const UserSignup = () => {
       />
       <h1 className="text-white text-3xl font-semibold">Sign up</h1>
       <form
-        className="h-full w-full flex items-center justify-around flex-col "
+        className="h-full w-full flex items-center justify-center flex-col gap-7"
         onSubmit={handleSubmit}
       >
         {inputs.map((input, index) => (

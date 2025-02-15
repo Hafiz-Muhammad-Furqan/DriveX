@@ -19,6 +19,7 @@ const ConfirmRide = ({
       setError(null);
     }
   }, [error]);
+
   const findDrivers = async () => {
     setConfirmRidePanel(false);
     setFindDriverPanel(true);

@@ -7,11 +7,14 @@ const RideContext = createContext({
   setNewRides: () => {},
   otpPanel: false,
   setOtpPanel: () => {},
+  ridingData: null,
+  setRidingData: () => {},
 });
 
 export const RideProvider = ({ children }) => {
   const [rides, setNewRides] = useState([]);
   const [otpPanel, setOtpPanel] = useState(false);
+  const [ridingData, setRidingData] = useState(null);
   const navigate = useNavigate();
   const url = useLocation();
 
@@ -47,7 +50,16 @@ export const RideProvider = ({ children }) => {
   }, []);
 
   return (
-    <RideContext.Provider value={{ rides, setNewRides, otpPanel, setOtpPanel }}>
+    <RideContext.Provider
+      value={{
+        rides,
+        setNewRides,
+        otpPanel,
+        setOtpPanel,
+        ridingData,
+        setRidingData,
+      }}
+    >
       {children}
     </RideContext.Provider>
   );
