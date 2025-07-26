@@ -22,7 +22,7 @@ export const RideProvider = ({ children }) => {
   // console.log("newride cahala");
 
   const handleNewRide = (data) => {
-    console.log("nmew ride");
+    console.log("new ride");
     setNewRides((prev) => [...prev, data]);
 
     if (url.pathname !== "/driver/rides") {

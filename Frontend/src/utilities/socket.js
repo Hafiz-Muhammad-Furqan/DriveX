@@ -6,7 +6,6 @@ const socketConnection = () => {
   console.log("hello socket");
 
   socket.on("connect", () => {
-    console.log("hi");
     console.log("Connected to the server");
   });
 
