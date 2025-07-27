@@ -34,7 +34,7 @@ const ConfirmFinishRide = ({
           <img
             src="/Images/avatar.png"
             alt="avatar"
-            className="w-11 h-11 rounded-full bg-black px-1 py-1"
+            className="w-11 h-11 rounded-full bg-black px-1 py-1 border border-gray-400"
           />
           <p className="text-white">
             {ridingData?.user?.fullname?.firstname +
@@ -60,7 +60,7 @@ const ConfirmFinishRide = ({
           </p>
         </div>
         <Button
-          label={"Finish Ride Go to Home"}
+          label={"Finish Ride & Go to Home"}
           colors={"bg-[#C1F11D]"}
           onclick={finishRide}
         />

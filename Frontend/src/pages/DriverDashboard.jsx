@@ -16,7 +16,6 @@ const DriverDashboard = () => {
   const [ridePanel, setRidePanel] = useState(false);
   // const [ridingData, setRidingData] = useState(null);
   const { ridingData } = useRideContext();
-  console.log(ridingData);
 
   const { setOtpPanel, otpPanel } = useRideContext();
 

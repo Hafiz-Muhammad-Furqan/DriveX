@@ -55,7 +55,7 @@ const OtpPanel = ({ otpPanel, setOtpPanel, setRidePanel, ridingData }) => {
       } `}
     >
       <div className="w-full flex flex-col items-center justify-center gap-4 px-3 py-1">
-        <h1 className="text-white text-2xl font-medium">
+        <h1 className="text-white text-2xl font-semibold tracking-wide">
           Confrim this ride to start
         </h1>
         <div className="w-full flex items-center justify-start gap-4">
