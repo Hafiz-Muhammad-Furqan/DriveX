@@ -18,7 +18,7 @@ const LocationPanel = ({
   const [locationSuggestions, setLocationSuggestions] = useState(null);
   const [fetchSuggestions, setFetchSuggestions] = useState(false);
   const [activeElement, setActiveElement] = useState(null);
-
+  const abortControllerRef = useRef(null);
   const useDebounce = (callBack, delay) => {
     let timeoutRef = useRef(null);
 
@@ -33,8 +33,14 @@ const LocationPanel = ({
   };
 
   const getLocationsFromApi = async (value) => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+    setFetchSuggestions(true);
     try {
-      setFetchSuggestions(true);
       const response = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/maps/get-suggestions`,
         {
@@ -42,13 +48,17 @@ const LocationPanel = ({
           headers: {
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
+          signal: controller.signal,
         }
       );
       setLocationSuggestions(response.data);
-    } catch (error) {
-      showToast("Failed to fetch location suggestions.");
-    } finally {
       setFetchSuggestions(false);
+    } catch (error) {
+      if (axios.isCancel(error) || error.name === "CanceledError") {
+        return;
+      }
+      setFetchSuggestions(false);
+      showToast("Failed to fetch location suggestions.");
     }
   };
   const debouncedFetch = useDebounce(getLocationsFromApi, 500);

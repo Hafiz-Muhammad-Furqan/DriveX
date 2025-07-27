@@ -25,29 +25,36 @@ export const RideProvider = ({ children }) => {
     console.log("new ride");
     console.log(data);
 
-    setNewRides((prev) => [...prev, data]);
+    setNewRides((prev) => {
+      const filtered = prev.filter((ride) => ride._id !== data._id);
+      return [...filtered, data];
+    });
 
     if (url.pathname !== "/driver/rides") {
       navigate("/driver/rides");
     }
   };
 
-  socket.on("new-ride", handleNewRide);
-
   // return () => {
   //   socket.off("new-ride", handleNewRide);
   // };
   // }, [url.pathname, navigate, rides, setNewRides]);
 
+  const handleCancelledRide = (data) => {
+    console.log("heloooooo");
+    console.log(data);
+
+    setNewRides((prev) => prev.filter((ride) => ride._id !== data._id));
+  };
+
   useEffect(() => {
-    const handleCancelledRide = (data) => {
-      setNewRides((prev) => prev.filter((ride) => ride._id !== data._id));
-    };
+    socket.on("new-ride", handleNewRide);
 
     socket.on("ride-cancelled", handleCancelledRide);
 
     return () => {
       socket.off("ride-cancelled", handleCancelledRide);
+      socket.off("new-ride", handleNewRide);
     };
   }, []);
 

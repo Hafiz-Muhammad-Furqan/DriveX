@@ -2,17 +2,15 @@ import io from "socket.io-client";
 
 const socket = io(import.meta.env.VITE_API_BASE_URL);
 
-const socketConnection = () => {
-  console.log("hello socket");
+console.log("hello socket");
 
-  socket.on("connect", () => {
-    console.log("Connected to the server");
-  });
+socket.on("connect", () => {
+  console.log("Connected to the server");
+});
 
-  socket.on("disconnect", () => {
-    console.log("Disconnected from the server");
-  });
-};
+socket.on("disconnect", () => {
+  console.log("Disconnected from the server");
+});
 
 const sendMessage = (eventName, message) => {
   socket.emit(eventName, message);
@@ -43,10 +41,4 @@ const updateLocation = (userId) => {
   }
 };
 
-export {
-  socketConnection,
-  sendMessage,
-  receivedMessage,
-  updateLocation,
-  socket,
-};
+export { sendMessage, receivedMessage, updateLocation, socket };

@@ -12,6 +12,7 @@ import StartRide from "../components/StartRide";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import showToast from "../utilities/Toast.js";
+import DriversNotFound from "../components/DriversNotFound.jsx";
 
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -28,6 +29,7 @@ const UserDashboard = () => {
   const [fetchingFare, setFetchingFare] = useState(false);
   const [startRide, setStartRide] = useState(false);
   const [startRidePanel, setStartRidePanel] = useState(false);
+  const [NoDriversFound, setNoDriversFound] = useState(false);
   const [vehicle, setVehicle] = useState(null);
   const [fare, setFare] = useState(null);
   const [locations, setLocations] = useState({
@@ -107,6 +109,9 @@ const UserDashboard = () => {
         fare={fare}
         vehicle={vehicle}
         locations={locations}
+        setNoDriversFound={setNoDriversFound}
+        setCreatedRide={setCreatedRide}
+        createdRide={createdRide}
       ></FindDrivers>
       <CancelRequest
         setCancelRequestPanel={setCancelRequestPanel}
@@ -122,6 +127,12 @@ const UserDashboard = () => {
         fare={fare}
         locations={locations}
       ></ChooseVehicle>
+      <DriversNotFound
+        setCancelRequestPanel={setCancelRequestPanel}
+        setFindDriverPanel={setFindDriverPanel}
+        setNoDriversFound={setNoDriversFound}
+        NoDriversFound={NoDriversFound}
+      />
       <RideAccepted
         acceptedRidePanel={acceptedRidePanel}
         acceptedRide={acceptedRide}

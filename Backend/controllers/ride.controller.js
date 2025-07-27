@@ -11,16 +11,17 @@ module.exports.createRide = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { destination, pickup, vehicleType, fare } = req.body;
+  const { destination, pickup, vehicleType, fare, ride } = req.body;
   try {
-    const ride = await rideService.createRide({
-      destination,
-      user: req.user._id,
-      pickup,
-      vehicleType,
-      fare: Math.round(fare),
-    });
-
+    if (!ride) {
+      ride = await rideService.createRide({
+        destination,
+        user: req.user._id,
+        pickup,
+        vehicleType,
+        fare: Math.round(fare),
+      });
+    }
     const pickupCoordinates = await mapService.getAddressCoordinate(pickup);
     const { ltd, lng } = pickupCoordinates;
     const captainRadius = await mapService.getCaptainsInRadius(ltd, lng, 5000);

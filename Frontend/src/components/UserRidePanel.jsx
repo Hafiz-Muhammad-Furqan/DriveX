@@ -43,7 +43,7 @@ const UserRidePanel = ({
   };
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col  px-4 gap-5 py-4 rounded-t-3xl  bottom-0 absolute bg-black transition-transform duration-200 ease-linear z-[10] ${
+      className={`w-full flex justify-center items-center flex-col  px-4 gap-5 py-4 rounded-t-3xl  bottom-0 absolute bg-black transition-transform duration-200 ease-linear z-[2] ${
         userRidePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
@@ -51,7 +51,7 @@ const UserRidePanel = ({
         Find a Trip
       </h1>
 
-      <div className="flex items-center justify-around w-full flex-col gap-3">
+      <div className="flex items-center justify-around w-full flex-col gap-4">
         <div
           className="w-full flex items-center bg-[#3F4042] rounded-lg py-3 cursor-pointer"
           onClick={() => {

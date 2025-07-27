@@ -9,7 +9,7 @@ const StartRide = ({ ride, startRidePanel, startRide }) => {
       } `}
     >
       <div className="w-full flex flex-col items-center justify-center gap-4 px-3 py-1">
-        <h1 className="text-white text-2xl font-medium">Ride Starting</h1>
+        <h1 className="text-white text-2xl font-medium">Ride Started</h1>
         <div className="w-full flex items-center justify-start gap-4">
           <img
             src="/Images/avatar.png"

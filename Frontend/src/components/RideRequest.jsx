@@ -183,47 +183,7 @@ const RideRequest = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const rides = [
-    {
-      _id: "ride001",
-      user: {
-        fullname: {
-          firstname: "Ali",
-          lastname: "Khan",
-        },
-      },
-      pickup:
-        "Gulshan-e-Iqbal, KarachiGulshan-e-Iqbal, KarachiGulshan-e-Iqbal, KarachiGulshan-e-Iqbal, KarachiGulshan-e-Iqbal, Karachi",
-      destination: "Saddar, Karachi",
-      fare: 550,
-    },
-    {
-      _id: "ride002",
-      user: {
-        fullname: {
-          firstname: "Sara",
-          lastname: "Ahmed",
-        },
-      },
-      pickup: "North Nazimabad, Karachi",
-      destination: "Bahadurabad, Karachi",
-      fare: 420,
-    },
-    {
-      _id: "ride003",
-      user: {
-        fullname: {
-          firstname: "Zain",
-          lastname: "Raza",
-        },
-      },
-      pickup: "Defence Phase 2, Karachi",
-      destination: "Clifton Block 5, Karachi",
-      fare: 690,
-    },
-  ];
-
-  const { setNewRides, setOtpPanel, setRidingData } = useRideContext();
+  const { rides, setNewRides, setOtpPanel, setRidingData } = useRideContext();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -270,17 +230,13 @@ const RideRequest = () => {
           <p className="text-gray-200 text-xl font-semibold py-4">
             No Rides Available
           </p>
-          <div
+          <Link
+            to="/driver/dashboard"
             className={`bg-[#C1F11D] flex items-center  rounded-xl px-4 py-2 cursor-pointer justify-between gap-2`}
           >
             <MoveLeft strokeWidth={2} size={20} />
-            <Link
-              to="/driver/dashboard"
-              className="font-semibold  text-center w-full"
-            >
-              Go Back
-            </Link>
-          </div>
+            <p className="font-semibold  text-center w-full">Go Back</p>
+          </Link>
         </div>
       ) : (
         <div className="flex flex-col gap-5">

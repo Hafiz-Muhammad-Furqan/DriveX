@@ -1,8 +1,12 @@
 import { useState } from "react";
 import Button from "./Button";
 import { AlignJustify } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { useLocation } from "react-router-dom";
 
 const SideBar = () => {
+  const { user } = useAuth();
+  const url = useLocation();
   const [SidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
@@ -16,7 +20,7 @@ const SideBar = () => {
       )}
 
       <div
-        className={`w-full h-full absolute bg-[#141414] z-[1]  transition-transform duration-100 ease-linear rounded-lg ${
+        className={`w-full h-full absolute bg-[#141414] z-[3]  transition-transform duration-100 ease-linear rounded-lg ${
           SidebarOpen
             ? "translate-x-0 shadow-2xl shadow-black"
             : "-translate-x-full"
@@ -29,7 +33,7 @@ const SideBar = () => {
             className="w-11 h-11 rounded-full bg-black px-1 py-1 border border-gray-400"
           />
           <h2 className="text-white font-semibold flex-grow tracking-wider">
-            Hafiz Muhammad{" "}
+            {user?.fullname?.firstname} {user?.fullname?.lastname}
           </h2>
           <i
             onClick={() => setSidebarOpen(false)}
@@ -37,12 +41,24 @@ const SideBar = () => {
           ></i>
         </div>
         <div className="w-full absolute bottom-8 flex flex-col gap-4 px-4 items-center justify-center">
+          {url.pathname.includes("/driver") && (
+            <Button
+              label={"All Rides"}
+              colors={"bg-[#C1F11D]"}
+              path={"/driver/rides"}
+            />
+          )}
           <Button
-            label={"All Rides"}
+            label={`${
+              url.pathname.includes("/user") ? "Driver Mode" : "User Mode"
+            }`}
             colors={"bg-[#C1F11D]"}
-            path={"/driver/rides"}
+            path={`${
+              url.pathname.includes("/user")
+                ? "/driver/dashboard"
+                : "/user/dashboard"
+            }`}
           />
-          <Button label={"Driver Mode"} colors={"bg-[#C1F11D]"} />
           <Button label={"Logout"} colors={"bg-red-500 text-white"} />
         </div>
       </div>

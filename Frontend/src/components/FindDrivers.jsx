@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import Button from "./Button";
+import showToast from "../utilities/Toast";
+import axios from "axios";
 
 const FindDrivers = ({
   setFindDriverPanel,
@@ -7,7 +10,72 @@ const FindDrivers = ({
   fare,
   locations,
   vehicle,
+  setCreatedRide,
+  setNoDriversFound,
+  createdRide,
 }) => {
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (error) {
+      showToast(error);
+      setError(null);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (createdRide) {
+        console.log(createdRide);
+        setNoDriversFound(true);
+        setFindDriverPanel(false);
+      }
+    }, 15000);
+
+    return () => clearTimeout(timer);
+  }, [createdRide]);
+
+  const findDrivers = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/rides/create`,
+        {
+          pickup: locations.pickUpLocation,
+          destination: locations.destination,
+          vehicleType: vehicle,
+          fare: fare[vehicle],
+          riderId: createdRide?._id || null,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+
+      setCreatedRide(response.data);
+    } catch (error) {
+      console.log(error);
+      if (error?.response && error?.response?.data?.errors) {
+        const validationErrors = error.response.data.errors;
+        setError(validationErrors[0].msg);
+        return;
+      }
+      if (error?.response?.data?.message) {
+        setError(error.response.data.message);
+        return;
+      }
+      setError("Ride creation failed, please try again");
+    }
+  };
+
+  useEffect(() => {
+    if (findDriverPanel) {
+      findDrivers();
+    }
+  }, [findDriverPanel]);
   return (
     <div
       className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-5 py-4 rounded-t-3xl  bg-black  transition-transform duration-200 ease-linear z-[10] ${

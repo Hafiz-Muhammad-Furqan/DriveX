@@ -1,7 +1,4 @@
-import axios from "axios";
 import Button from "./Button";
-import showToast from "../utilities/Toast.js";
-import { useEffect, useState } from "react";
 
 const ConfirmRide = ({
   confirmRidePanel,
@@ -10,50 +7,7 @@ const ConfirmRide = ({
   fare,
   locations,
   vehicle,
-  setCreatedRide,
 }) => {
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    if (error) {
-      showToast(error);
-      setError(null);
-    }
-  }, [error]);
-
-  const findDrivers = async () => {
-    setConfirmRidePanel(false);
-    setFindDriverPanel(true);
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/rides/create`,
-        {
-          pickup: locations.pickUpLocation,
-          destination: locations.destination,
-          vehicleType: vehicle,
-          fare: fare[vehicle],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-          },
-        }
-      );
-      setCreatedRide(response.data);
-    } catch (error) {
-      console.log(error);
-      if (error?.response && error?.response?.data?.errors) {
-        const validationErrors = error.response.data.errors;
-        setError(validationErrors[0].msg);
-        return;
-      }
-      if (error?.response?.data?.message) {
-        setError(error.response.data.message);
-        return;
-      }
-      setError("Ride creation failed, please try again");
-    }
-  };
-
   return (
     <div
       className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-5 py-4 rounded-t-3xl  bg-black  transition-transform duration-200 ease-linear z-[10] ${
@@ -63,27 +17,22 @@ const ConfirmRide = ({
       <h1 className="text-white  text-2xl font-bold tracking-wider">
         Confirm Ride
       </h1>
-      <div className="w-full flex items-center gap-2">
-        <div className="relative">
-          <div className="absolute top-0 left-0 h-[16px] w-[16px] rounded-full bg-red-500 flex items-center justify-center">
-            <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
-          </div>
-        </div>
-        <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-6">
+
+      <div className="flex gap-3 items-center w-full">
+        <span className="h-4 w-4 rounded-full bg-[#C0F11C] flex items-center justify-center flex-shrink-0">
+          <span className="h-2 w-2 rounded-full bg-black"></span>
+        </span>
+        <p className="text-white text-base tracking-wide w-full text-left">
           {locations.pickUpLocation}
         </p>
       </div>
-      <div className="w-full flex items-center gap-2">
-        <div className="relative">
-          <div className=" absolute top-0 left-0 h-[16px] w-[16px] rounded-full bg-[#C0F11C] flex items-center justify-center">
-            <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
-          </div>
-        </div>
-        <div>
-          <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-6">
-            {locations.destination}
-          </p>
-        </div>
+      <div className="flex gap-3 items-center w-full">
+        <span className="h-4 w-4 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0">
+          <span className="h-2 w-2 rounded-full bg-black"></span>
+        </span>
+        <p className="text-white text-base tracking-wide w-full text-left">
+          {locations.destination}
+        </p>
       </div>
       <div className="flex items-center justify-around w-full gap-3">
         <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
@@ -94,7 +43,10 @@ const ConfirmRide = ({
       <Button
         label={"Find a Driver"}
         colors={"bg-[#C1F11D]"}
-        onclick={findDrivers}
+        onclick={() => {
+          setConfirmRidePanel(false);
+          setFindDriverPanel(true);
+        }}
       />
     </div>
   );
