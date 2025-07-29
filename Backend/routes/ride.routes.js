@@ -19,7 +19,7 @@ router.post(
     body("vehicleType")
       .isIn(["Car", "Auto", "Bike"])
       .withMessage("Invalid vehicle type"),
-    body("rideId").isMongoId().withMessage("Invalid ride ID"),
+    body("rideId"),
     body("fare"),
   ],
   rideController.createRide

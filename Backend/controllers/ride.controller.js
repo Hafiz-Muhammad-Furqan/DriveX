@@ -90,7 +90,10 @@ module.exports.createRide = async (req, res) => {
         });
 
         if (!alreadyNotified.includes(captain._id.toString())) {
-          newCaptainIds.push(captain._id.toString());
+          newCaptainIds.push({
+            captainId: captain._id.toString(),
+            socketId: captain.socketId,
+          });
         }
       }
     });
@@ -198,8 +201,8 @@ module.exports.cancelRide = async (req, res) => {
     ride.status = "cancelled";
     await ride.save();
 
-    ride.captainsNotified.forEach((captainId) => {
-      sendMessageToSockedId(captainId, {
+    ride.captainsNotified.forEach((captain) => {
+      sendMessageToSockedId(captain.socketId, {
         event: "ride-cancelled",
         data: { rideId },
       });

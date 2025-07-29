@@ -48,7 +48,7 @@ export const RideProvider = ({ children }) => {
     console.log("heloooooo");
     console.log(data);
 
-    setNewRides((prev) => prev.filter((ride) => ride._id !== data._id));
+    setNewRides((prev) => prev.filter((ride) => ride._id !== data.rideId));
   };
 
   useEffect(() => {
