@@ -27,8 +27,12 @@ export const RideProvider = ({ children }) => {
 
     setNewRides((prev) => {
       const filtered = prev.filter((ride) => ride._id !== data._id);
-      return [...filtered, data];
+      return [data, ...filtered];
     });
+
+    setTimeout(() => {
+      setNewRides((prev) => prev.filter((ride) => ride._id !== data._id));
+    }, 15000);
 
     if (url.pathname !== "/driver/rides") {
       navigate("/driver/rides");
