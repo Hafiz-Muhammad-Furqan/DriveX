@@ -40,35 +40,55 @@ const UserSignin = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const { email, password } = signinData;
-    if (email.trim() === "" || password.trim() === "") {
+
+    if (!email.trim() || !password.trim()) {
       showToast("All fields are required");
       return;
     } else if (password.length < 6) {
       showToast("Password must be at least 6 characters");
       return;
     }
+
     setLoading(true);
+
     const user = {
       email,
       password,
     };
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/users/login`,
         user
       );
+
       localStorage.setItem("userToken", response.data.token);
       setLoading(false);
       navigate("/user/dashboard");
     } catch (error) {
       setLoading(false);
-      if (error?.response?.data?.message) {
-        setError(error.response?.data?.message);
+
+      if (
+        error?.response?.data?.errors &&
+        Array.isArray(error.response.data.errors)
+      ) {
+        const firstError = error.response.data.errors[0]?.msg;
+        showToast(firstError);
+        return;
       }
-      setError(error.message);
+
+      if (error?.response?.data?.message) {
+        showToast(error.response.data.message);
+        return;
+      }
+
+      showToast("Something went wrong. Please try again.");
+      console.error("Login Error:", error);
     }
   };
+
   return (
     <div className="flex-1 w-full flex items-center justify-center flex-col gap-8 py-4 px-3 ">
       <img

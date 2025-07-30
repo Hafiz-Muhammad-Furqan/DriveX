@@ -75,6 +75,7 @@ const DriverSignup = () => {
       capacity,
       vehicle,
     } = signupData;
+
     if (
       !firstname.trim() ||
       !lastname.trim() ||
@@ -87,10 +88,12 @@ const DriverSignup = () => {
       showToast("All fields are required");
       return;
     } else if (password.length < 6) {
-      showToast("Password must be at least 6 characters ");
+      showToast("Password must be at least 6 characters");
       return;
     }
+
     setLoading(true);
+
     const driver = {
       fullname: {
         firstname,
@@ -104,26 +107,35 @@ const DriverSignup = () => {
         vehicleType: vehicle,
       },
     };
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/captains/register`,
         driver
       );
+
       localStorage.setItem("driverToken", response.data.token);
       setLoading(false);
       navigate("/driver/dashboard");
     } catch (error) {
       setLoading(false);
-      if (error?.response && error?.response?.data?.errors) {
-        const validationErrors = error?.response?.data?.errors;
-        setError(validationErrors[0].msg);
+
+      if (
+        error?.response?.data?.errors &&
+        Array.isArray(error.response.data.errors)
+      ) {
+        const firstError = error.response.data.errors[0]?.msg;
+        showToast(firstError);
         return;
       }
-      if (error?.response?.data?.message === "Captain already exists") {
-        setError("Driver already exists");
+
+      if (error?.response?.data?.message) {
+        showToast(error.response.data.message);
         return;
       }
-      setError(error.message);
+
+      showToast("Something went wrong. Please try again.");
+      console.error("Driver Signup Error:", error);
     }
   };
 

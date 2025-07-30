@@ -53,7 +53,10 @@ const UserSignup = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const { firstname, lastname, email, password } = signupData;
+
+    // Client-side basic validation
     if (
       !firstname.trim() ||
       !lastname.trim() ||
@@ -63,10 +66,12 @@ const UserSignup = () => {
       showToast("All fields are required");
       return;
     } else if (password.length < 6) {
-      showToast("Password must be at least 6 characters ");
+      showToast("Password must be at least 6 characters");
       return;
     }
+
     setLoading(true);
+
     const user = {
       fullname: {
         firstname,
@@ -75,6 +80,7 @@ const UserSignup = () => {
       email,
       password,
     };
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/users/register`,
@@ -86,16 +92,25 @@ const UserSignup = () => {
       navigate("/user/dashboard");
     } catch (error) {
       setLoading(false);
-      if (error?.response && error?.response?.data?.errors) {
-        const validationErrors = error?.response?.data?.errors;
-        setError(validationErrors[0].msg);
+
+      if (
+        error?.response?.data?.errors &&
+        Array.isArray(error.response.data.errors)
+      ) {
+        const firstError = error.response.data.errors[0]?.msg;
+        showToast(firstError);
         return;
       }
-      if (error?.response?.data?.message === "User already exists") {
-        setError("User already exists");
+
+      // Custom backend error (e.g., duplicate user)
+      if (error?.response?.data?.message) {
+        showToast(error.response.data.message);
         return;
       }
-      setError(error.message);
+
+      // Axios/network or unknown error
+      showToast("Something went wrong. Please try again.");
+      console.error("Signup Error:", error);
     }
   };
 
