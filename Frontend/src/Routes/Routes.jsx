@@ -11,36 +11,64 @@ import TestRides from "../components/TestRides";
 import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
 import RideRequest from "../components/RideRequest";
 import { RideProvider } from "../context/RideContext";
-import LiveTracking from "../components/LiveTracking";
+import LiveMapTracking from "../components/LiveMapTracking";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <ProtectedRouteWrapper>
+        <Home />
+      </ProtectedRouteWrapper>
+    ),
   },
   {
     path: "/role",
-    element: <UserRole />,
+    element: (
+      <ProtectedRouteWrapper>
+        <UserRole />
+      </ProtectedRouteWrapper>
+    ),
   },
   {
     path: "/user/signup",
-    element: <UserSignup />,
+    element: (
+      <ProtectedRouteWrapper>
+        <UserSignup />
+      </ProtectedRouteWrapper>
+    ),
   },
   {
     path: "/user/signin",
-    element: <UserSignin />,
+    element: (
+      <ProtectedRouteWrapper>
+        <UserSignin />
+      </ProtectedRouteWrapper>
+    ),
   },
   {
     path: "/test",
-    element: <LiveTracking />,
+    element: (
+      <ProtectedRouteWrapper>
+        <LiveMapTracking />
+      </ProtectedRouteWrapper>
+    ),
   },
   {
     path: "/driver/signup",
-    element: <DriverSignup />,
+    element: (
+      <ProtectedRouteWrapper>
+        <DriverSignup />
+      </ProtectedRouteWrapper>
+    ),
   },
   {
     path: "/driver/signin",
-    element: <DriverSignin />,
+    element: (
+      <ProtectedRouteWrapper>
+        <DriverSignin />
+      </ProtectedRouteWrapper>
+    ),
   },
   {
     path: "/user/dashboard",

@@ -383,7 +383,7 @@ import React, { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
-const LiveTracking = () => {
+const LiveMapTracking = () => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const marker = useRef(null);
@@ -706,4 +706,4 @@ const LiveTracking = () => {
   );
 };
 
-export default LiveTracking;
+export default LiveMapTracking;

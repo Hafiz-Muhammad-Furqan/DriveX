@@ -8,6 +8,7 @@ import OtpPanel from "../components/OtpPanel";
 import { socket, sendMessage, updateLocation } from "../utilities/socket.js";
 import { useAuth } from "../context/AuthContext";
 import { useRideContext } from "../context/RideContext";
+import LiveMapTracking from "../components/LiveMapTracking.jsx";
 
 const DriverDashboard = () => {
   const { user } = useAuth();
@@ -37,11 +38,12 @@ const DriverDashboard = () => {
   return (
     <div className="relative flex-1 w-full flex items-center flex-col overflow-hidden ">
       <div className="w-full h-full transition-opacity duration-300 ">
-        <img
+        {/* <img
           src="/Images/Map.webp"
           alt="map"
           className="w-full h-full object-cover bg-center"
-        />
+        /> */}
+        <LiveMapTracking />
       </div>
       <SideBar />
 

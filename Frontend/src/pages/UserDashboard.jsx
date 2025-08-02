@@ -13,6 +13,7 @@ import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import showToast from "../utilities/Toast.js";
 import DriversNotFound from "../components/DriversNotFound.jsx";
+import LiveMapTracking from "../components/LiveMapTracking.jsx";
 
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -65,11 +66,12 @@ const UserDashboard = () => {
           locationPanel ? "opacity-50" : ""
         }`}
       >
-        <img
+        {/* <img
           src="/Images/Map.webp"
           alt="map"
           className="w-full h-full object-cover bg-center"
-        />
+        /> */}
+        <LiveMapTracking />
       </div>
       <SideBar />
       <UserRidePanel
