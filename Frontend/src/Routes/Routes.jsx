@@ -11,6 +11,7 @@ import TestRides from "../components/TestRides";
 import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
 import RideRequest from "../components/RideRequest";
 import { RideProvider } from "../context/RideContext";
+import LiveTracking from "../components/LiveTracking";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/user/signin",
     element: <UserSignin />,
+  },
+  {
+    path: "/test",
+    element: <LiveTracking />,
   },
   {
     path: "/driver/signup",
