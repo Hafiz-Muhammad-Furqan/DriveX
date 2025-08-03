@@ -20,14 +20,14 @@ const ChooseVehicle = ({
         vehiclePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <h1 className="text-white  text-2xl font-bold tracking-wider">
+      <h1 className="text-white  text-2xl font-semibold tracking-wider">
         Choose Vehicle
       </h1>
       <div className="w-full flex flex-col items-center justify-center gap-4 px-3 ">
         {vehicle.map((vehicle, index) => (
           <React.Fragment key={index}>
             <div
-              className="w-full py-3 px-2 rounded-lg flex gap-4 items-center justify-center border-2 border-zinc-500 cursor-pointer hover:bg-gray-950 hover:scale-[1.01] transition-all duration-200 ease-linear"
+              className="w-full py-3 px-2 rounded-lg flex gap-4 items-center justify-center border-2 border-zinc-500 cursor-pointer hover:bg-gray-900 hover:scale-[1.01] transition-all duration-200 ease-linear"
               onClick={() => {
                 setVehicle(vehicle.text);
                 setVehiclePanel(false);
@@ -36,18 +36,19 @@ const ChooseVehicle = ({
             >
               <img src={vehicle.img} alt={vehicle.text} className="h-9" />
               <div className="w-full flex-col  flex items-start justify-around  gap-[1px]">
-                <p className="text-white text-lg font-semibold">
+                <p className="text-white text-lg font-semibold tracking-wider">
                   {vehicle.text}
                 </p>
-                <p className="text-gray-200 text-[14px]">
+                <p className="text-gray-200 text-[14px] tracking-wider">
                   Affordable {vehicle.text} Ride.
                 </p>
               </div>
               <div className="flex items-center justify-center">
                 {fare ? (
-                  <p className="text-white whitespace-nowrap  font-medium">
-                    PKR {Math.round(vehicle.fare)}
-                  </p>
+                  <div className="text-white whitespace-nowrap font-medium flex flex-col items-center justify-center pr-1 leading-65">
+                    <span className="text-gray-200 tracking-wider">PKR</span>
+                    <p>{Math.round(vehicle.fare)}</p>
+                  </div>
                 ) : (
                   <div className="loader3"></div>
                 )}

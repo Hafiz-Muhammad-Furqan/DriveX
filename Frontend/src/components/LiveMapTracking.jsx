@@ -602,7 +602,7 @@ const LiveMapTracking = () => {
         style={{
           position: "absolute",
           top: 0,
-          bottom: 0,
+          bottom: "20%",
           width: "100%",
           borderRadius: "0px",
         }}
@@ -613,8 +613,8 @@ const LiveMapTracking = () => {
         <div
           style={{
             position: "absolute",
-            top: "20px",
-            right: "20px",
+            top: "10px",
+            right: "10px",
             zIndex: 1000,
             display: "flex",
             flexDirection: "column",
@@ -625,8 +625,8 @@ const LiveMapTracking = () => {
           <button
             onClick={handleZoomIn}
             style={{
-              width: "40px",
-              height: "40px",
+              width: "30px",
+              height: "30px",
               backgroundColor: "#0f172a",
               border: "none",
               borderRadius: "4px 4px 0 0",
@@ -665,8 +665,8 @@ const LiveMapTracking = () => {
           <button
             onClick={handleZoomOut}
             style={{
-              width: "40px",
-              height: "40px",
+              width: "30px",
+              height: "30px",
               backgroundColor: "#0f172a",
               border: "none",
               borderRadius: "0 0 4px 4px",

@@ -47,7 +47,7 @@ const UserRidePanel = ({
         userRidePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <h1 className="text-white text-2xl font-bold tracking-wider">
+      <h1 className="text-white text-2xl font-semibold tracking-wider">
         Find a Trip
       </h1>
 
@@ -59,11 +59,11 @@ const UserRidePanel = ({
             setLocationPanel(true);
           }}
         >
-          <i className="ri-search-line text-lg font-thin text-white px-2"></i>
+          <i className="ri-search-line text-lg font-medium text-white px-2"></i>
 
           <div
-            className={`text-gray-300 w-full bg-[#3F4042] pr-4 outline-none  rounded-lg ${
-              locations.pickUpLocation.trim() !== "" && "text-white text-lg"
+            className={`text-gray-300 w-full bg-[#3F4042] pr-4 outline-none font-medium tracking-wide  rounded-lg ${
+              locations.pickUpLocation.trim() !== "" && "text-gray-200"
             }`}
           >
             {locations.pickUpLocation.trim()
@@ -79,10 +79,10 @@ const UserRidePanel = ({
             setLocationPanel(true);
           }}
         >
-          <i className="ri-search-line text-lg font-thin text-white px-2"></i>
+          <i className="ri-search-line text-lg font-medium text-white px-2"></i>
           <div
-            className={`text-gray-300 w-full bg-[#3F4042] pr-4Flo outline-none rounded-lg ${
-              locations.destination.trim() !== "" && "text-white text-lg"
+            className={`text-gray-300 font-medium tracking-wide w-full bg-[#3F4042] pr-4Flo outline-none rounded-lg ${
+              locations.destination.trim() !== "" && "text-gray-200 "
             }`}
           >
             {locations.destination.trim()
@@ -92,7 +92,7 @@ const UserRidePanel = ({
         </div>
 
         <button
-          className="bg-[#C1F11D] flex items-center justify-center w-[96%] rounded-xl py-2 cursor-pointer font-semibold text-lg "
+          className="bg-[#C1F11D] flex items-center justify-center w-[96%] rounded-xl py-2 cursor-pointer font-semibold text-lg tracking-wide "
           disabled={fetchingFare}
           onClick={findDriver}
         >

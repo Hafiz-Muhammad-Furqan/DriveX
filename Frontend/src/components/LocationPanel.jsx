@@ -108,7 +108,7 @@ const LocationPanel = ({
     <div
       className={`w-full rounded-t-3xl h-[98%] flex items-center flex-col transition-transform duration-200 ease-linear z-[10] ${
         locationPanel ? "translate-y-0" : "translate-y-full"
-      } bg-[#141414] absolute bottom-0`}
+      } bg-black absolute bottom-0`}
     >
       {fetchingFare ? (
         <div className="w-full h-full flex items-center justify-center">
@@ -116,8 +116,8 @@ const LocationPanel = ({
         </div>
       ) : (
         <>
-          <div className="w-full flex items-center justify-center px-3 py-7 relative">
-            <h2 className="text-center text-white text-xl font-bold">
+          <div className="w-full flex items-center justify-center px-3 py-6 relative">
+            <h2 className="text-white text-2xl font-semibold tracking-wider">
               Enter your route
             </h2>
             <i
@@ -125,20 +125,20 @@ const LocationPanel = ({
                 setLocationPanel(false);
                 setUserRidePanel(true);
               }}
-              className="ri-close-line text-white text-xl font-bold px-1 py-[1px] bg-zinc-600 rounded-full cursor-pointer absolute right-3"
+              className="ri-close-line text-white text-xl font-medium px-1 py-[1px] bg-zinc-600 rounded-full cursor-pointer absolute right-3"
             ></i>
           </div>
           <div className="w-full flex flex-col items-center gap-3 px-3">
             <div className="w-full flex items-center bg-[#3F4042] rounded-md py-3 px-3">
-              <div className="relative">
-                <div className="absolute top-50 -translate-y-1/2 left-0 h-[16px] w-[16px] rounded-full bg-[#C0F11C] flex items-center justify-center">
-                  <div className="h-[8px] w-[8px] rounded-full bg-black"></div>
-                </div>
-              </div>
+              {/* <div className="relative"> */}
+              <span className="h-4 w-4 rounded-full bg-[#C0F11C] flex items-center justify-center flex-shrink-0">
+                <span className="h-2 w-2 rounded-full bg-black"></span>
+              </span>
+              {/* </div> */}
               <input
                 type="text"
                 id="pickup"
-                className="w-full bg-[#3F4042] outline-none rounded-lg text-white pl-8 pr-5 placeholder:text-gray-300"
+                className="w-full bg-[#3F4042] outline-none rounded-lg text-white pl-4 pr-5 placeholder:text-gray-300 font-medium tracking-wide"
                 placeholder="Add Pick-up location"
                 value={locations.pickUpLocation}
                 onChange={(e) =>
@@ -148,11 +148,11 @@ const LocationPanel = ({
               />
             </div>
             <div className="w-full flex items-center bg-[#3F4042] rounded-md px-3 py-3">
-              <i className="ri-search-line text-lg font-thin text-white"></i>
+              <i className="ri-search-line text-lg font-medium text-white"></i>
               <input
                 type="text"
                 id="destination"
-                className="w-full bg-[#3F4042] px-4 outline-none rounded-lg placeholder:text-gray-300 text-white"
+                className="w-full bg-[#3F4042] px-4 outline-none rounded-lg placeholder:text-gray-300 text-white font-medium tracking-wide"
                 placeholder="Add Destination"
                 value={locations.destination}
                 onChange={(e) => handleLocations(e.target.value, "destination")}
@@ -162,6 +162,7 @@ const LocationPanel = ({
           </div>
           {fetchSuggestions && (
             <div className="space-y-4 w-full px-3 mt-8">
+              <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
               <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
               <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
               <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>

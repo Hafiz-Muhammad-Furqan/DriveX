@@ -14,7 +14,7 @@ const ConfirmRide = ({
         confirmRidePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <h1 className="text-white  text-2xl font-bold tracking-wider">
+      <h1 className="text-white text-2xl font-semibold tracking-wider">
         Confirm Ride
       </h1>
 
@@ -22,22 +22,22 @@ const ConfirmRide = ({
         <span className="h-4 w-4 rounded-full bg-[#C0F11C] flex items-center justify-center flex-shrink-0">
           <span className="h-2 w-2 rounded-full bg-black"></span>
         </span>
-        <p className="text-white text-base tracking-wide w-full text-left">
-          {locations.pickUpLocation}
+        <p className="text-gray-100 text-medium font-medium tracking-wider w-full text-left">
+          {locations.pickUpLocation}lorem ipsum dolor sit amet consectetur
         </p>
       </div>
       <div className="flex gap-3 items-center w-full">
         <span className="h-4 w-4 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0">
           <span className="h-2 w-2 rounded-full bg-black"></span>
         </span>
-        <p className="text-white text-base tracking-wide w-full text-left">
-          {locations.destination}
+        <p className="text-gray-100 text-medium font-medium tracking-wider w-full text-left">
+          {locations.destination}lorem ipsum dolor sit amet consectetur
         </p>
       </div>
       <div className="flex items-center justify-around w-full gap-3">
-        <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
-        <p className="text-white text-start w-full text-xl font-medium ">
-          {fare && `PKR ${Math.round(fare[vehicle])}`}
+        <i className="ri-cash-line text-[#C1F11D] text-2xl"></i>
+        <p className="text-white text-start w-full text-lg font-medium ">
+          {fare && `PKR ${Math.round(fare[vehicle])}`}40000
         </p>
       </div>
       <Button

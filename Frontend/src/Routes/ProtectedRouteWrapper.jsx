@@ -132,6 +132,7 @@ const ProtectedRouteWrapper = ({ children }) => {
 
       if (response.status === 200) {
         // Set user data in context
+
         setUser(userType === "user" ? response.data : response.data.captain);
         return { isValid: true, userType };
       }

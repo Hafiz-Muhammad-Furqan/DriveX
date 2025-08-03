@@ -40,12 +40,12 @@ const CancelRequest = ({
   };
   return (
     <div
-      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-4 gap-5 py-3 rounded-t-3xl  bg-black transition-transform duration-200 ease-linear z-[10] ${
+      className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-4  gap-5 py-6 rounded-t-3xl  bg-black transition-transform duration-200 ease-linear z-[10] ${
         cancelRequestPanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <h3 className="text-white text-xl font-extrabold text-center">
-        Do you want to cancel the request?
+      <h3 className="text-white text-xl font-extrabold text-center ">
+        Do you want to cancel the request ?
       </h3>
       <Button
         label={"Keep Searching"}
@@ -56,7 +56,7 @@ const CancelRequest = ({
         }}
       />
       <button
-        className="text-red-500 bg-gray-600 flex items-center justify-center w-[96%] rounded-xl py-2 cursor-pointer font-medium text-lg text-center "
+        className="text-red-500 bg-zinc-800 flex items-center justify-center w-[96%] rounded-xl py-2 cursor-pointer font-medium text-lg text-center tracking-wider outline-none"
         onClick={() => cancelCurrentRide(createdRide._id)}
         disabled={loading}
       >

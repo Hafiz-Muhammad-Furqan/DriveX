@@ -18,9 +18,9 @@ import LiveMapTracking from "../components/LiveMapTracking.jsx";
 const UserDashboard = () => {
   const { user } = useAuth();
 
+  const [userRidePanel, setUserRidePanel] = useState(true);
   const [locationPanel, setLocationPanel] = useState(false);
   const [confirmRidePanel, setConfirmRidePanel] = useState(false);
-  const [userRidePanel, setUserRidePanel] = useState(true);
   const [findDriverPanel, setFindDriverPanel] = useState(false);
   const [acceptedRidePanel, setAcceptedRidePanel] = useState(false);
   const [acceptedRide, setAcceptedRide] = useState(null);

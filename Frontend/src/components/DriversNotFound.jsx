@@ -26,7 +26,7 @@ const DriversNotFound = ({
       />
       <Button
         label={"Cancel Request"}
-        colors={"bg-gray-600 text-red-500"}
+        colors={"bg-zinc-800 text-red-500 tracking-wider"}
         onclick={() => {
           setCancelRequestPanel(true);
           setNoDriversFound(false);

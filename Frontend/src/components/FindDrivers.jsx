@@ -53,8 +53,6 @@ const FindDrivers = ({
         }
       );
 
-      console.log(response.data);
-
       setCreatedRide(response.data);
     } catch (error) {
       console.log(error);
@@ -82,7 +80,7 @@ const FindDrivers = ({
         findDriverPanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <h1 className="text-white text-2xl font-semibold tracking-wide">
+      <h1 className="text-white text-2xl font-semibold tracking-wider">
         Sending orders to driver
       </h1>
       <div className="loader"></div>
@@ -92,7 +90,7 @@ const FindDrivers = ({
             <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
           </div>
           <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-8">
-            {locations.pickUpLocation}
+            {locations.pickUpLocation}lorem ipsum dolor sit amet consectetur
           </p>
         </div>
       </div>
@@ -103,7 +101,7 @@ const FindDrivers = ({
           </div>
           <div>
             <p className="text-gray-100 text-base font-medium tracking-normal leading-5 pl-8">
-              {locations.destination}
+              {locations.destination}lorem ipsum dolor sit amet consectetur
             </p>
           </div>
         </div>
@@ -112,13 +110,13 @@ const FindDrivers = ({
         <div className="flex items-center justify-around w-full gap-3">
           <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
           <p className="text-white text-start w-full text-xl font-medium ">
-            {fare && `PKR ${Math.round(fare[vehicle])}`}
+            {fare && `PKR ${Math.round(fare[vehicle])}`}4000
           </p>
         </div>
       </div>
       <Button
         label={"Cancel Request"}
-        colors={"bg-gray-600 text-red-500"}
+        colors={"bg-zinc-800 text-red-500 tracking-wider"}
         onclick={() => {
           setCancelRequestPanel(true);
           setFindDriverPanel(false);
