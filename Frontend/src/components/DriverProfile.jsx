@@ -1,8 +1,10 @@
+import { useRideContext } from "../context/RideContext";
 import Button from "./Button";
 
-const DriverProfile = ({ user, profilePanel }) => {
+const DriverProfile = ({ user }) => {
   const { fullname } = user;
   const { firstname, lastname } = fullname;
+  const { profilePanel } = useRideContext();
 
   return (
     <div
@@ -15,7 +17,7 @@ const DriverProfile = ({ user, profilePanel }) => {
           <img
             src="/Images/avatar.png"
             alt="avatar"
-            className="w-11 h-11 rounded-full bg-black px-1 py-1"
+            className="w-11 h-11 rounded-full bg-black px-1 py-1 border border-gray-300"
           />
           <p className="text-white capitalize text-xl font-bold tracking-wide">
             {firstname + " " + lastname}

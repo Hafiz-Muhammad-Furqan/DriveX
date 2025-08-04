@@ -9,12 +9,15 @@ const RideContext = createContext({
   setOtpPanel: () => {},
   ridingData: null,
   setRidingData: () => {},
+  profilePanel: true,
+  setProfilePanel: () => {},
 });
 
 export const RideProvider = ({ children }) => {
   const [rides, setNewRides] = useState([]);
   const [otpPanel, setOtpPanel] = useState(false);
   const [ridingData, setRidingData] = useState(null);
+  const [profilePanel, setProfilePanel] = useState(true);
   const navigate = useNavigate();
   const url = useLocation();
 
@@ -45,7 +48,6 @@ export const RideProvider = ({ children }) => {
   // }, [url.pathname, navigate, rides, setNewRides]);
 
   const handleCancelledRide = (data) => {
-    console.log("heloooooo");
     console.log(data);
 
     setNewRides((prev) => prev.filter((ride) => ride._id !== data.rideId));
@@ -71,6 +73,8 @@ export const RideProvider = ({ children }) => {
         setOtpPanel,
         ridingData,
         setRidingData,
+        profilePanel,
+        setProfilePanel,
       }}
     >
       {children}

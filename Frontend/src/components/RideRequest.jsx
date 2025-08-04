@@ -1,176 +1,3 @@
-// import { useNavigate } from "react-router-dom";
-// import { useRideContext } from "../context/RideContext";
-// import { useAuth } from "../context/AuthContext";
-// import { useEffect, useState } from "react";
-// import showToast from "../utilities/Toast.js";
-// import axios from "axios";
-
-// const RideRequest = () => {
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(null);
-
-//   const rides = [
-//     {
-//       _id: "ride001",
-//       user: {
-//         fullname: {
-//           firstname: "Ali",
-//           lastname: "Khan",
-//         },
-//       },
-//       pickup: "Gulshan-e-Iqbal, Karachi",
-//       destination: "Saddar, Karachi",
-//       fare: 550,
-//     },
-//     {
-//       _id: "ride002",
-//       user: {
-//         fullname: {
-//           firstname: "Sara",
-//           lastname: "Ahmed",
-//         },
-//       },
-//       pickup: "North Nazimabad, Karachi",
-//       destination: "Bahadurabad, Karachi",
-//       fare: 420,
-//     },
-//     {
-//       _id: "ride003",
-//       user: {
-//         fullname: {
-//           firstname: "Zain",
-//           lastname: "Raza",
-//         },
-//       },
-//       pickup: "Defence Phase 2, Karachi",
-//       destination: "Clifton Block 5, Karachi",
-//       fare: 690,
-//     },
-//   ];
-//   const { setNewRides, setOtpPanel, setRidingData } = useRideContext();
-//   const { user } = useAuth();
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     if (error) {
-//       showToast(error);
-//       setError(null);
-//     }
-//   }, [error]);
-
-//   const rideAccept = async (rideId) => {
-//     setLoading(true);
-//     try {
-//       const response = await axios.post(
-//         `${import.meta.env.VITE_API_BASE_URL}/rides/accept`,
-//         {
-//           rideId,
-//           captainId: user._id,
-//         },
-//         {
-//           headers: {
-//             Authorization: `Bearer ${localStorage.getItem("driverToken")}`,
-//           },
-//         }
-//       );
-//       console.log(response.data);
-
-//       setLoading(false);
-//       setRidingData(response.data);
-//       navigate("/driver/dashboard");
-//       setOtpPanel(true);
-//     } catch (error) {
-//       setLoading(false);
-//       if (error?.response && error?.response?.data?.errors) {
-//         const validationErrors = error.response.data.errors;
-//         setError(validationErrors[0].msg);
-//         return;
-//       }
-//       if (error?.response?.data?.message) {
-//         setError(error.response.data.message);
-//         return;
-//       }
-//       setError(error.message);
-//     }
-//   };
-//   return (
-//     <div className=" w-[500px] z-[1000] flex-1 flex  items-center flex-col gap-2 py-3 px-2">
-//       {!rides || rides.length === 0 ? (
-//         <div className="w-full h-full flex items-center justify-center text-white text-2xl font-semibold">
-//           No Rides Available
-//         </div>
-//       ) : (
-//         rides.map((ride, index) => (
-//           <div
-//             className="w-full flex flex-col items-start justify-center gap-4 py-5 bg-slate-800 rounded-xl px-3"
-//             key={index}
-//           >
-//             <div className="w-full flex items-center justify-start gap-6">
-//               <img
-//                 src="/Images/avatar.png"
-//                 alt="avatar"
-//                 className="size-9 rounded-full bg-black px-1 py-1"
-//               />
-//               <p className="text-white text-lg font-semibold">
-//                 {ride?.user?.fullname?.firstname +
-//                   " " +
-//                   ride?.user?.fullname?.lastname}
-//               </p>
-//             </div>
-//             <div className="w-full flex items-center justify-start flex-col gap-2">
-//               <div className="w-full rounded-lg flex gap-2 items-center justify-start">
-//                 <div className="relative">
-//                   <div className=" absolute top-0 left-0 h-[16px] w-[16px] rounded-full bg-[#C0F11C] flex items-center justify-center">
-//                     <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
-//                   </div>
-//                 </div>
-//                 <p className="text-white text-lg pl-1">{ride?.pickup}</p>
-//               </div>
-//               <div className="w-full gap-2 rounded-lg flex items-center justify-start">
-//                 <div className="relative">
-//                   <div className=" absolute top-0 left-0 h-[16px] w-[16px] rounded-full bg-red-500 flex items-center justify-center">
-//                     <div className="h-[8px] w-[8px] rounded-lg bg-black"></div>
-//                   </div>
-//                 </div>
-//                 <p className="text-white text-lg pl-1">{ride?.destination}</p>
-//               </div>
-//               <div className="w-full flex items-center justify-start gap-3 pb-3 pt-2">
-//                 <i className="ri-cash-line text-[#C1F11D] text-xl pl-1"></i>
-//                 <p className="text-white text-lg font-semibold">
-//                   PKR {ride?.fare}
-//                 </p>
-//               </div>
-//               <div className="w-full flex items-center justify-between">
-//                 <button
-//                   className="px-8 py-2 bg-red-800 text-white rounded-lg font-semibold text-base hover:bg-red-900 hover:scale-[1.05] transition-all duration-200 ease-in-out"
-//                   onClick={() => {
-//                     setNewRides(
-//                       rides.filter((filterRide) => {
-//                         filterRide !== ride._id;
-//                       })
-//                     );
-//                   }}
-//                 >
-//                   Ignore
-//                 </button>
-//                 <button
-//                   className="px-8 hover:bg-[#92ac43] hover:scale-[1.05] transition-all duration-200 ease-in-out py-2 bg-[#b4d453] text-white rounded-lg font-semibold text-base"
-//                   disabled={loading}
-//                   onClick={() => rideAccept(ride._id)}
-//                 >
-//                   {loading ? <div className="loader1"></div> : "Accept"}
-//                 </button>
-//               </div>
-//             </div>
-//           </div>
-//         ))
-//       )}
-//     </div>
-//   );
-// };
-
-// export default RideRequest;
-
 import { Link, useNavigate } from "react-router-dom";
 import { useRideContext } from "../context/RideContext";
 import { useAuth } from "../context/AuthContext";
@@ -182,11 +9,64 @@ import Button from "./Button.jsx";
 const RideRequest = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const { rides, setNewRides, setOtpPanel, setRidingData } = useRideContext();
+  const dummyRides = [
+    {
+      _id: "ride123",
+      pickup: "Nazimabad, Karachi",
+      destination: "Gulshan-e-Iqbal, Karachi",
+      fare: 700,
+      user: {
+        _id: "user456",
+        fullname: {
+          firstname: "Ali",
+          lastname: "Khan",
+        },
+        email: "ali.khan@example.com",
+        phone: "03121234567",
+      },
+      status: "pending", // optional
+      createdAt: "2025-08-03T15:30:00Z", // optional
+    },
+    {
+      _id: "ride123",
+      pickup: "Nazimabad, Karachi",
+      destination: "Gulshan-e-Iqbal, Karachi",
+      fare: 700,
+      user: {
+        _id: "user456",
+        fullname: {
+          firstname: "Ali",
+          lastname: "Khan",
+        },
+        email: "ali.khan@example.com",
+        phone: "03121234567",
+      },
+      status: "pending", // optional
+      createdAt: "2025-08-03T15:30:00Z", // optional
+    },
+    {
+      _id: "ride789",
+      pickup: "Clifton, Karachi",
+      destination: "Saddar, Karachi",
+      fare: 500,
+      user: {
+        _id: "user789",
+        fullname: {
+          firstname: "Sara",
+          lastname: "Ahmed",
+        },
+        email: "sara.ahmed@example.com",
+        phone: "03011234567",
+      },
+      status: "pending",
+      createdAt: "2025-08-03T15:45:00Z",
+    },
+  ];
+  const { setNewRides, setOtpPanel, setRidingData, setProfilePanel } =
+    useRideContext();
   const { user } = useAuth();
   const navigate = useNavigate();
-
+  const rides = dummyRides;
   useEffect(() => {
     if (error) {
       showToast(error);
@@ -212,6 +92,7 @@ const RideRequest = () => {
       setLoading(false);
       setRidingData(response.data);
       navigate("/driver/dashboard");
+      setProfilePanel(false);
       setOtpPanel(true);
     } catch (error) {
       setLoading(false);
@@ -224,10 +105,10 @@ const RideRequest = () => {
   };
 
   return (
-    <div className="w-full max-w-md max-h-[90dvh] mx-auto px-4 py-5 overflow-y-auto no-scrollbar bg-slate-800 rounded-lg">
+    <div className="w-full max-w-md h-full mx-auto px-4 py-5 overflow-y-auto no-scrollbar bg-slate-900 rounded-lg">
       {!rides || rides.length === 0 ? (
         <div className="flex items-center justify-center h-full flex-col">
-          <p className="text-gray-200 text-xl font-semibold py-4">
+          <p className="text-gray-200 text-xl font-semibold py-4 tracking-wider">
             No Rides Available
           </p>
           <Link
@@ -259,9 +140,9 @@ const RideRequest = () => {
                 <img
                   src="/Images/avatar.png"
                   alt="avatar"
-                  className="w-8 h-8 rounded-full border border-gray-700"
+                  className="w-10 h-10 rounded-full border border-gray-400"
                 />
-                <p className="text-white text-lg font-semibold">
+                <p className="text-white text-lg font-semibold tracking-wider">
                   {ride?.user?.fullname?.firstname}{" "}
                   {ride?.user?.fullname?.lastname}
                 </p>
@@ -282,9 +163,9 @@ const RideRequest = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-[#C0F11C] text-base font-semibold">
+              <div className="flex items-center gap-2 text-[#C0F11C] text-base font-medium">
                 <i className="ri-cash-line text-xl"></i>
-                <span className="text-white">PKR {ride.fare}</span>
+                <span className="text-white font-medium ">PKR {ride.fare}</span>
               </div>
 
               <div className="flex justify-between mt-3">
@@ -302,7 +183,7 @@ const RideRequest = () => {
                   className={`w-[48%] py-2 rounded-lg font-semibold text-sm ${
                     loading
                       ? "bg-[#92ac43]/70 text-white cursor-not-allowed"
-                      : "bg-[#b4d453] hover:bg-[#92ac43] text-white"
+                      : "bg-green-600 hover:bg-green-700 text-white"
                   } transition-all`}
                   onClick={() => rideAccept(ride._id)}
                   disabled={loading}

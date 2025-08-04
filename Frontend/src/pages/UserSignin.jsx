@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import React, { useEffect, useState } from "react";
 import showToast from "../utilities/Toast.js";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const UserSignin = () => {
   const [loading, setLoading] = useState(false);
@@ -11,6 +12,9 @@ const UserSignin = () => {
     email: "",
     password: "",
   });
+
+  const { setUser } = useAuth(); // Get setUser from context
+  const navigate = useNavigate();
 
   const inputs = [
     {
@@ -24,8 +28,6 @@ const UserSignin = () => {
       name: "password",
     },
   ];
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
@@ -64,9 +66,12 @@ const UserSignin = () => {
         user
       );
 
+      // Store token
       localStorage.setItem("userToken", response.data.token);
+
+      setUser(response.data.user);
       setLoading(false);
-      navigate("/user/dashboard");
+      navigate("/user/dashboard", { replace: true });
     } catch (error) {
       setLoading(false);
 

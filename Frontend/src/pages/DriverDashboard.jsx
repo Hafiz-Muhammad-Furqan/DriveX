@@ -12,10 +12,8 @@ import LiveMapTracking from "../components/LiveMapTracking.jsx";
 
 const DriverDashboard = () => {
   const { user } = useAuth();
-  const [profilePanel, setProfilePanel] = useState(true);
   const [finishRidePanel, setFinishRidePanel] = useState(false);
   const [ridePanel, setRidePanel] = useState(false);
-  // const [ridingData, setRidingData] = useState(null);
   const { ridingData } = useRideContext();
 
   const { setOtpPanel, otpPanel } = useRideContext();
@@ -38,16 +36,11 @@ const DriverDashboard = () => {
   return (
     <div className="relative flex-1 w-full flex items-center flex-col overflow-hidden ">
       <div className="w-full h-full transition-opacity duration-300 ">
-        {/* <img
-          src="/Images/Map.webp"
-          alt="map"
-          className="w-full h-full object-cover bg-center"
-        /> */}
         <LiveMapTracking />
       </div>
       <SideBar />
 
-      <DriverProfile user={user} profilePanel={profilePanel} />
+      <DriverProfile user={user} />
       <DriverRidePanel
         ridePanel={ridePanel}
         setFinishRidePanel={setFinishRidePanel}

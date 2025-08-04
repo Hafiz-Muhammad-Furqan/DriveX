@@ -3,10 +3,12 @@ import Input from "../components/Input";
 import React, { useEffect, useState } from "react";
 import showToast from "../utilities/Toast.js";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const DriverSignin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { setUser } = useAuth();
   const [signinData, setSigninData] = useState({
     email: "",
     password: "",
@@ -65,8 +67,9 @@ const DriverSignin = () => {
       );
 
       localStorage.setItem("driverToken", response.data.token);
+      setUser(response.data.captain);
       setLoading(false);
-      navigate("/driver/dashboard");
+      navigate("/driver/dashboard", { replace: true });
     } catch (error) {
       setLoading(false);
 
