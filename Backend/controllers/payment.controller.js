@@ -1,35 +1,15 @@
-const { generateSignature } = require("../utils/payFastConfig");
-require("dotenv").config();
+const { createPaymentIntent } = require("../services/stripe.service.js");
 
-const initiatePayment = async (req, res) => {
-  const { amount, userEmail } = req.body;
+module.exports.handleCreatePaymentIntent = async (req, res) => {
+  try {
+    const { amount } = req.body; // frontend se amount ayega
+    const paymentIntent = await createPaymentIntent(amount);
 
-  const data = {
-    merchant_id: process.env.PAYFAST_MERCHANT_ID,
-    merchant_key: process.env.PAYFAST_MERCHANT_KEY,
-    // return_url: process.env.PAYFAST_RETURN_URL,
-    // cancel_url: process.env.PAYFAST_CANCEL_URL,
-    // notify_url: process.env.PAYFAST_NOTIFY_URL,
-    amount,
-    item_name: "Ride Payment",
-    email_address: userEmail,
-  };
-
-  // Signature generate
-  const signature = generateSignature(data);
-
-  // payment.controller.js mein modify karein
-  const paymentUrl = `https://sandbox.payfast.co.za/eng/process
-?${new URLSearchParams({
-    ...data,
-    signature: encodeURIComponent(signature), // Signature ko bhi encode karein
-  }).toString()}`;
-
-  // payment.controller.js mein console.log add karein
-  console.log("Original Data:", data);
-  console.log("Generated Signature:", signature);
-
-  res.json({ paymentUrl }); // send to frontend
+    res.status(200).json({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (err) {
+    console.error("Payment Intent Error:", err);
+    res.status(500).json({ error: err.message });
+  }
 };
-
-module.exports = { initiatePayment };

@@ -12,6 +12,7 @@ import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
 import RideRequest from "../components/RideRequest";
 import { RideProvider } from "../context/RideContext";
 import LiveMapTracking from "../components/LiveMapTracking";
+import PaymentForm from "../pages/PaymentForm";
 
 const router = createBrowserRouter([
   {
@@ -43,14 +44,6 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRouteWrapper>
         <UserSignin />
-      </ProtectedRouteWrapper>
-    ),
-  },
-  {
-    path: "/test",
-    element: (
-      <ProtectedRouteWrapper>
-        <LiveMapTracking />
       </ProtectedRouteWrapper>
     ),
   },
@@ -94,6 +87,16 @@ const router = createBrowserRouter([
       <ProtectedRouteWrapper>
         <RideProvider>
           <RideRequest />
+        </RideProvider>
+      </ProtectedRouteWrapper>
+    ),
+  },
+  {
+    path: "/test",
+    element: (
+      <ProtectedRouteWrapper>
+        <RideProvider>
+          <PaymentForm />
         </RideProvider>
       </ProtectedRouteWrapper>
     ),

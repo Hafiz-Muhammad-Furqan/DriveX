@@ -62,7 +62,7 @@ const SideBar = () => {
       )}
 
       <div
-        className={`w-full h-full absolute bg-[#141414] z-[1000]  transition-transform duration-100 ease-linear rounded-lg ${
+        className={`w-full h-full absolute bg-[#141414] z-[1000]  transition-transform duration-100 ease-linear sm:rounded-lg ${
           SidebarOpen
             ? "translate-x-0 shadow-2xl shadow-black"
             : "-translate-x-full"

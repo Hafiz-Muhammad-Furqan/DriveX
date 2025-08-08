@@ -530,6 +530,7 @@ const LiveMapTracking = () => {
           (position) => {
             const { longitude, latitude } = position.coords;
             const newLocation = [longitude, latitude];
+            console.log(newLocation);
 
             setUserLocation(newLocation);
 
