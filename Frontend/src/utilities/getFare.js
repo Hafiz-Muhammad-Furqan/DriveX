@@ -2,8 +2,6 @@ import axios from "axios";
 import showToast from "./Toast.js";
 
 const fetchFare = async (locations) => {
-  console.log(locations);
-
   try {
     const fare = await axios.get(
       `${import.meta.env.VITE_API_BASE_URL}/rides/get-fare`,

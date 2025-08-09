@@ -21,9 +21,6 @@ export const RideProvider = ({ children }) => {
   const navigate = useNavigate();
   const url = useLocation();
 
-  // useEffect(() => {
-  // console.log("newride cahala");
-
   const handleNewRide = (data) => {
     console.log("new ride");
     console.log(data);
@@ -33,13 +30,12 @@ export const RideProvider = ({ children }) => {
       return [data, ...filtered];
     });
 
-    setTimeout(() => {
-      setNewRides((prev) => prev.filter((ride) => ride._id !== data._id));
-    }, 15000);
-
     if (url.pathname !== "/driver/rides") {
       navigate("/driver/rides");
     }
+    setTimeout(() => {
+      setNewRides((prev) => prev.filter((ride) => ride._id !== data._id));
+    }, 15000);
   };
 
   // return () => {
@@ -54,8 +50,8 @@ export const RideProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log("-----------------hello");
     socket.on("new-ride", handleNewRide);
-
     socket.on("ride-cancelled", handleCancelledRide);
 
     return () => {

@@ -46,21 +46,17 @@ const ConfirmFinishRide = ({
         <div className="w-full py-2 px-2 rounded-lg flex gap-2 items-center justify-start border-2 border-gray-300">
           <i className="ri-map-pin-line text-2xl text-gray-400"></i>
           <p className="text-zinc-400 text-sm font-semibold">To:</p>
-          <p className="text-white text-sm">
-            {ridingData?.pickup}lorem fix: UI alignments, sizing
-          </p>
+          <p className="text-white text-sm">{ridingData?.pickup}</p>
         </div>
         <div className="w-full  py-2 gap-2 px-2 rounded-lg border-2 border-gray-300 flex items-center justify-start">
           <i className="ri-map-pin-line text-2xl text-gray-400"></i>
           <p className="text-zinc-400 text-sm font-semibold ">From:</p>
-          <p className="text-white text-sm">
-            {ridingData?.destination}lorem fix: UI alignments, sizing
-          </p>
+          <p className="text-white text-sm">{ridingData?.destination}</p>
         </div>
         <div className="w-full flex items-center justify-center gap-3">
           <i className="ri-cash-line text-[#C1F11D] text-xl"></i>
           <p className="text-white text-lg font-semibold text-center">
-            {ridingData?.fare}40000
+            {ridingData?.fare}
           </p>
         </div>
         <Button

@@ -91,16 +91,16 @@ const router = createBrowserRouter([
       </ProtectedRouteWrapper>
     ),
   },
-  {
-    path: "/test",
-    element: (
-      <ProtectedRouteWrapper>
-        <RideProvider>
-          <PaymentForm />
-        </RideProvider>
-      </ProtectedRouteWrapper>
-    ),
-  },
+  // {
+  //   path: "/test",
+  //   element: (
+  //     <ProtectedRouteWrapper>
+  //       <RideProvider>
+  //         <PaymentForm />
+  //       </RideProvider>
+  //     </ProtectedRouteWrapper>
+  //   ),
+  // },
 ]);
 const UserRoutes = () => {
   return <RouterProvider router={router} />;

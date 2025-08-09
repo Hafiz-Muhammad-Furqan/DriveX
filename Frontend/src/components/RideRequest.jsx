@@ -5,68 +5,15 @@ import { useEffect, useState } from "react";
 import showToast from "../utilities/Toast.js";
 import axios from "axios";
 import { MoveLeft } from "lucide-react";
-import Button from "./Button.jsx";
+
 const RideRequest = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const dummyRides = [
-    {
-      _id: "ride123",
-      pickup: "Nazimabad, Karachi",
-      destination: "Gulshan-e-Iqbal, Karachi",
-      fare: 700,
-      user: {
-        _id: "user456",
-        fullname: {
-          firstname: "Ali",
-          lastname: "Khan",
-        },
-        email: "ali.khan@example.com",
-        phone: "03121234567",
-      },
-      status: "pending", // optional
-      createdAt: "2025-08-03T15:30:00Z", // optional
-    },
-    {
-      _id: "ride123",
-      pickup: "Nazimabad, Karachi",
-      destination: "Gulshan-e-Iqbal, Karachi",
-      fare: 700,
-      user: {
-        _id: "user456",
-        fullname: {
-          firstname: "Ali",
-          lastname: "Khan",
-        },
-        email: "ali.khan@example.com",
-        phone: "03121234567",
-      },
-      status: "pending", // optional
-      createdAt: "2025-08-03T15:30:00Z", // optional
-    },
-    {
-      _id: "ride789",
-      pickup: "Clifton, Karachi",
-      destination: "Saddar, Karachi",
-      fare: 500,
-      user: {
-        _id: "user789",
-        fullname: {
-          firstname: "Sara",
-          lastname: "Ahmed",
-        },
-        email: "sara.ahmed@example.com",
-        phone: "03011234567",
-      },
-      status: "pending",
-      createdAt: "2025-08-03T15:45:00Z",
-    },
-  ];
-  const { setNewRides, setOtpPanel, setRidingData, setProfilePanel } =
+
+  const { setNewRides, setOtpPanel, setRidingData, setProfilePanel, rides } =
     useRideContext();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const rides = dummyRides;
   useEffect(() => {
     if (error) {
       showToast(error);

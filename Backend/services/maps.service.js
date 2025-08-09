@@ -30,7 +30,6 @@ module.exports.getDistanceAndTime = async (origin, distance) => {
   )}&destinations=${encodeURIComponent(distance)}&key=${apiKey}`;
   try {
     const response = await axios.get(url);
-    console.log(response.data);
 
     if (response.data.status === "OK") {
       if (

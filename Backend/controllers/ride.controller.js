@@ -4,52 +4,6 @@ const { validationResult } = require("express-validator");
 const { sendMessageToSockedId } = require("../socket");
 const rideModel = require("../models/ride.model");
 
-const mongoose = require("mongoose");
-
-// module.exports.createRide = async (req, res) => {
-//   const errors = validationResult(req);
-//   if (!errors.isEmpty()) {
-//     return res.status(400).json({ errors: errors.array() });
-//   }
-//   const { destination, pickup, vehicleType, fare, ride } = req.body;
-//   try {
-//     if (!ride) {
-//       ride = await rideService.createRide({
-//         destination,
-//         user: req.user._id,
-//         pickup,
-//         vehicleType,
-//         fare: Math.round(fare),
-//       });
-//     }
-//     const pickupCoordinates = await mapService.getAddressCoordinate(pickup);
-//     const { ltd, lng } = pickupCoordinates;
-//     const captainRadius = await mapService.getCaptainsInRadius(ltd, lng, 5000);
-
-//     const rideWithUser = await rideModel
-//       .findOne({ _id: ride._id })
-//       .populate("user");
-
-//     const notifiedCaptains = captainRadius
-//       .filter((captain) => captain.vehicle.vehicleType === vehicleType)
-//       .map((captain) => {
-//         sendMessageToSockedId(captain.socketId, {
-//           event: "new-ride",
-//           data: rideWithUser,
-//         });
-//         return captain._id.toString();
-//       });
-
-//     ride.captainsNotified = notifiedCaptains;
-//     await ride.save();
-
-//     res.status(200).json(ride);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
 module.exports.createRide = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -99,6 +53,7 @@ module.exports.createRide = async (req, res) => {
     });
 
     ride.captainsNotified = [...alreadyNotified, ...newCaptainIds];
+
     await ride.save();
 
     res.status(200).json(ride);

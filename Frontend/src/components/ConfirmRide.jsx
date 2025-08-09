@@ -23,7 +23,7 @@ const ConfirmRide = ({
           <span className="h-2 w-2 rounded-full bg-black"></span>
         </span>
         <p className="text-gray-100 text-medium font-medium tracking-wider w-full text-left">
-          {locations.pickUpLocation}lorem ipsum dolor sit amet consectetur
+          {locations.pickUpLocation}
         </p>
       </div>
       <div className="flex gap-3 items-center w-full">
@@ -31,13 +31,13 @@ const ConfirmRide = ({
           <span className="h-2 w-2 rounded-full bg-black"></span>
         </span>
         <p className="text-gray-100 text-medium font-medium tracking-wider w-full text-left">
-          {locations.destination}lorem ipsum dolor sit amet consectetur
+          {locations.destination}
         </p>
       </div>
       <div className="flex items-center justify-around w-full gap-3">
         <i className="ri-cash-line text-[#C1F11D] text-2xl"></i>
         <p className="text-white text-start w-full text-lg font-medium ">
-          {fare && `PKR ${Math.round(fare[vehicle])}`}40000
+          {fare && `PKR ${Math.round(fare[vehicle])}`}
         </p>
       </div>
       <Button

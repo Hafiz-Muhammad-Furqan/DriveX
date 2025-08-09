@@ -10,7 +10,6 @@ import { sendMessage, socket } from "../utilities/socket.js";
 import RideAccepted from "../components/RideAccepted";
 import StartRide from "../components/StartRide";
 import { useAuth } from "../context/AuthContext";
-import { toast } from "react-toastify";
 import showToast from "../utilities/Toast.js";
 import DriversNotFound from "../components/DriversNotFound.jsx";
 import LiveMapTracking from "../components/LiveMapTracking.jsx";
@@ -43,6 +42,8 @@ const UserDashboard = () => {
   }, []);
 
   socket.on("ride-accepted", (data) => {
+    console.log("hello");
+
     setAcceptedRide(data);
     setFindDriverPanel(false);
     setAcceptedRidePanel(true);

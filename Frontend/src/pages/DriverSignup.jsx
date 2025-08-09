@@ -140,15 +140,15 @@ const DriverSignup = () => {
   };
 
   return (
-    <div className="flex-1 w-full flex items-center justify-center flex-col gap-8 py-4 px-3">
+    <div className="flex-1 w-full flex  flex-col gap-8 py-4 px-3 overflow-y-auto no-scrollbar items-center">
       <img
         src="/Images/Logo.png"
         alt="logo"
-        className="object-cover bg-center h-8 "
+        className="object-contain bg-center h-8 "
       />
       <h1 className="text-white text-3xl font-semibold">Driver Signup</h1>
       <form
-        className="h-full w-full flex items-center justify-around flex-col gap-7"
+        className=" w-full flex items-center justify-around flex-col gap-7"
         onSubmit={handleSubmit}
       >
         {inputs.map((input, index) => (
