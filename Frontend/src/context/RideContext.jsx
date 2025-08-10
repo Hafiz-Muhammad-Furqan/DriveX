@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { socket } from "../utilities/socket.js";
+import showToast from "../utilities/Toast.js";
 
 const RideContext = createContext({
   rides: [],
@@ -38,10 +39,12 @@ export const RideProvider = ({ children }) => {
     }, 15000);
   };
 
-  // return () => {
-  //   socket.off("new-ride", handleNewRide);
-  // };
-  // }, [url.pathname, navigate, rides, setNewRides]);
+  const handlePaymentReceived = () => {
+    showToast("Payment Recieved Successfully");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  };
 
   const handleCancelledRide = (data) => {
     console.log(data);
@@ -53,6 +56,7 @@ export const RideProvider = ({ children }) => {
     console.log("-----------------hello");
     socket.on("new-ride", handleNewRide);
     socket.on("ride-cancelled", handleCancelledRide);
+    socket.on("payment-received", handlePaymentReceived);
 
     return () => {
       socket.off("ride-cancelled", handleCancelledRide);

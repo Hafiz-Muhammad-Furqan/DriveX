@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import ConfirmFinishRide from "../components/ConfirmFinishRide";
 import DriverProfile from "../components/DriverProfile";
 import DriverRidePanel from "../components/DriverRidePanel";
-import RideRequest from "../components/RideRequest";
 import SideBar from "../components/SideBar";
 import OtpPanel from "../components/OtpPanel";
 import { socket, sendMessage, updateLocation } from "../utilities/socket.js";
 import { useAuth } from "../context/AuthContext";
 import { useRideContext } from "../context/RideContext";
 import LiveMapTracking from "../components/LiveMapTracking.jsx";
+import WaitForPayment from "../components/WaitForPayment.jsx";
 
 const DriverDashboard = () => {
   const { user } = useAuth();
   const [finishRidePanel, setFinishRidePanel] = useState(false);
   const [ridePanel, setRidePanel] = useState(false);
+  const [WaitForPaymentPanel, setWaitForPaymentPanel] = useState(false);
   const { ridingData } = useRideContext();
 
   const { setOtpPanel, otpPanel } = useRideContext();
@@ -45,18 +46,24 @@ const DriverDashboard = () => {
         ridePanel={ridePanel}
         setFinishRidePanel={setFinishRidePanel}
         setRidePanel={setRidePanel}
+        ridingData={ridingData}
       />
       <ConfirmFinishRide
         finishRidePanel={finishRidePanel}
-        ridingData={ridingData}
-        setRidePanel={setRidePanel}
         setFinishRidePanel={setFinishRidePanel}
+        setRidePanel={setRidePanel}
+        ridingData={ridingData}
+        setWaitForPaymentPanel={setWaitForPaymentPanel}
       />
       <OtpPanel
         setOtpPanel={setOtpPanel}
         otpPanel={otpPanel}
         ridingData={ridingData}
         setRidePanel={setRidePanel}
+      />
+      <WaitForPayment
+        WaitForPaymentPanel={WaitForPaymentPanel}
+        ridingData={ridingData}
       />
     </div>
   );

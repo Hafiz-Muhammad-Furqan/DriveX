@@ -11,6 +11,7 @@ module.exports.createRide = async (req, res) => {
   }
 
   let { destination, pickup, vehicleType, fare, ride } = req.body;
+  console.log(req.user);
 
   try {
     if (!ride) {

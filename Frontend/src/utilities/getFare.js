@@ -17,7 +17,7 @@ const fetchFare = async (locations) => {
     );
     return fare.data;
   } catch (error) {
-    showToast("Error fetching fare please try later");
+    showToast("Error fetching fare please try later", "error");
   }
 };
 

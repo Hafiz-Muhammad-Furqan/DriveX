@@ -54,6 +54,7 @@ const ProtectedRouteWrapper = ({ children }) => {
         // Set user data in context if it's the primary role
         const userData =
           tokenType === "user" ? response.data : response.data.captain;
+        console.log(response.data);
 
         // Only set user in context if we don't already have user data
         // or if this validation is for the current route's required role
@@ -95,7 +96,7 @@ const ProtectedRouteWrapper = ({ children }) => {
     if (hasUserToken) {
       validUserToken = await validateToken(
         userToken,
-        "http://localhost:4000/users/profile",
+        "https://1p9cbh59-4000.inc1.devtunnels.ms/users/profile",
         "user"
       );
     }
@@ -103,7 +104,7 @@ const ProtectedRouteWrapper = ({ children }) => {
     if (hasDriverToken) {
       validDriverToken = await validateToken(
         driverToken,
-        "http://localhost:4000/captains/profile",
+        "https://1p9cbh59-4000.inc1.devtunnels.ms/captains/profile",
         "driver"
       );
     }

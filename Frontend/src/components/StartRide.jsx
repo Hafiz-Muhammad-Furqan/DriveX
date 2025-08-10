@@ -1,7 +1,53 @@
 import axios from "axios";
 import Button from "./Button";
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import showToast from "../utilities/Toast";
 
 const StartRide = ({ ride, startRidePanel, startRide }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { sertClientSecret } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (error) {
+      showToast(error);
+    }
+  }, [error]);
+
+  const handlePayment = async (rideId) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/payment/create-intent`,
+        {
+          rideId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        }
+      );
+
+      const clientSecret = response.data.clientSecret;
+      sertClientSecret(clientSecret);
+      navigate("/user/payment");
+    } catch (error) {
+      console.log(error.message);
+
+      if (error?.response?.data?.message) {
+        setError(error.response.data.message);
+        return;
+      }
+      setError("Payment creation failed ");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div
       className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-1 gap-3 py-3 rounded-t-3xl bg-black transition-transform duration-200 ease-linear  ${
@@ -40,7 +86,14 @@ const StartRide = ({ ride, startRidePanel, startRide }) => {
           </p>
         </div>
 
-        <Button label={"Make a payment"} colors={"bg-[#C1F11D]"} />
+        <Button
+          label={"Cancel Ride"}
+          colors={"bg-zinc-800 text-red-500 tracking-wider"}
+          onclick={() => {
+            setCancelRequestPanel(true);
+            setFindDriverPanel(false);
+          }}
+        />
       </div>
     </div>
   );

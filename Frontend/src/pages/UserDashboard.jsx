@@ -13,6 +13,7 @@ import { useAuth } from "../context/AuthContext";
 import showToast from "../utilities/Toast.js";
 import DriversNotFound from "../components/DriversNotFound.jsx";
 import LiveMapTracking from "../components/LiveMapTracking.jsx";
+import RideComplete from "../components/RideComplete.jsx";
 
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -25,6 +26,7 @@ const UserDashboard = () => {
   const [acceptedRide, setAcceptedRide] = useState(null);
   const [createdRide, setCreatedRide] = useState(null);
   const [cancelRequestPanel, setCancelRequestPanel] = useState(false);
+  const [rideCompletePanel, setRideCompletePanel] = useState(false);
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [fetchingFare, setFetchingFare] = useState(false);
   const [startRide, setStartRide] = useState(false);
@@ -42,7 +44,7 @@ const UserDashboard = () => {
   }, []);
 
   socket.on("ride-accepted", (data) => {
-    console.log("hello");
+    console.log(data);
 
     setAcceptedRide(data);
     setFindDriverPanel(false);
@@ -57,7 +59,8 @@ const UserDashboard = () => {
 
   socket.on("ride-finished", (data) => {
     showToast("Ride Finished successfully", "success");
-    window.location.reload();
+    setRideCompletePanel(true);
+    setStartRidePanel(false);
   });
 
   return (
@@ -141,6 +144,10 @@ const UserDashboard = () => {
         acceptedRide={acceptedRide}
       />
       <StartRide startRidePanel={startRidePanel} startRide={startRide} />
+      <RideComplete
+        startRide={startRide}
+        rideCompletePanel={rideCompletePanel}
+      />
     </div>
   );
 };

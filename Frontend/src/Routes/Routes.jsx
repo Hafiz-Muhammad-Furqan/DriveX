@@ -7,12 +7,10 @@ import DriverSignup from "../pages/DriverSignup";
 import DriverSignin from "../pages/DriverSignin";
 import UserDashboard from "../pages/UserDashboard";
 import DriverDashboard from "../pages/DriverDashboard";
-import TestRides from "../components/TestRides";
 import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
 import RideRequest from "../components/RideRequest";
 import { RideProvider } from "../context/RideContext";
-import LiveMapTracking from "../components/LiveMapTracking";
-import PaymentForm from "../pages/PaymentForm";
+import PaymentForm from "../components/PaymentForm";
 
 const router = createBrowserRouter([
   {
@@ -91,16 +89,14 @@ const router = createBrowserRouter([
       </ProtectedRouteWrapper>
     ),
   },
-  // {
-  //   path: "/test",
-  //   element: (
-  //     <ProtectedRouteWrapper>
-  //       <RideProvider>
-  //         <PaymentForm />
-  //       </RideProvider>
-  //     </ProtectedRouteWrapper>
-  //   ),
-  // },
+  {
+    path: "/user/payment",
+    element: (
+      <ProtectedRouteWrapper>
+        <PaymentForm />
+      </ProtectedRouteWrapper>
+    ),
+  },
 ]);
 const UserRoutes = () => {
   return <RouterProvider router={router} />;
