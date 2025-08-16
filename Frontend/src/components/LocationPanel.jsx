@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import fetchFare from "../utilities/getFare.js";
 import { toast } from "react-toastify";
 import showToast from "../utilities/Toast.js";
+import { useEffect } from "react";
 
 const LocationPanel = ({
   locationPanel,
@@ -18,7 +19,28 @@ const LocationPanel = ({
   const [locationSuggestions, setLocationSuggestions] = useState(null);
   const [fetchSuggestions, setFetchSuggestions] = useState(false);
   const [activeElement, setActiveElement] = useState(null);
+  const [userLocation, setUserLocation] = useState({ lat: null, lng: null });
+
   const abortControllerRef = useRef(null);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setUserLocation({
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          });
+          console.log(pos.coords.latitude);
+          console.log(pos.coords.longitude);
+        },
+        (err) => {
+          console.warn("User location not available:", err.message);
+        }
+      );
+    }
+  }, []);
+
   const useDebounce = (callBack, delay) => {
     let timeoutRef = useRef(null);
 
@@ -32,6 +54,36 @@ const LocationPanel = ({
     };
   };
 
+  // const getLocationsFromApi = async (value) => {
+  //   if (abortControllerRef.current) {
+  //     abortControllerRef.current.abort();
+  //   }
+
+  //   const controller = new AbortController();
+  //   abortControllerRef.current = controller;
+  //   setFetchSuggestions(true);
+  //   try {
+  //     const response = await axios.get(
+  //       `${import.meta.env.VITE_API_BASE_URL}/maps/get-suggestions`,
+  //       {
+  //         params: { input: value },
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+  //         },
+  //         signal: controller.signal,
+  //       }
+  //     );
+  //     setLocationSuggestions(response.data);
+  //     setFetchSuggestions(false);
+  //   } catch (error) {
+  //     if (axios.isCancel(error) || error.name === "CanceledError") {
+  //       return;
+  //     }
+  //     setFetchSuggestions(false);
+  //     showToast("Failed to fetch location suggestions.");
+  //   }
+  // };
+
   const getLocationsFromApi = async (value) => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
@@ -40,17 +92,23 @@ const LocationPanel = ({
     const controller = new AbortController();
     abortControllerRef.current = controller;
     setFetchSuggestions(true);
+
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/maps/get-suggestions`,
         {
-          params: { input: value },
+          params: {
+            input: value,
+            lat: userLocation.lat,
+            lng: userLocation.lng,
+          },
           headers: {
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
           signal: controller.signal,
         }
       );
+
       setLocationSuggestions(response.data);
       setFetchSuggestions(false);
     } catch (error) {
@@ -61,6 +119,7 @@ const LocationPanel = ({
       showToast("Failed to fetch location suggestions.");
     }
   };
+
   const debouncedFetch = useDebounce(getLocationsFromApi, 500);
 
   const handleLocations = (value, element) => {

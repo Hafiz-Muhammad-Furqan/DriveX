@@ -48,7 +48,7 @@ module.exports.getDistanceAndTime = async (origin, distance) => {
   }
 };
 
-module.exports.getSuggestions = async (input) => {
+module.exports.getSuggestions = async (input, lat, lng) => {
   if (!input) {
     throw new Error("query is required");
   }
@@ -56,7 +56,7 @@ module.exports.getSuggestions = async (input) => {
   const apiKey = process.env.GOMAPS_API_KEY;
   const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(
     input
-  )}&key=${apiKey}`;
+  )}&radius=30000&location=${lat},${lng}&key=${apiKey}`;
   try {
     const response = await axios.get(url);
     if (

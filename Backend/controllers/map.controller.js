@@ -40,8 +40,8 @@ module.exports.getSuggestions = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { input } = req.query;
-    const suggestions = await mapService.getSuggestions(input);
+    const { input, lat, lng } = req.query;
+    const suggestions = await mapService.getSuggestions(input, lat, lng);
     res.status(200).json(suggestions);
   } catch (error) {
     console.log(error);
