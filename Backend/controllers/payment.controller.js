@@ -58,7 +58,10 @@ module.exports.confirmPayment = async (req, res) => {
         },
         { new: true }
       )
-      .populate("captain", "socketId");
+      .populate("captain");
+
+    ride.captain.totalEarned = (ride.captain.totalEarned || 0) + ride.fare;
+    await ride.captain.save();
 
     if (!ride) {
       return res.status(404).json({ message: "Ride not found" });

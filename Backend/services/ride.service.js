@@ -73,6 +73,7 @@ module.exports.createRide = async ({
     pickup,
     destination,
     fare,
+    vehicleType,
     otp: getOtp(6),
   });
   return ride;
@@ -167,5 +168,10 @@ module.exports.finishRide = async (rideId, captainId) => {
       status: "completed",
     }
   );
+
+  if (ride.captain) {
+    ride.captain.totalRides = (ride.captain.totalRides || 0) + 1;
+    await ride.captain.save();
+  }
   return ride;
 };

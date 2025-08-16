@@ -53,8 +53,6 @@ module.exports.loginUser = async (req, res) => {
 };
 
 module.exports.getUserProfile = (req, res) => {
-  console.log(req.user);
-
   res.status(200).json(req.user);
 };
 

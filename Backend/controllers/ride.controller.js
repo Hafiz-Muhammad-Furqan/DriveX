@@ -10,11 +10,12 @@ module.exports.createRide = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  let { destination, pickup, vehicleType, fare, ride } = req.body;
-  console.log(req.user);
+  let { destination, pickup, vehicleType, fare, rideId } = req.body;
 
   try {
-    if (!ride) {
+    let ride;
+
+    if (!rideId) {
       ride = await rideService.createRide({
         destination,
         user: req.user._id,
@@ -22,6 +23,11 @@ module.exports.createRide = async (req, res) => {
         vehicleType,
         fare: Math.round(fare),
       });
+    } else {
+      ride = await rideModel.findById(rideId);
+      if (!ride) {
+        return res.status(404).json({ message: "Ride not found" });
+      }
     }
 
     const pickupCoordinates = await mapService.getAddressCoordinate(pickup);
@@ -34,7 +40,6 @@ module.exports.createRide = async (req, res) => {
       .populate("user");
 
     const alreadyNotified = ride.captainsNotified || [];
-
     const newCaptainIds = [];
 
     captainRadius.forEach((captain) => {
@@ -54,7 +59,6 @@ module.exports.createRide = async (req, res) => {
     });
 
     ride.captainsNotified = [...alreadyNotified, ...newCaptainIds];
-
     await ride.save();
 
     res.status(200).json(ride);

@@ -32,7 +32,12 @@ const DriverDashboard = () => {
 
   useEffect(() => {
     sendMessage("join", { userType: "captain", userId: user._id });
+    socket.on("new-ride", handleNewRide);
   }, []);
+
+  const handleNewRide = (data) => {
+    console.log(data);
+  };
 
   return (
     <div className="relative flex-1 w-full flex items-center flex-col overflow-hidden ">

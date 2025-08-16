@@ -2,7 +2,7 @@ import { useRideContext } from "../context/RideContext";
 import Button from "./Button";
 
 const DriverProfile = ({ user }) => {
-  const { fullname } = user;
+  const { fullname, totalEarned, totalRides } = user;
   const { firstname, lastname } = fullname;
   const { profilePanel } = useRideContext();
 
@@ -29,14 +29,14 @@ const DriverProfile = ({ user }) => {
             <h2 className="text-zinc-100 text-lg font-semibold">
               Total Earned
             </h2>
-            <p className="text-white tracking-tight text-center leading-5">
-              PKR 300
+            <p className="text-gray-300 tracking-tight text-center leading-5">
+              PKR {totalEarned}
             </p>
           </div>
           <div className="w-full flex flex-col items-center justify-around bg-zinc-800 rounded-lg px-1 py-3 gap-1 hover:scale-[1.02] hover:bg-zinc-900 cursor-pointer transition-transform duration-200 linear hover:shadow-sm hover:shadow-zinc-800">
             <h2 className="text-zinc-100 text-lg font-semibold">Total Rides</h2>
-            <p className="text-white tracking-tight text-center leading-5">
-              Total Rides
+            <p className="text-gray-300 tracking-tight text-center leading-5">
+              {totalRides}
             </p>
           </div>
         </div>

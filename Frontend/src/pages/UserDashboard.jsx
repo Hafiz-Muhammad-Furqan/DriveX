@@ -70,11 +70,6 @@ const UserDashboard = () => {
           locationPanel ? "opacity-50" : ""
         }`}
       >
-        {/* <img
-          src="/Images/Map.webp"
-          alt="map"
-          className="w-full h-full object-cover bg-center"
-        /> */}
         <LiveMapTracking />
       </div>
       <SideBar />

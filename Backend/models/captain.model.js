@@ -21,6 +21,14 @@ const captainSchema = new mongoose.Schema({
     lowercase: true,
     match: [/\S+@\S+\.\S+/, "Invalid email address"],
   },
+  totalRides: {
+    type: Number,
+    default: 0,
+  },
+  totalEarned: {
+    type: Number,
+    default: 0,
+  },
   password: {
     type: String,
     required: true,

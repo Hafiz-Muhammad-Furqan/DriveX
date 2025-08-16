@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { socket } from "../utilities/socket.js";
 import showToast from "../utilities/Toast.js";
+import { Check } from "lucide-react";
 
 const RideContext = createContext({
   rides: [],
@@ -19,11 +20,23 @@ export const RideProvider = ({ children }) => {
   const [otpPanel, setOtpPanel] = useState(false);
   const [ridingData, setRidingData] = useState(null);
   const [profilePanel, setProfilePanel] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
   const url = useLocation();
 
+  useEffect(() => {
+    socket.on("new-ride", handleNewRide);
+    socket.on("ride-cancelled", handleCancelledRide);
+    socket.on("payment-received", handlePaymentReceived);
+
+    return () => {
+      socket.off("ride-cancelled", handleCancelledRide);
+      socket.off("new-ride", handleNewRide);
+      socket.off("payment-received", handlePaymentReceived);
+    };
+  }, []);
+
   const handleNewRide = (data) => {
-    console.log("new ride");
     console.log(data);
 
     setNewRides((prev) => {
@@ -40,29 +53,15 @@ export const RideProvider = ({ children }) => {
   };
 
   const handlePaymentReceived = () => {
-    showToast("Payment Recieved Successfully");
+    setIsSuccess(true);
     setTimeout(() => {
       window.location.reload();
-    }, 1000);
+    }, 2500);
   };
 
   const handleCancelledRide = (data) => {
-    console.log(data);
-
     setNewRides((prev) => prev.filter((ride) => ride._id !== data.rideId));
   };
-
-  useEffect(() => {
-    console.log("-----------------hello");
-    socket.on("new-ride", handleNewRide);
-    socket.on("ride-cancelled", handleCancelledRide);
-    socket.on("payment-received", handlePaymentReceived);
-
-    return () => {
-      socket.off("ride-cancelled", handleCancelledRide);
-      socket.off("new-ride", handleNewRide);
-    };
-  }, []);
 
   return (
     <RideContext.Provider
@@ -77,7 +76,86 @@ export const RideProvider = ({ children }) => {
         setProfilePanel,
       }}
     >
-      {children}
+      {isSuccess ? (
+        <div className="h-full w-full relative">
+          <div className="absolute inset-0 bg-gray-900/90 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="text-center">
+              <div className="relative mx-auto w-32 h-32">
+                <svg className="w-full h-full" viewBox="0 0 120 120">
+                  <circle
+                    className="text-gray-700"
+                    strokeWidth="4"
+                    stroke="currentColor"
+                    fill="none"
+                    cx="60"
+                    cy="60"
+                    r="54"
+                  />
+                  <circle
+                    className="text-[#c1f11d] animate-draw"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    stroke="currentColor"
+                    fill="none"
+                    cx="60"
+                    cy="60"
+                    r="54"
+                    strokeDasharray="339.292"
+                    strokeDashoffset="339.292"
+                    style={{
+                      animation: "draw 1s ease-out forwards",
+                      animationDelay: "0.1s",
+                    }}
+                  />
+                </svg>
+                <Check
+                  className="absolute inset-0 m-auto w-16 h-16 text-[#c1f11d]"
+                  style={{
+                    opacity: 0,
+                    animation: "fadeIn 0.3s ease-out forwards",
+                    animationDelay: "0.8s",
+                  }}
+                />
+              </div>
+              <h2
+                className="text-2xl font-bold text-white mt-6 tracking-wide"
+                style={{
+                  opacity: 0,
+                  animation: "fadeIn 0.5s ease-out forwards",
+                  animationDelay: "1.2s",
+                }}
+              >
+                Payment Received !
+              </h2>
+            </div>
+            <style>
+              {`
+          @keyframes draw {
+            to { stroke-dashoffset: 0; }
+          }
+          @keyframes fadeIn {
+            to { opacity: 1; }
+          }
+          @keyframes progressBar {
+            from { width: 0%; }
+            to { width: 100%; }
+          }
+          .animate-draw {
+            animation: draw 1s ease-out forwards;
+          }
+          .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+          }
+          .animate-progressBar {
+            animation: progressBar 2s ease-out forwards;
+          }
+        `}
+            </style>
+          </div>
+        </div>
+      ) : (
+        children
+      )}
     </RideContext.Provider>
   );
 };
