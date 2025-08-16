@@ -1,8 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { socket } from "../utilities/socket.js";
+import { sendMessage, socket } from "../utilities/socket.js";
 import showToast from "../utilities/Toast.js";
 import { Check } from "lucide-react";
+import { useAuth } from "./AuthContext.jsx";
 
 const RideContext = createContext({
   rides: [],
@@ -21,20 +22,40 @@ export const RideProvider = ({ children }) => {
   const [ridingData, setRidingData] = useState(null);
   const [profilePanel, setProfilePanel] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSocketRegistered, setIsSocketRegistered] = useState(false);
+  const { user } = useAuth();
   const navigate = useNavigate();
   const url = useLocation();
 
   useEffect(() => {
+    if (!user?._id) return;
+
+    const handleSocketRegistered = () => {
+      console.log("Socket registered successfully");
+      setIsSocketRegistered(true);
+    };
+
+    if (socket.connected) {
+      sendMessage("join", { userType: "captain", userId: user._id });
+    } else {
+      socket.on("connect", () => {
+        console.log("Socket connected, joining as captain");
+        sendMessage("join", { userType: "captain", userId: user._id });
+      });
+    }
+
+    socket.on("join-success", handleSocketRegistered);
     socket.on("new-ride", handleNewRide);
     socket.on("ride-cancelled", handleCancelledRide);
     socket.on("payment-received", handlePaymentReceived);
 
     return () => {
-      socket.off("ride-cancelled", handleCancelledRide);
+      socket.off("join-success", handleSocketRegistered);
       socket.off("new-ride", handleNewRide);
-      socket.off("payment-received", handlePaymentReceived);
+      socket.on("ride-cancelled", handleCancelledRide);
+      socket.on("payment-received", handlePaymentReceived);
     };
-  }, []);
+  }, [user._id]);
 
   const handleNewRide = (data) => {
     console.log(data);
@@ -56,7 +77,7 @@ export const RideProvider = ({ children }) => {
     setIsSuccess(true);
     setTimeout(() => {
       window.location.reload();
-    }, 2500);
+    }, 3000);
   };
 
   const handleCancelledRide = (data) => {
@@ -74,6 +95,8 @@ export const RideProvider = ({ children }) => {
         setRidingData,
         profilePanel,
         setProfilePanel,
+        isSocketRegistered,
+        setIsSocketRegistered,
       }}
     >
       {isSuccess ? (

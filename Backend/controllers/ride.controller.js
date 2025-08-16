@@ -3,6 +3,7 @@ const mapService = require("../services/maps.service");
 const { validationResult } = require("express-validator");
 const { sendMessageToSockedId } = require("../socket");
 const rideModel = require("../models/ride.model");
+const captainModel = require("../models/captain.model");
 
 module.exports.createRide = async (req, res) => {
   const errors = validationResult(req);
@@ -35,38 +36,83 @@ module.exports.createRide = async (req, res) => {
 
     const captainRadius = await mapService.getCaptainsInRadius(ltd, lng, 5000);
 
+    const availableCaptains = captainRadius.filter(
+      (captain) =>
+        captain.vehicle && captain.vehicle.vehicleType === vehicleType
+    );
+
+    if (availableCaptains.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No drivers available in your area" });
+    }
+
     const rideWithUser = await rideModel
       .findOne({ _id: ride._id })
       .populate("user");
 
     const alreadyNotified = ride.captainsNotified || [];
     const newCaptainIds = [];
+    const successfulNotifications = [];
 
-    captainRadius.forEach((captain) => {
-      if (captain.vehicle.vehicleType === vehicleType) {
-        sendMessageToSockedId(captain.socketId, {
+    for (const captain of availableCaptains) {
+      try {
+        const currentCaptain = await captainModel.findById(captain._id);
+        if (!currentCaptain || !currentCaptain.socketId) {
+          console.log(`Captain ${captain._id} has no active socket connection`);
+          continue;
+        }
+
+        const success = sendMessageToSockedId(currentCaptain.socketId, {
           event: "new-ride",
           data: rideWithUser,
         });
 
+        if (success) {
+          successfulNotifications.push(captain._id.toString());
+          console.log(`Successfully notified captain ${captain._id}`);
+        } else {
+          console.log(`Failed to notify captain ${captain._id}`);
+        }
+
         if (!alreadyNotified.includes(captain._id.toString())) {
           newCaptainIds.push({
             captainId: captain._id.toString(),
-            socketId: captain.socketId,
+            socketId: currentCaptain.socketId,
+            notifiedAt: new Date(),
+            success: success,
           });
         }
+      } catch (error) {
+        console.error(`Error notifying captain ${captain._id}:`, error);
       }
-    });
+    }
 
     ride.captainsNotified = [...alreadyNotified, ...newCaptainIds];
+    ride.notificationStats = {
+      totalCaptains: availableCaptains.length,
+      successfulNotifications: successfulNotifications.length,
+      lastNotificationAt: new Date(),
+    };
     await ride.save();
 
-    res.status(200).json(ride);
+    console.log(
+      `Ride ${ride._id}: Notified ${successfulNotifications.length}/${availableCaptains.length} captains`
+    );
+
+    res.status(200).json({
+      ...ride.toObject(),
+      notificationStats: {
+        totalCaptains: availableCaptains.length,
+        notifiedSuccessfully: successfulNotifications.length,
+      },
+    });
   } catch (error) {
-    console.error(error);
+    console.error("Error in createRide:", error);
     res.status(500).json({ message: error.message });
   }
 };
+
 module.exports.getFare = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

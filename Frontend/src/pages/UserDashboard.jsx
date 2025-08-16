@@ -40,28 +40,55 @@ const UserDashboard = () => {
   });
 
   useEffect(() => {
-    sendMessage("join", { userType: "user", userId: user._id });
+    if (!user?._id) return;
+
+    const registerUser = () => {
+      sendMessage("join", { userType: "user", userId: user._id });
+    };
+
+    if (socket.connected) {
+      registerUser();
+    } else {
+      socket.on("connect", registerUser);
+    }
+
+    return () => {
+      socket.off("connect", registerUser);
+    };
+  }, [user?._id]);
+
+  useEffect(() => {
+    const handleRideAccepted = (data) => {
+      console.log("Ride accepted:", data);
+      setAcceptedRide(data);
+      setFindDriverPanel(false);
+      setAcceptedRidePanel(true);
+    };
+
+    const handleRideStarted = (data) => {
+      console.log("Ride started:", data);
+      setAcceptedRidePanel(false);
+      setStartRidePanel(true);
+      setStartRide(data);
+    };
+
+    const handleRideFinished = (data) => {
+      console.log("Ride finished:", data);
+      showToast("Ride finished successfully", "success");
+      setRideCompletePanel(true);
+      setStartRidePanel(false);
+    };
+
+    socket.on("ride-accepted", handleRideAccepted);
+    socket.on("ride-started", handleRideStarted);
+    socket.on("ride-finished", handleRideFinished);
+
+    return () => {
+      socket.off("ride-accepted", handleRideAccepted);
+      socket.off("ride-started", handleRideStarted);
+      socket.off("ride-finished", handleRideFinished);
+    };
   }, []);
-
-  socket.on("ride-accepted", (data) => {
-    console.log(data);
-
-    setAcceptedRide(data);
-    setFindDriverPanel(false);
-    setAcceptedRidePanel(true);
-  });
-
-  socket.on("ride-started", (data) => {
-    setAcceptedRidePanel(false);
-    setStartRidePanel(true);
-    setStartRide(data);
-  });
-
-  socket.on("ride-finished", (data) => {
-    showToast("Ride Finished successfully", "success");
-    setRideCompletePanel(true);
-    setStartRidePanel(false);
-  });
 
   return (
     <div className="relative flex-1 w-full flex items-center flex-col overflow-hidden">
@@ -102,7 +129,7 @@ const UserDashboard = () => {
         vehicle={vehicle}
         locations={locations}
         setCreatedRide={setCreatedRide}
-      ></ConfirmRide>
+      />
       <FindDrivers
         setFindDriverPanel={setFindDriverPanel}
         findDriverPanel={findDriverPanel}
@@ -113,13 +140,13 @@ const UserDashboard = () => {
         setNoDriversFound={setNoDriversFound}
         setCreatedRide={setCreatedRide}
         createdRide={createdRide}
-      ></FindDrivers>
+      />
       <CancelRequest
         setCancelRequestPanel={setCancelRequestPanel}
         cancelRequestPanel={cancelRequestPanel}
         setFindDriverPanel={setFindDriverPanel}
         createdRide={createdRide}
-      ></CancelRequest>
+      />
       <ChooseVehicle
         setVehiclePanel={setVehiclePanel}
         vehiclePanel={vehiclePanel}
@@ -127,7 +154,7 @@ const UserDashboard = () => {
         setVehicle={setVehicle}
         fare={fare}
         locations={locations}
-      ></ChooseVehicle>
+      />
       <DriversNotFound
         setCancelRequestPanel={setCancelRequestPanel}
         setFindDriverPanel={setFindDriverPanel}

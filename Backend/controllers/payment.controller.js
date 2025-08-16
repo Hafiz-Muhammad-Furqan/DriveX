@@ -74,7 +74,10 @@ module.exports.confirmPayment = async (req, res) => {
       });
     }
 
-    return res.json({ message: "Payment confirmed and captain notified" });
+    return res.json({
+      message: "Payment confirmed and captain notified",
+      status: "success",
+    });
   } catch (err) {
     console.error("confirmPayment error:", err);
     return res.status(500).json({ error: err.message });

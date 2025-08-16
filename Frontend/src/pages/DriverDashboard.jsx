@@ -4,7 +4,7 @@ import DriverProfile from "../components/DriverProfile";
 import DriverRidePanel from "../components/DriverRidePanel";
 import SideBar from "../components/SideBar";
 import OtpPanel from "../components/OtpPanel";
-import { socket, sendMessage, updateLocation } from "../utilities/socket.js";
+import { updateLocation } from "../utilities/socket.js";
 import { useAuth } from "../context/AuthContext";
 import { useRideContext } from "../context/RideContext";
 import LiveMapTracking from "../components/LiveMapTracking.jsx";
@@ -15,29 +15,22 @@ const DriverDashboard = () => {
   const [finishRidePanel, setFinishRidePanel] = useState(false);
   const [ridePanel, setRidePanel] = useState(false);
   const [WaitForPaymentPanel, setWaitForPaymentPanel] = useState(false);
-  const { ridingData } = useRideContext();
-
-  const { setOtpPanel, otpPanel } = useRideContext();
+  const { ridingData, isSocketRegistered, setOtpPanel, otpPanel } =
+    useRideContext();
 
   useEffect(() => {
-    if (!user?._id) return;
+    if (!user?._id || !isSocketRegistered) return;
+
     const locationInterval = setInterval(() => {
       updateLocation(user._id);
     }, 10000);
+
     updateLocation(user._id);
+
     return () => {
       clearInterval(locationInterval);
     };
-  }, [user._id]);
-
-  useEffect(() => {
-    sendMessage("join", { userType: "captain", userId: user._id });
-    socket.on("new-ride", handleNewRide);
-  }, []);
-
-  const handleNewRide = (data) => {
-    console.log(data);
-  };
+  }, [user._id, isSocketRegistered]);
 
   return (
     <div className="relative flex-1 w-full flex items-center flex-col overflow-hidden ">
