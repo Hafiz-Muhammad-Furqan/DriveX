@@ -85,7 +85,7 @@ const SideBar = () => {
         <div className="w-full absolute bottom-8 flex flex-col gap-4 px-4 items-center justify-center">
           {url.pathname.includes("/driver") && (
             <Button
-              label={"All Rides"}
+              label={"Available Rides"}
               colors={"bg-[#C1F11D]"}
               path={"/driver/rides"}
             />

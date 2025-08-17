@@ -1,7 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { sendMessage, socket } from "../utilities/socket.js";
-import showToast from "../utilities/Toast.js";
 import { Check } from "lucide-react";
 import { useAuth } from "./AuthContext.jsx";
 
@@ -14,6 +13,10 @@ const RideContext = createContext({
   setRidingData: () => {},
   profilePanel: true,
   setProfilePanel: () => {},
+  isSuccess: false,
+  setIsSuccess: () => {},
+  isSocketRegistered: false,
+  setIsSocketRegistered: () => {},
 });
 
 export const RideProvider = ({ children }) => {

@@ -118,7 +118,7 @@ const PaymentForm = () => {
       );
 
       if (error) {
-        showToast("Payment Failed: " + error.message, "error");
+        setError("Payment Failed: " + error.message, "error");
         console.log(error.message);
         console.log(clientSecret);
       } else if (paymentIntent.status === "succeeded") {

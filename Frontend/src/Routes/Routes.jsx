@@ -7,10 +7,10 @@ import DriverSignup from "../pages/DriverSignup";
 import DriverSignin from "../pages/DriverSignin";
 import UserDashboard from "../pages/UserDashboard";
 import DriverDashboard from "../pages/DriverDashboard";
-import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
-import RideRequest from "../components/RideRequest";
+import RideRequest from "../pages/RideRequest";
+import PaymentForm from "../pages/PaymentForm";
 import { RideProvider } from "../context/RideContext";
-import PaymentForm from "../components/PaymentForm";
+import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
 
 const router = createBrowserRouter([
   {

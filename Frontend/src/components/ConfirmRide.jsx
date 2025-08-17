@@ -18,20 +18,20 @@ const ConfirmRide = ({
         Confirm Ride
       </h1>
 
-      <div className="flex gap-3 items-center w-full">
+      <div className="flex gap-3 items-center w-full ">
         <span className="h-4 w-4 rounded-full bg-[#C0F11C] flex items-center justify-center flex-shrink-0">
           <span className="h-2 w-2 rounded-full bg-black"></span>
         </span>
-        <p className="text-gray-100 text-medium font-medium tracking-wider w-full text-left">
-          {locations.pickUpLocation}
+        <p className="text-gray-100 text-medium font-medium tracking-wide w-full text-left ">
+          {locations?.pickUpLocation}
         </p>
       </div>
       <div className="flex gap-3 items-center w-full">
         <span className="h-4 w-4 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0">
           <span className="h-2 w-2 rounded-full bg-black"></span>
         </span>
-        <p className="text-gray-100 text-medium font-medium tracking-wider w-full text-left">
-          {locations.destination}
+        <p className="text-gray-100 text-medium font-medium tracking-wide w-full text-left">
+          {locations?.destination}
         </p>
       </div>
       <div className="flex items-center justify-around w-full gap-3">

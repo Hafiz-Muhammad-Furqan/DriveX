@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useRideContext } from "../context/RideContext";
-import { useAuth } from "../context/AuthContext";
+import { useRideContext } from "../context/RideContext.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 import { useEffect, useState } from "react";
 import showToast from "../utilities/Toast.js";
 import axios from "axios";

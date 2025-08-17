@@ -13,7 +13,7 @@ import WaitForPayment from "../components/WaitForPayment.jsx";
 const DriverDashboard = () => {
   const { user } = useAuth();
   const [finishRidePanel, setFinishRidePanel] = useState(false);
-  const [ridePanel, setRidePanel] = useState(false);
+  const [ridePanel, setRidePanel] = useState(true);
   const [WaitForPaymentPanel, setWaitForPaymentPanel] = useState(false);
   const { ridingData, isSocketRegistered, setOtpPanel, otpPanel } =
     useRideContext();

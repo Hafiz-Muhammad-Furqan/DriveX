@@ -54,36 +54,6 @@ const LocationPanel = ({
     };
   };
 
-  // const getLocationsFromApi = async (value) => {
-  //   if (abortControllerRef.current) {
-  //     abortControllerRef.current.abort();
-  //   }
-
-  //   const controller = new AbortController();
-  //   abortControllerRef.current = controller;
-  //   setFetchSuggestions(true);
-  //   try {
-  //     const response = await axios.get(
-  //       `${import.meta.env.VITE_API_BASE_URL}/maps/get-suggestions`,
-  //       {
-  //         params: { input: value },
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-  //         },
-  //         signal: controller.signal,
-  //       }
-  //     );
-  //     setLocationSuggestions(response.data);
-  //     setFetchSuggestions(false);
-  //   } catch (error) {
-  //     if (axios.isCancel(error) || error.name === "CanceledError") {
-  //       return;
-  //     }
-  //     setFetchSuggestions(false);
-  //     showToast("Failed to fetch location suggestions.");
-  //   }
-  // };
-
   const getLocationsFromApi = async (value) => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
@@ -227,7 +197,7 @@ const LocationPanel = ({
               <div className="h-4 bg-[#6a6b6d] rounded-md animate-pulse"></div>
             </div>
           )}
-          {locationSuggestions?.length === 0 && (
+          {locationSuggestions?.length === 0 && !fetchSuggestions && (
             <p className="text-gray-200 text-lg mt-8">No Results found</p>
           )}
           {locationSuggestions?.length > 0 && !fetchSuggestions && (

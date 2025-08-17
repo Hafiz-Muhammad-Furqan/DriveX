@@ -26,7 +26,7 @@ const DriverProfile = ({ user }) => {
 
         <div className="w-full grid grid-cols-2 gap-2">
           <div className="w-full flex flex-col items-center justify-around bg-zinc-800 rounded-lg px-1 py-3 gap-1 hover:scale-[1.02] hover:bg-zinc-900 cursor-pointer transition-transform duration-200 linear hover:shadow-sm hover:shadow-zinc-800">
-            <h2 className="text-zinc-100 text-lg font-semibold">
+            <h2 className="text-zinc-100 text-lg font-semibold tracking-wider">
               Total Earned
             </h2>
             <p className="text-gray-300 tracking-tight text-center leading-5">
@@ -34,7 +34,9 @@ const DriverProfile = ({ user }) => {
             </p>
           </div>
           <div className="w-full flex flex-col items-center justify-around bg-zinc-800 rounded-lg px-1 py-3 gap-1 hover:scale-[1.02] hover:bg-zinc-900 cursor-pointer transition-transform duration-200 linear hover:shadow-sm hover:shadow-zinc-800">
-            <h2 className="text-zinc-100 text-lg font-semibold">Total Rides</h2>
+            <h2 className="text-zinc-100 text-lg font-semibold tracking-wider">
+              Total Rides
+            </h2>
             <p className="text-gray-300 tracking-tight text-center leading-5">
               {totalRides}
             </p>

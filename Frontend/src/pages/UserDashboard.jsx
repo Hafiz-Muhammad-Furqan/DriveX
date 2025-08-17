@@ -44,6 +44,7 @@ const UserDashboard = () => {
 
     const registerUser = () => {
       sendMessage("join", { userType: "user", userId: user._id });
+      console.log(user._id);
     };
 
     if (socket.connected) {

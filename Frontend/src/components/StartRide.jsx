@@ -1,15 +1,35 @@
 import axios from "axios";
-import Button from "./Button";
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import showToast from "../utilities/Toast";
 
-const StartRide = ({ ride, startRidePanel, startRide }) => {
+const StartRide = ({ startRidePanel, startRide }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { sertClientSecret } = useAuth();
-  const navigate = useNavigate();
+  const cancelCurrentRide = async (rideId) => {
+    setLoading(true);
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/rides/cancel/${rideId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        }
+      );
+      setLoading(false);
+      showToast("Ride cancelled successfully");
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+
+      if (error?.response?.data?.message) {
+        setError(error.response.data.message);
+      }
+      setLoading(false);
+      setError(error.message);
+    }
+  };
 
   useEffect(() => {
     if (error) {
@@ -17,37 +37,6 @@ const StartRide = ({ ride, startRidePanel, startRide }) => {
     }
   }, [error]);
 
-  const handlePayment = async (rideId) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/payment/create-intent`,
-        {
-          rideId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-          },
-        }
-      );
-
-      const clientSecret = response.data.clientSecret;
-      sertClientSecret(clientSecret);
-      navigate("/user/payment");
-    } catch (error) {
-      console.log(error.message);
-
-      if (error?.response?.data?.message) {
-        setError(error.response.data.message);
-        return;
-      }
-      setError("Payment creation failed ");
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <div
       className={`w-full flex justify-center items-center flex-col absolute bottom-0 px-1 gap-3 py-3 rounded-t-3xl bg-black transition-transform duration-200 ease-linear  ${
@@ -71,13 +60,21 @@ const StartRide = ({ ride, startRidePanel, startRide }) => {
           </p>
         </div>
 
-        <div className="w-full py-2 px-2 rounded-lg flex gap-2 items-center justify-start border-2 border-gray-600">
-          <i className="ri-map-pin-line text-2xl text-gray-400"></i>
-          <p className="text-white text-[14px]">{startRide?.pickup}</p>
+        <div className="flex gap-3 items-center w-full px-2">
+          <span className="h-4 w-4 rounded-full bg-[#C0F11C] flex items-center justify-center flex-shrink-0">
+            <span className="h-2 w-2 rounded-full bg-black"></span>
+          </span>
+          <p className="text-gray-100 text-medium font-medium tracking-wide w-full text-left">
+            {startRide?.pickup}
+          </p>
         </div>
-        <div className="w-full  py-2 gap-2 px-2 rounded-lg border-2 border-gray-600 flex items-center justify-start">
-          <i className="ri-map-pin-line text-2xl text-gray-400"></i>
-          <p className="text-white text-[14px] ">{startRide?.destination}</p>
+        <div className="flex gap-3 items-center w-full px-2">
+          <span className="h-4 w-4 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0">
+            <span className="h-2 w-2 rounded-full bg-black"></span>
+          </span>
+          <p className="text-gray-100 text-medium font-medium tracking-wide w-full text-left">
+            {startRide?.destination}
+          </p>
         </div>
         <div className="w-full flex items-center justify-center gap-3">
           <i className="ri-cash-line text-[#C1F11D] text-2xl"></i>
@@ -86,14 +83,13 @@ const StartRide = ({ ride, startRidePanel, startRide }) => {
           </p>
         </div>
 
-        <Button
-          label={"Cancel Ride"}
-          colors={"bg-zinc-800 text-red-500 tracking-wider"}
-          onclick={() => {
-            setCancelRequestPanel(true);
-            setFindDriverPanel(false);
-          }}
-        />
+        <button
+          className="text-red-500 bg-zinc-800 flex items-center justify-center w-[96%] rounded-xl py-2 cursor-pointer font-medium text-lg text-center tracking-wide outline-none"
+          onClick={() => cancelCurrentRide(startRide._id)}
+          disabled={loading}
+        >
+          Cancel Request{loading ? "..." : ""}
+        </button>
       </div>
     </div>
   );

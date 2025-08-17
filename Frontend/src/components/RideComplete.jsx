@@ -54,8 +54,8 @@ const RideComplete = ({ rideCompletePanel, startRide }) => {
         rideCompletePanel ? "translate-y-0" : "translate-y-full"
       } `}
     >
-      <div className="w-full flex flex-col items-center justify-center gap-4 px-3 py-1">
-        <h1 className="text-white text-2xl font-bold tracking-wider">
+      <div className="w-full flex flex-col items-center justify-center gap-5 px-3 py-4">
+        <h1 className="text-white text-2xl font-bold tracking-wider leading-3">
           Ride Completed !
         </h1>
 

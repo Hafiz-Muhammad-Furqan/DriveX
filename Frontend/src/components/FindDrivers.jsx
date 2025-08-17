@@ -115,14 +115,16 @@ const FindDrivers = ({
           </p>
         </div>
       </div>
-      <Button
-        label={"Cancel Request"}
-        colors={"bg-zinc-800 text-red-500 tracking-wider"}
-        onclick={() => {
+
+      <button
+        className="text-red-500 bg-zinc-800 flex items-center justify-center w-[96%] rounded-xl py-2 cursor-pointer font-medium text-lg text-center tracking-wide outline-none"
+        onClick={() => {
           setCancelRequestPanel(true);
           setFindDriverPanel(false);
         }}
-      />
+      >
+        Cancel Request
+      </button>
     </div>
   );
 };

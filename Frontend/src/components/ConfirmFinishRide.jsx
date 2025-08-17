@@ -60,7 +60,7 @@ const ConfirmFinishRide = ({
         finishRidePanel ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <h3 className="text-white text-2xl font-semibold text-center tracking-wide">
+      <h3 className="text-white text-xl font-semibold text-center tracking-wide">
         Do you want to end the ride?
       </h3>
       <Button
@@ -71,7 +71,7 @@ const ConfirmFinishRide = ({
       />
       <Button
         label={"Keep Riding"}
-        colors={"bg-zinc-600 text-gray-100 tracking-wider"}
+        colors={"bg-zinc-800 text-gray-50 tracking-wider"}
         onclick={() => {
           setRidePanel(true);
           setFinishRidePanel(false);

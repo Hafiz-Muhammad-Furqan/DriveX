@@ -12,8 +12,6 @@ const CancelRequest = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const cancelCurrentRide = async (rideId) => {
-    console.log(createdRide);
-
     setLoading(true);
     try {
       await axios.post(
@@ -56,11 +54,11 @@ const CancelRequest = ({
         }}
       />
       <button
-        className="text-red-500 bg-zinc-800 flex items-center justify-center w-[96%] rounded-xl py-2 cursor-pointer font-medium text-lg text-center tracking-wider outline-none"
+        className="text-red-500 bg-zinc-800 flex items-center justify-center w-[96%] rounded-xl py-2 cursor-pointer font-medium text-lg text-center tracking-wide outline-none"
         onClick={() => cancelCurrentRide(createdRide._id)}
         disabled={loading}
       >
-        Cancel Request
+        Cancel Request{loading ? "..." : ""}
       </button>
     </div>
   );

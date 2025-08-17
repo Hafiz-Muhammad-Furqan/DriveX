@@ -95,7 +95,7 @@ const ProtectedRouteWrapper = ({ children }) => {
     if (hasUserToken) {
       validUserToken = await validateToken(
         userToken,
-        "http://localhost:4000/users/profile",
+        "https://1p9cbh59-4000.inc1.devtunnels.ms/users/profile",
         "user"
       );
     }
@@ -103,7 +103,7 @@ const ProtectedRouteWrapper = ({ children }) => {
     if (hasDriverToken) {
       validDriverToken = await validateToken(
         driverToken,
-        "http://localhost:4000/captains/profile",
+        "https://1p9cbh59-4000.inc1.devtunnels.ms/captains/profile",
         "driver"
       );
     }
