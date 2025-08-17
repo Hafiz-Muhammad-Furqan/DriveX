@@ -58,7 +58,7 @@ export const RideProvider = ({ children }) => {
       socket.on("ride-cancelled", handleCancelledRide);
       socket.on("payment-received", handlePaymentReceived);
     };
-  }, [user._id]);
+  }, [user?._id]);
 
   const handleNewRide = (data) => {
     console.log(data);

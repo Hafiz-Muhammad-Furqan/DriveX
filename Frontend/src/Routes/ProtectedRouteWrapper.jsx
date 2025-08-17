@@ -18,14 +18,12 @@ const ProtectedRouteWrapper = ({ children }) => {
 
   const currentPath = location.pathname;
 
-  // Route classifications
   const publicRoutes = ["/", "/role"];
   const userAuthRoutes = ["/user/signin", "/user/signup"];
   const driverAuthRoutes = ["/driver/signin", "/driver/signup"];
-  const userProtectedRoutes = ["/user/dashboard"];
-  const driverProtectedRoutes = ["/driver/dashboard"];
+  const userProtectedRoutes = ["/user/dashboard", "/user/payment"];
+  const driverProtectedRoutes = ["/driver/dashboard", "/driver/rides"];
 
-  // Route checks
   const isPublicRoute = publicRoutes.includes(currentPath);
   const isUserAuthRoute = userAuthRoutes.includes(currentPath);
   const isDriverAuthRoute = driverAuthRoutes.includes(currentPath);
@@ -36,11 +34,9 @@ const ProtectedRouteWrapper = ({ children }) => {
     currentPath.startsWith(route)
   );
 
-  // Determine what the current route requires
   const routeRequiresUserAuth = isUserAuthRoute || isUserProtectedRoute;
   const routeRequiresDriverAuth = isDriverAuthRoute || isDriverProtectedRoute;
 
-  // Token validation
   const validateToken = async (token, endpoint, tokenType) => {
     try {
       const response = await axios.get(endpoint, {
@@ -51,12 +47,9 @@ const ProtectedRouteWrapper = ({ children }) => {
       });
 
       if (response.status === 200) {
-        // Set user data in context if it's the primary role
         const userData =
           tokenType === "user" ? response.data : response.data.captain;
 
-        // Only set user in context if we don't already have user data
-        // or if this validation is for the current route's required role
         if (
           !user ||
           (routeRequiresUserAuth && tokenType === "user") ||
@@ -74,41 +67,56 @@ const ProtectedRouteWrapper = ({ children }) => {
     }
   };
 
-  // Navigation helper
   const navigateTo = (path) => {
     navigate(path, { replace: true });
   };
 
-  // Comprehensive authentication check
   const checkAuth = async () => {
     const userToken = localStorage.getItem("userToken");
     const driverToken = localStorage.getItem("driverToken");
 
-    // Initial token presence check
     const hasUserToken = !!userToken;
     const hasDriverToken = !!driverToken;
 
-    // Validate tokens if they exist
     let validUserToken = false;
     let validDriverToken = false;
 
-    if (hasUserToken) {
-      validUserToken = await validateToken(
-        userToken,
-        "https://1p9cbh59-4000.inc1.devtunnels.ms/users/profile",
-        "user"
-      );
+    if (isUserAuthRoute || isUserProtectedRoute) {
+      if (hasUserToken) {
+        validUserToken = await validateToken(
+          userToken,
+          `${import.meta.env.VITE_API_BASE_URL}/users/profile`,
+          "user"
+        );
+      }
     }
 
-    if (hasDriverToken) {
-      validDriverToken = await validateToken(
-        driverToken,
-        "https://1p9cbh59-4000.inc1.devtunnels.ms/captains/profile",
-        "driver"
-      );
+    if (isDriverAuthRoute || isDriverProtectedRoute) {
+      if (hasDriverToken) {
+        validDriverToken = await validateToken(
+          driverToken,
+          `${import.meta.env.VITE_API_BASE_URL}/captains/profile`,
+          "driver"
+        );
+      }
     }
 
-    // If no valid tokens, clear user context
+    if (isPublicRoute) {
+      if (hasUserToken) {
+        validUserToken = await validateToken(
+          userToken,
+          `${import.meta.env.VITE_API_BASE_URL}/users/profile`,
+          "user"
+        );
+      } else if (hasDriverToken) {
+        validDriverToken = await validateToken(
+          driverToken,
+          `${import.meta.env.VITE_API_BASE_URL}/captains/profile`,
+          "driver"
+        );
+      }
+    }
+
     if (!validUserToken && !validDriverToken) {
       setUser(null);
     }
@@ -122,12 +130,10 @@ const ProtectedRouteWrapper = ({ children }) => {
     });
   };
 
-  // Check auth on mount and when location changes
   useEffect(() => {
     checkAuth();
   }, [location.pathname]);
 
-  // Also check when user context changes (for immediate updates after login)
   useEffect(() => {
     if (user) {
       const userToken = localStorage.getItem("userToken");
@@ -146,66 +152,56 @@ const ProtectedRouteWrapper = ({ children }) => {
     }
   }, [user]);
 
-  // Handle redirections based on enhanced logic
   useEffect(() => {
     if (authState.isLoading) return;
 
     const { validUserToken, validDriverToken } = authState;
 
-    // Handle public routes (always allow)
     if (isPublicRoute) {
-      return;
-    }
-
-    // Handle user authentication routes (/user/signin, /user/signup)
-    if (isUserAuthRoute) {
       if (validUserToken) {
-        // Already have valid user token, redirect to user dashboard
         navigateTo("/user/dashboard");
         return;
       }
-      // No valid user token, allow access to signin/signup
-      return;
-    }
-
-    // Handle driver authentication routes (/driver/signin, /driver/signup)
-    if (isDriverAuthRoute) {
       if (validDriverToken) {
-        // Already have valid driver token, redirect to driver dashboard
         navigateTo("/driver/dashboard");
         return;
       }
-      // No valid driver token, allow access to signin/signup
       return;
     }
 
-    // Handle user protected routes (/user/dashboard, etc.)
+    if (isUserAuthRoute) {
+      if (validUserToken) {
+        navigateTo("/user/dashboard");
+        return;
+      }
+      return;
+    }
+
+    if (isDriverAuthRoute) {
+      if (validDriverToken) {
+        navigateTo("/driver/dashboard");
+        return;
+      }
+      return;
+    }
+
     if (isUserProtectedRoute) {
       if (!validUserToken) {
-        // No valid user token, redirect to user signin
         navigateTo("/user/signin");
         return;
       }
-      // Has valid user token, allow access
       return;
     }
 
-    // Handle driver protected routes (/driver/dashboard, etc.)
     if (isDriverProtectedRoute) {
       if (!validDriverToken) {
-        // No valid driver token, redirect to driver signin
         navigateTo("/driver/signin");
         return;
       }
-      // Has valid driver token, allow access
       return;
     }
-
-    // If none of the above conditions match, it might be an unknown route
-    // Let it render (could be a 404 page or other route)
   }, [authState, currentPath]);
 
-  // Show loading while checking authentication
   if (authState.isLoading) {
     return (
       <div className="flex items-center justify-center flex-1">
@@ -214,10 +210,8 @@ const ProtectedRouteWrapper = ({ children }) => {
     );
   }
 
-  // Determine if current route access should be blocked
   const { validUserToken, validDriverToken } = authState;
 
-  // Block user auth routes if already authenticated as user
   if (isUserAuthRoute && validUserToken) {
     return (
       <div className="flex items-center justify-center flex-1">
@@ -226,7 +220,6 @@ const ProtectedRouteWrapper = ({ children }) => {
     );
   }
 
-  // Block driver auth routes if already authenticated as driver
   if (isDriverAuthRoute && validDriverToken) {
     return (
       <div className="flex items-center justify-center flex-1">
@@ -235,7 +228,6 @@ const ProtectedRouteWrapper = ({ children }) => {
     );
   }
 
-  // Block user protected routes if no valid user token
   if (isUserProtectedRoute && !validUserToken) {
     return (
       <div className="flex items-center justify-center flex-1">
@@ -244,7 +236,6 @@ const ProtectedRouteWrapper = ({ children }) => {
     );
   }
 
-  // Block driver protected routes if no valid driver token
   if (isDriverProtectedRoute && !validDriverToken) {
     return (
       <div className="flex items-center justify-center flex-1">
@@ -253,7 +244,6 @@ const ProtectedRouteWrapper = ({ children }) => {
     );
   }
 
-  // Render children if all checks pass
   return children;
 };
 
