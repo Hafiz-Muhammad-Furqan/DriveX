@@ -92,11 +92,13 @@ const UserRidePanel = ({
         </div>
 
         <button
-          className="bg-[#C1F11D] flex items-center justify-center w-[96%] rounded-xl py-2 cursor-pointer font-semibold text-lg tracking-wide "
+          className={`bg-[#C1F11D] flex items-center justify-center w-[96%] rounded-xl py-2  font-semibold text-lg tracking-wide  ${
+            fetchingFare ? "cursor-not-allowed" : "cursor-pointer"
+          }`}
           disabled={fetchingFare}
           onClick={findDriver}
         >
-          {fetchingFare ? <div className="loader1"></div> : "Find a Driver"}
+          {fetchingFare ? <div className="loader1 "></div> : "Find a Driver"}
         </button>
       </div>
     </div>

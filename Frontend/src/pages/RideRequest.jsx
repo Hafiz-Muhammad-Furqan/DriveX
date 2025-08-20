@@ -54,7 +54,7 @@ const RideRequest = () => {
   };
 
   return (
-    <div className="w-full max-w-md h-full mx-auto px-4 py-5 overflow-y-auto no-scrollbar bg-slate-900 rounded-lg">
+    <div className="w-full  h-full  px-3 py-5 overflow-y-auto no-scrollbar bg-slate-950 rounded-lg">
       {!rides || rides.length === 0 ? (
         <div className="flex items-center justify-center h-full flex-col">
           <p className="text-gray-200 text-xl font-semibold py-4 tracking-wider">
@@ -62,34 +62,34 @@ const RideRequest = () => {
           </p>
           <Link
             to="/driver/dashboard"
-            className={`bg-[#C1F11D] flex items-center  rounded-xl px-4 py-2 cursor-pointer justify-between gap-2`}
+            className={`bg-[#C1F11D] flex items-center  rounded-xl px-5 py-2 cursor-pointer justify-between gap-2`}
           >
-            <MoveLeft strokeWidth={2} size={20} />
+            <MoveLeft strokeWidth={3} size={20} />
             <p className="font-semibold  text-center w-full">Go Back</p>
           </Link>
         </div>
       ) : (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-3">
           <div className="flex items-center justify-center relative">
             <MoveLeft
-              strokeWidth={2}
+              strokeWidth={3}
               className="text-white cursor-pointer text-2xl absolute left-2"
               onClick={() => navigate("/driver/dashboard")}
             />
-            <h3 className="text-gray-100 text-lg font-semibold ">
+            <h3 className="text-gray-100 text-xl font-semibold tracking-wider my-1">
               Available Rides
             </h3>
           </div>
           {rides.map((ride) => (
             <div
               key={ride._id}
-              className="bg-gray-900 rounded-2xl shadow-xl p-5 flex flex-col gap-4 transition-all duration-300 hover:shadow-2xl border-gray-600 border-2"
+              className="bg-slate-950 rounded-2xl shadow-xl px-4 py-4 flex flex-col gap-3 transition-all duration-300 hover:shadow-2xl border-gray-700 border-2"
             >
               <div className="flex items-center gap-4">
                 <img
                   src="/Images/avatar.png"
                   alt="avatar"
-                  className="w-10 h-10 rounded-full border border-gray-400"
+                  className="w-9 h-9 rounded-full border border-gray-400 "
                 />
                 <p className="text-white text-lg font-semibold tracking-wider">
                   {ride?.user?.fullname?.firstname}{" "}
@@ -97,7 +97,7 @@ const RideRequest = () => {
                 </p>
               </div>
 
-              <div className="text-white text-sm flex flex-col gap-3">
+              <div className="text-white text-sm flex flex-col gap-3 mt-3">
                 <div className="flex gap-2 items-center">
                   <span className="h-4 w-4 rounded-full bg-[#C0F11C] flex items-center justify-center  flex-shrink-0">
                     <span className="h-2 w-2 rounded-full bg-black"></span>
@@ -137,7 +137,7 @@ const RideRequest = () => {
                   onClick={() => rideAccept(ride._id)}
                   disabled={loading}
                 >
-                  {loading ? <div className="loader1 mx-auto"></div> : "Accept"}
+                  {loading ? "Accepting..." : "Accept"}
                 </button>
               </div>
             </div>

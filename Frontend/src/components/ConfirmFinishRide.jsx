@@ -64,7 +64,7 @@ const ConfirmFinishRide = ({
         Do you want to end the ride?
       </h3>
       <Button
-        label={"Finish Ride & Proceed to Payment"}
+        label={loading ? "Proceed..." : "Finish Ride & Proceed to Payment"}
         colors={"bg-[#C1F11D]"}
         disable={loading}
         onclick={finishRideAndPayment}

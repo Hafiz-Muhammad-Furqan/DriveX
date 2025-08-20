@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 const Button = ({ label, path, icon, colors, onclick, disable }) => {
   return (
     <div
-      className={`${colors} flex items-center w-[96%] rounded-xl py-2 cursor-pointer`}
+      className={`${colors} flex items-center w-[96%] rounded-xl py-2 cursor-pointer ${
+        disable ? "cursor-not-allowed" : "cursor-pointer"
+      }`}
       onClick={onclick}
       disabled={disable}
     >

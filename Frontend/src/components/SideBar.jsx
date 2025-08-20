@@ -102,7 +102,9 @@ const SideBar = () => {
             }`}
           />
           <button
-            className={`bg-red-500 text-white tracking-wider flex items-center w-[96%] rounded-xl py-2 cursor-pointer`}
+            className={`bg-red-500 text-white tracking-wider flex items-center w-[96%] rounded-xl py-2  ${
+              loading ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
             onClick={HandleLogout}
             disabled={loading}
           >

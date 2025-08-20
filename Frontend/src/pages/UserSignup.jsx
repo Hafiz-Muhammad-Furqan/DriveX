@@ -143,7 +143,7 @@ const UserSignup = () => {
           </Link>
         </div>
         {loading ? (
-          <div className="w-[96%] rounded-xl py-1 cursor-pointer text-center bg-[#C1F11D] flex items-center justify-center ">
+          <div className="w-[96%] rounded-xl py-1 cursor-not-allowed  text-center bg-[#C1F11D] flex items-center justify-center ">
             <div className="loader1"></div>
           </div>
         ) : (

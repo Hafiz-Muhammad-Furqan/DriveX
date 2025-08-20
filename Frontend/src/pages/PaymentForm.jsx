@@ -305,6 +305,10 @@ const PaymentForm = () => {
                 }}
               />
             </div>
+            <p className="text-gray-400 pt-4 text-sm px-2">
+              This is a test payment. Please use the following test card number:
+              4242 4242 4242 4242
+            </p>
           </div>
 
           <button
