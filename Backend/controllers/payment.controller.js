@@ -61,6 +61,7 @@ module.exports.confirmPayment = async (req, res) => {
       .populate("captain");
 
     ride.captain.totalEarned = (ride.captain.totalEarned || 0) + ride.fare;
+    ride.captain.status = "active";
     await ride.captain.save();
 
     if (!ride) {

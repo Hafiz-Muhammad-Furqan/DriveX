@@ -1,3 +1,4 @@
+const captainModel = require("../models/captain.model");
 const rideModel = require("../models/ride.model");
 const mapService = require("../services/maps.service");
 const crypto = require("crypto");
@@ -98,9 +99,12 @@ module.exports.acceptRide = async (rideId, captainId) => {
     .populate("user")
     .populate("captain")
     .select("+otp");
+
   if (!ride) {
     throw new Error("Ride not found");
   }
+
+  await captainModel.findByIdAndUpdate(captainId, { status: "busy" });
 
   return ride;
 };

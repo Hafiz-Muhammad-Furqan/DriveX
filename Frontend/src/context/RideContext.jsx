@@ -50,12 +50,14 @@ export const RideProvider = ({ children }) => {
     socket.on("join-success", handleSocketRegistered);
     socket.on("new-ride", handleNewRide);
     socket.on("ride-cancelled", handleCancelledRide);
+    socket.on("ride-unavailable", handleUnavailableRide);
     socket.on("payment-received", handlePaymentReceived);
 
     return () => {
       socket.off("join-success", handleSocketRegistered);
       socket.off("new-ride", handleNewRide);
       socket.on("ride-cancelled", handleCancelledRide);
+      socket.on("ride-unavailable", handleUnavailableRide);
       socket.on("payment-received", handlePaymentReceived);
     };
   }, [user?._id]);
@@ -84,6 +86,13 @@ export const RideProvider = ({ children }) => {
   };
 
   const handleCancelledRide = (data) => {
+    setNewRides((prev) => prev.filter((ride) => ride._id !== data.rideId));
+    if (data.isStart) {
+      window.location.reload();
+    }
+  };
+
+  const handleUnavailableRide = (data) => {
     setNewRides((prev) => prev.filter((ride) => ride._id !== data.rideId));
   };
 

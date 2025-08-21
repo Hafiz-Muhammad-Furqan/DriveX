@@ -36,10 +36,13 @@ module.exports.createRide = async (req, res) => {
 
     const captainRadius = await mapService.getCaptainsInRadius(ltd, lng, 5000);
 
-    const availableCaptains = captainRadius.filter(
-      (captain) =>
-        captain.vehicle && captain.vehicle.vehicleType === vehicleType
-    );
+    const availableCaptains = captainRadius.filter((captain) => {
+      return (
+        captain.vehicle &&
+        captain.vehicle.vehicleType === vehicleType &&
+        captain.status !== "busy"
+      );
+    });
 
     if (availableCaptains.length === 0) {
       return res
@@ -140,6 +143,17 @@ module.exports.acceptRide = async (req, res) => {
       event: "ride-accepted",
       data: ride,
     });
+    const filteredCaptains = ride.captainsNotified.filter(
+      (captain) => captain.captainId.toString() !== captainId.toString()
+    );
+    for (const captain of filteredCaptains) {
+      if (captain.socketId) {
+        sendMessageToSockedId(captain.socketId, {
+          event: "ride-unavailable",
+          data: { rideId: ride._id },
+        });
+      }
+    }
     res.status(200).json(ride);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -207,15 +221,32 @@ module.exports.cancelRide = async (req, res) => {
     ride.status = "cancelled";
     await ride.save();
 
-    ride.captainsNotified.forEach((captain) => {
-      sendMessageToSockedId(captain.socketId, {
-        event: "ride-cancelled",
-        data: { rideId },
+    if (ride.captain) {
+      console.log(ride.captain);
+
+      const captain = await captainModel.findById(ride.captain);
+      if (captain) {
+        captain.status = "active";
+        await captain.save();
+
+        sendMessageToSockedId(captain?.socketId, {
+          event: "ride-cancelled",
+          data: { rideId, isStart: true },
+        });
+      }
+    } else {
+      ride.captainsNotified.forEach((captain) => {
+        sendMessageToSockedId(captain?.socketId, {
+          event: "ride-cancelled",
+          data: { rideId },
+        });
       });
-    });
+    }
 
     res.status(200).json({ message: "Ride cancelled successfully" });
   } catch (error) {
+    console.log(error.message);
+
     res.status(500).json({ message: error.message });
   }
 };
