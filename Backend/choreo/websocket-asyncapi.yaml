@@ -1,0 +1,18 @@
+asyncapi: "2.0.0"
+info:
+  title: Socket.io WebSocket Service
+  version: "1.0.0"
+servers:
+  production:
+    url: wss://d2b67c29-5769-4933-8e0e-4c2aa979f885.e1-us-east-azure.choreoapps.dev
+    protocol: ws
+channels:
+  /socket.io:
+    description: "Default Socket.IO channel"
+    publish:
+      message:
+        payload:
+          type: object
+          properties:
+            message:
+              type: string
