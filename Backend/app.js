@@ -23,4 +23,8 @@ app.use("/maps", mapRoutes);
 app.use("/rides", rideRoutes);
 app.use("/api/payment", paymentRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Ride-Sharing API");
+});
+
 module.exports = app;
