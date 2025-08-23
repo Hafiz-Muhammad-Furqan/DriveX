@@ -12,7 +12,13 @@ const paymentRoutes = require("./routes/payment.routes");
 const app = express();
 
 connectToDb();
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://drive-x.netlify.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

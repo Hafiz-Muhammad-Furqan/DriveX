@@ -7,7 +7,7 @@
 
 ## 🚀 Live Demo
 
-Experience the application live: [https://furqan-ai-interviewer-chatbot.netlify.app](https://furqan-ai-interviewer-chatbot.netlify.app)
+Experience the application live: [https://drive-x.netlify.app](https://drive-x.netlify.app)
 
 ## 📌 Overview
 
@@ -85,7 +85,7 @@ Built with Node.js, Express.js, and MongoDB. Real-time updates use Socket.IO, au
 
 ### Frontend
 
-The frontend is built with React 18 and set up using Vite for faster development. React Router handles navigation, and MapLibre GL powers the mapping features. Styling is done with Tailwind CSS for a clean, modern UI. Real-time updates are managed with Socket.IO-client.
+The frontend is built with React and set up using Vite for faster development. React Router handles navigation, and MapLibre GL powers the mapping features. Styling is done with Tailwind CSS for a clean, modern UI. Real-time updates are managed with Socket.IO-client.
 
 ## 🚀 Want to Run it Locally?
 
@@ -210,5 +210,5 @@ I'd love to hear your thoughts and learn from your expertise!
 Got questions or suggestions? Feel free to:
 
 - Open an issue in this repo
-- Connect with me on [LinkedIn](www.linkedin.com/in/hafiz-muhammad-furqan) or [Email](hafizm.furqan123@gmail.com)
+- Connect with me on [LinkedIn](https://www.linkedin.com/in/hafiz-muhammad-furqan) or [Email](mailto:hafizfurqan.dev@gmail.com)
 - Star the repo if you found it helpful!
