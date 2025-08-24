@@ -7,7 +7,7 @@
 
 ## 🚀 Live Demo
 
-Experience the application live: <a href="https://drive-x.netlify.app" target="_blank">DriveX</a>
+Experience the application live: [https://drive-x.netlify.app](https://drive-x.netlify.app)
 
 ## 📌 Overview
 
