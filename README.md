@@ -210,5 +210,5 @@ I'd love to hear your thoughts and learn from your expertise!
 Got questions or suggestions? Feel free to:
 
 - Open an issue in this repo
-- Connect with me on [LinkedIn](https://www.linkedin.com/in/hafiz-muhammad-furqan) or [Email](mailto:hafizfurqan.dev@gmail.com)
+- Connect with me on [LinkedIn](https://www.linkedin.com/in/hafiz-muhammad-furqan) or [hafizfurqan.dev@gmail.com](mailto:hafizfurqan.dev@gmail.com)
 - Star the repo if you found it helpful!
