@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { sendMessage, socket } from "../utilities/socket.js";
 import { Check } from "lucide-react";
 import { useAuth } from "./AuthContext.jsx";
+import showToast from "../utilities/Toast.js";
 
 const RideContext = createContext({
   rides: [],
@@ -88,7 +89,10 @@ export const RideProvider = ({ children }) => {
   const handleCancelledRide = (data) => {
     setNewRides((prev) => prev.filter((ride) => ride._id !== data.rideId));
     if (data.isStart) {
-      window.location.reload();
+      showToast("Passenger cancelled the ride.");
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     }
   };
 

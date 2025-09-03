@@ -7,7 +7,7 @@ let io;
 const initializeSocket = (server) => {
   io = socketIo(server, {
     cors: {
-      origin: "https://drive-x.netlify.app",
+      origin: ["https://drive-x.netlify.app", "http://localhost:5173"],
       methods: ["GET", "POST"],
       credentials: true,
     },

@@ -23,7 +23,7 @@ DriveX is a full-stack ride-hailing application built with real-time features, m
 
 - **Real-Time Tracking & Communication**
 
-  - Live location tracking using Gomaps Maps API
+  - Live location tracking using SerpApi API
   - Real-time driver-passenger communication
   - Socket.io powered instant updates
 
@@ -95,7 +95,7 @@ If you want to play around with the code, here's how to get it running on your m
 
 - Node.js (v18 or newer)
 - MongoDB installed locally or a MongoDB Atlas account
-- API keys for Gomaps.pro and Stripe (I used free tier for development)
+- API keys for SerpApi and Stripe (I used free tier for development)
 
 ### Setup Steps
 
@@ -127,17 +127,17 @@ You'll need two `.env` files - one for backend, one for frontend:
 Backend `.env`:
 
 ```env
-PORT=3000
+PORT=4000
 DB_CONNECT=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 STRIPE_SECRET_KEY=your_stripe_secret
-GOMAPS_API_KEY=your_api_key
+SerpApi_API_KEY=your_api_key
 ```
 
 Frontend `.env`:
 
 ```env
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=http://localhost:4000
 VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
 ```
 

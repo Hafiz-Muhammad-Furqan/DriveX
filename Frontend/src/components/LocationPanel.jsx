@@ -106,7 +106,7 @@ const LocationPanel = ({
     setLocations((prev) => {
       const updatedLocations = {
         ...prev,
-        [activeElement]: suggestion.description,
+        [activeElement]: suggestion.subtext,
       };
       if (
         updatedLocations.pickUpLocation.trim().length >= 3 &&
@@ -211,7 +211,7 @@ const LocationPanel = ({
                   <i className="ri-map-pin-line text-2xl text-gray-400"></i>
                   <div className="w-full flex items-start justify-center flex-col px-3 gap-1">
                     <p className="text-white leading-[1.3rem]">
-                      {suggestion.description}
+                      {suggestion.subtext}
                     </p>
                   </div>
                 </div>
