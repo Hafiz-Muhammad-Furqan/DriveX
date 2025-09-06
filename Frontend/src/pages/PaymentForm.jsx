@@ -120,7 +120,6 @@ const PaymentForm = () => {
       if (error) {
         setError("Payment Failed: " + error.message, "error");
         console.log(error.message);
-        console.log(clientSecret);
       } else if (paymentIntent.status === "succeeded") {
         confirmPayment(paymentIntent.id);
       }

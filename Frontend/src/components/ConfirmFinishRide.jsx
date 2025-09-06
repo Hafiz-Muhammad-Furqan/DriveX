@@ -15,8 +15,6 @@ const ConfirmFinishRide = ({
   const [error, setError] = useState(false);
 
   const finishRideAndPayment = async () => {
-    console.log(ridingData);
-
     setLoading(true);
     setError(null);
     try {

@@ -131,7 +131,7 @@ PORT=4000
 DB_CONNECT=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 STRIPE_SECRET_KEY=your_stripe_secret
-SerpApi_API_KEY=your_api_key
+SerpApi_API_KEY=your_serpapi_key
 ```
 
 Frontend `.env`:

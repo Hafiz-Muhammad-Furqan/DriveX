@@ -44,7 +44,6 @@ const UserDashboard = () => {
 
     const registerUser = () => {
       sendMessage("join", { userType: "user", userId: user._id });
-      console.log(user._id);
     };
 
     if (socket.connected) {
@@ -60,21 +59,18 @@ const UserDashboard = () => {
 
   useEffect(() => {
     const handleRideAccepted = (data) => {
-      console.log("Ride accepted:", data);
       setAcceptedRide(data);
       setFindDriverPanel(false);
       setAcceptedRidePanel(true);
     };
 
     const handleRideStarted = (data) => {
-      console.log("Ride started:", data);
       setAcceptedRidePanel(false);
       setStartRidePanel(true);
       setStartRide(data);
     };
 
     const handleRideFinished = (data) => {
-      console.log("Ride finished:", data);
       showToast("Ride finished successfully", "success");
       setRideCompletePanel(true);
       setStartRidePanel(false);

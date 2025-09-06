@@ -38,7 +38,6 @@ const RideRequest = () => {
       );
       setLoading(false);
       setRidingData(response.data);
-      console.log(response.data);
 
       navigate("/driver/dashboard");
       setProfilePanel(false);

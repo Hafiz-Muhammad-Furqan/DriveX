@@ -31,8 +31,6 @@ const LocationPanel = ({
             lat: pos.coords.latitude,
             lng: pos.coords.longitude,
           });
-          console.log(pos.coords.latitude);
-          console.log(pos.coords.longitude);
         },
         (err) => {
           console.warn("User location not available:", err.message);

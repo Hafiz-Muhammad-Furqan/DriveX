@@ -35,7 +35,6 @@ const FindDrivers = ({
   }, [createdRide]);
 
   const findDrivers = async () => {
-    console.log(vehicle);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/rides/create`,
@@ -52,7 +51,6 @@ const FindDrivers = ({
           },
         }
       );
-      console.log(response.data);
 
       setCreatedRide(response.data);
     } catch (error) {

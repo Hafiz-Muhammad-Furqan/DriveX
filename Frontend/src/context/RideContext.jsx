@@ -35,7 +35,6 @@ export const RideProvider = ({ children }) => {
     if (!user?._id) return;
 
     const handleSocketRegistered = () => {
-      console.log("Socket registered successfully");
       setIsSocketRegistered(true);
     };
 
@@ -43,7 +42,6 @@ export const RideProvider = ({ children }) => {
       sendMessage("join", { userType: "captain", userId: user._id });
     } else {
       socket.on("connect", () => {
-        console.log("Socket connected, joining as captain");
         sendMessage("join", { userType: "captain", userId: user._id });
       });
     }
@@ -57,15 +55,13 @@ export const RideProvider = ({ children }) => {
     return () => {
       socket.off("join-success", handleSocketRegistered);
       socket.off("new-ride", handleNewRide);
-      socket.on("ride-cancelled", handleCancelledRide);
-      socket.on("ride-unavailable", handleUnavailableRide);
-      socket.on("payment-received", handlePaymentReceived);
+      socket.off("ride-cancelled", handleCancelledRide);
+      socket.off("ride-unavailable", handleUnavailableRide);
+      socket.off("payment-received", handlePaymentReceived);
     };
   }, [user?._id]);
 
   const handleNewRide = (data) => {
-    console.log(data);
-
     setNewRides((prev) => {
       const filtered = prev.filter((ride) => ride._id !== data._id);
       return [data, ...filtered];
