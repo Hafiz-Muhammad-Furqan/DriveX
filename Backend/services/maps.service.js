@@ -98,7 +98,7 @@ const serp = axios.create({
   timeout: 15000,
 });
 
-const buildLL = (lat, lng, zoom = 14) => {
+const buildLL = (lat = 24.8607, lng = 67.0011, zoom = 14) => {
   if (lat == null || lng == null) return undefined;
   return `@${lat},${lng},${zoom}z`;
 };

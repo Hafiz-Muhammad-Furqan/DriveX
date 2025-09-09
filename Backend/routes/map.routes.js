@@ -22,8 +22,8 @@ router.get(
 router.get(
   "/get-suggestions",
   query("input").isString().isLength({ min: 3 }),
-  query("lat").isFloat({ min: -90, max: 90 }),
-  query("lng").isFloat({ min: -180, max: 180 }),
+  query("lat").optional().isFloat({ min: -90, max: 90 }),
+  query("lng").optional().isFloat({ min: -180, max: 180 }),
   authMiddleware.authUser,
   mapController.getSuggestions
 );
